@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 16,
+            "activePatchIndex": 17,
             "patches": [
                 {
                     "date": 1746893166378,
@@ -72,6 +72,10 @@
                 {
                     "date": 1747369779045,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -153,9 +153,9 @@\n                       }}>\r\n                         INSTAGRAM\r\n                       </h3>\r\n                       <a \r\n-                        href=\"https://instagram.com/aish\"\r\n+                        href=\"https://www.instagram.com/aish.aish.vn/\"\r\n                         target=\"_blank\"\r\n                         rel=\"noopener noreferrer\"\r\n                         style={{ \r\n                           fontSize: \"0.85em\",\r\n"
+                },
+                {
+                    "date": 1747414487345,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -84,9 +84,9 @@\n                     fontSize: \"0.8em\",\r\n                     color: \"#666666\",\r\n                     marginLeft: \"46px\"\r\n                   }}>\r\n-                    <p>\"Please contact us during business hours for the fastest response and support.\"</p>\r\n+                    <p>&quot;Please contact us during business hours for the fastest response and support.&quot;</p>\r\n                   </div>\r\n                 </div>\r\n \r\n                 {/* Facebook section */}\r\n@@ -128,9 +128,9 @@\n                     fontSize: \"0.8em\",\r\n                     color: \"#666666\",\r\n                     marginLeft: \"46px\"\r\n                   }}>\r\n-                    <p>\"Please contact us during business hours for the fastest response and support.\"</p>\r\n+                    <p>&quot;Please contact us during business hours for the fastest response and support.&quot;</p>\r\n                   </div>\r\n                 </div>\r\n \r\n                 {/* Instagram section */}\r\n@@ -174,9 +174,9 @@\n                     fontSize: \"0.8em\",\r\n                     color: \"#666666\",\r\n                     marginLeft: \"46px\"\r\n                   }}>\r\n-                    <p>\"Please contact us during business hours for the fastest response and support.\"</p>\r\n+                    <p>&quot;Please contact us during business hours for the fastest response and support.&quot;</p>\r\n                   </div>\r\n                 </div>\r\n               </div>\r\n \r\n"
                 }
             ],
             "date": 1746891704042,

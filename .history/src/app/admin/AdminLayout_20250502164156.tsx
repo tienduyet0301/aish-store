@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,13 +14,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <aside className="w-56 bg-gray-100 min-h-[calc(100vh-64px)] p-6 border-r border-gray-200">
           <ul className="space-y-4">
             <li>
-              <Link href="/admin/products" className="text-black font-medium hover:text-blue-600 transition">Quản lý sản phẩm</Link>
+              <a href="/admin/products" className="text-black font-medium hover:text-blue-600 transition">Quản lý sản phẩm</a>
             </li>
             <li>
-              <Link href="/admin/orders" className="text-black font-medium hover:text-blue-600 transition">Quản lý đơn hàng</Link>
+              <a href="/admin/orders" className="text-black font-medium hover:text-blue-600 transition">Quản lý đơn hàng</a>
             </li>
             <li>
-              <Link href="/admin/users" className="text-black font-medium hover:text-blue-600 transition">Quản lý người dùng</Link>
+              <a href="/admin/users" className="text-black font-medium hover:text-blue-600 transition">Quản lý người dùng</a>
             </li>
             {/* Thêm các mục khác nếu cần */}
           </ul>

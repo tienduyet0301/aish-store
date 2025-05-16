@@ -183,7 +183,7 @@ export default function MyOrders() {
           </div>
           {Array.isArray(orders) && orders.length > 0 && (
             <p style={styles.orderCount}>
-              You Have {orders.length} {orders.length === 1 ? "Order" : "Orders"} In My Orders.
+              You Have {orders.length} {orders.length === 1 ? 'Order' : 'Orders'} In My Orders.
             </p>
           )}
         </div>

@@ -747,7 +747,7 @@ export default function SettingsPage() {
                   }}
                 />
                 <p className="text-[10px] md:text-[11px] text-black">
-                  I would like to receive updates (including by email, SMS, MMS, social media, phone, physical letter) about AISH&apos;s new activities, exclusive products, tailored services and to have a personalised client experience based on my interests.
+                  I would like to receive updates (including by email, SMS, MMS, social media, phone, physical letter) about AISH new activities, exclusive products, tailored services and to have a personalised client experience based on my interests.
                 </p>
               </div>
               <p className="text-[10px] md:text-[11px] text-black">
