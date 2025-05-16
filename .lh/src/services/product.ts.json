@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/services/product.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1747278608368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747278654796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,1 @@\n-import { Product } from \"@/types/product\";\r\n-\r\n-export async function getProduct(id: string): Promise<Product> {\r\n-  // TODO: Implement actual API call\r\n-  // For now return mock data\r\n-  return {\r\n-    id,\r\n-    name: \"Product Name\",\r\n-    description: \"Product Description\",\r\n-    price: 0,\r\n-    images: [],\r\n-    category: \"\",\r\n-    sizes: [],\r\n-    colors: [],\r\n-    inStock: true,\r\n-  };\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747278787518,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,15 @@\n- \n\\ No newline at end of file\n+import { Product } from \"@/types/product\";\r\n+\r\n+export async function getProduct(slug: string): Promise<Product> {\r\n+  try {\r\n+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${slug}`);\r\n+    if (!response.ok) {\r\n+      throw new Error('Failed to fetch product');\r\n+    }\r\n+    const data = await response.json();\r\n+    return data.product;\r\n+  } catch (error) {\r\n+    console.error('Error fetching product:', error);\r\n+    throw error;\r\n+  }\r\n+} \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747278608368,
+            "name": "Commit-0",
+            "content": "import { Product } from \"@/types/product\";\r\n\r\nexport async function getProduct(id: string): Promise<Product> {\r\n  // TODO: Implement actual API call\r\n  // For now return mock data\r\n  return {\r\n    id,\r\n    name: \"Product Name\",\r\n    description: \"Product Description\",\r\n    price: 0,\r\n    images: [],\r\n    category: \"\",\r\n    sizes: [],\r\n    colors: [],\r\n    inStock: true,\r\n  };\r\n} "
+        }
+    ]
+}

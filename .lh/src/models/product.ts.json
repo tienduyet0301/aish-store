@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/models/product.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747115299796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747115308839,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,1 @@\n-export interface Product {\r\n-  id: string;\r\n-  name: string;\r\n-  description: string;\r\n-  price: number;\r\n-  image: string;\r\n-  category: string;\r\n-  isSaved?: boolean;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747115299796,
+            "name": "Commit-0",
+            "content": "export interface Product {\r\n  id: string;\r\n  name: string;\r\n  description: string;\r\n  price: number;\r\n  image: string;\r\n  category: string;\r\n  isSaved?: boolean;\r\n} "
+        }
+    ]
+}

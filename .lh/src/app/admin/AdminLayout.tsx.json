@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/admin/AdminLayout.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746893158410,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "import React from \"react\";\r\n\r\nexport default function AdminLayout({ children }: { children: React.ReactNode }) {\r\n  return (\r\n    <div className=\"min-h-screen flex flex-col bg-gray-50\">\r\n      {/* Navbar */}\r\n      <nav className=\"fixed top-0 left-0 w-full h-16 bg-white shadow z-50 flex items-center px-6\">\r\n        <span className=\"font-bold text-lg tracking-wider\">ADMIN PANEL</span>\r\n      </nav>\r\n\r\n      {/* Wrapper for sidebar and main content */}\r\n      <div className=\"flex flex-1 pt-16\">\r\n        {/* Sidebar */}\r\n        <aside className=\"w-56 bg-gray-100 min-h-[calc(100vh-64px)] p-6 border-r border-gray-200\">\r\n          <ul className=\"space-y-4\">\r\n            <li>\r\n              <a href=\"/admin/products\" className=\"text-black font-medium hover:text-blue-600 transition\">Quản lý sản phẩm</a>\r\n            </li>\r\n            <li>\r\n              <a href=\"/admin/orders\" className=\"text-black font-medium hover:text-blue-600 transition\">Quản lý đơn hàng</a>\r\n            </li>\r\n            <li>\r\n              <a href=\"/admin/users\" className=\"text-black font-medium hover:text-blue-600 transition\">Quản lý người dùng</a>\r\n            </li>\r\n            {/* Thêm các mục khác nếu cần */}\r\n          </ul>\r\n        </aside>\r\n        {/* Main content */}\r\n        <main className=\"flex-1 p-8 bg-white min-h-[calc(100vh-64px)]\">\r\n          {children}\r\n        </main>\r\n      </div>\r\n\r\n      {/* Footer */}\r\n      <footer className=\"w-full h-16 bg-gray-200 flex items-center justify-center text-gray-600 text-sm mt-auto\">\r\n        © {new Date().getFullYear()} Admin Panel. All rights reserved.\r\n      </footer>\r\n    </div>\r\n  );\r\n} "
+        }
+    ]
+}

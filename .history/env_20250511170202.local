@@ -1,0 +1,8 @@
+MONGODB_URI=mongodb+srv://dlicht03:Licht03@cluster0.vjld3aw.mongodb.net/aish_store?retryWrites=true&w=majority&appName=Cluster0
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=https://generate-secret.vercel.app/32
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=Licht03
+GOOGLE_CLIENT_ID=133301315818-4c6vrtpq2lhfss22sq2po6pikpvc8qvc.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+NEXT_PUBLIC_ADMIN_EMAIL=dlicht02@gmail.com

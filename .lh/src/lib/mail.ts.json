@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/lib/mail.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1747240568326,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747240935336,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,23 +5,41 @@\n   auth: {\r\n     user: process.env.EMAIL_USER,\r\n     pass: process.env.EMAIL_APP_PASSWORD,\r\n   },\r\n+  debug: true,\r\n+  logger: true\r\n });\r\n \r\n+transporter.verify(function (error, success) {\r\n+  if (error) {\r\n+    console.error('SMTP configuration error:', error);\r\n+  } else {\r\n+    console.log('SMTP server is ready to take our messages');\r\n+  }\r\n+});\r\n+\r\n export async function sendMail(to: string, subject: string, text: string) {\r\n   try {\r\n+    console.log('Attempting to send email to:', to);\r\n+    console.log('Using email account:', process.env.EMAIL_USER);\r\n+\r\n     const mailOptions = {\r\n       from: process.env.EMAIL_USER,\r\n       to,\r\n       subject,\r\n       text,\r\n     };\r\n \r\n+    console.log('Mail options:', {\r\n+      ...mailOptions,\r\n+      auth: { user: process.env.EMAIL_USER, pass: '***' }\r\n+    });\r\n+\r\n     const info = await transporter.sendMail(mailOptions);\r\n-    console.log('Email sent:', info.messageId);\r\n+    console.log('Email sent successfully:', info.messageId);\r\n     return true;\r\n   } catch (error) {\r\n-    console.error('Error sending email:', error);\r\n+    console.error('Detailed error sending email:', error);\r\n     return false;\r\n   }\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747242340608,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     console.log('SMTP server is ready to take our messages');\r\n   }\r\n });\r\n \r\n-export async function sendMail(to: string, subject: string, text: string) {\r\n+export async function sendMail(to: string, subject: string, text: string, html?: string) {\r\n   try {\r\n     console.log('Attempting to send email to:', to);\r\n     console.log('Using email account:', process.env.EMAIL_USER);\r\n \r\n@@ -27,8 +27,9 @@\n       from: process.env.EMAIL_USER,\r\n       to,\r\n       subject,\r\n       text,\r\n+      html,\r\n     };\r\n \r\n     console.log('Mail options:', {\r\n       ...mailOptions,\r\n"
+                }
+            ],
+            "date": 1747240568326,
+            "name": "Commit-0",
+            "content": "import nodemailer from 'nodemailer';\r\n\r\nconst transporter = nodemailer.createTransport({\r\n  service: 'gmail',\r\n  auth: {\r\n    user: process.env.EMAIL_USER,\r\n    pass: process.env.EMAIL_APP_PASSWORD,\r\n  },\r\n});\r\n\r\nexport async function sendMail(to: string, subject: string, text: string) {\r\n  try {\r\n    const mailOptions = {\r\n      from: process.env.EMAIL_USER,\r\n      to,\r\n      subject,\r\n      text,\r\n    };\r\n\r\n    const info = await transporter.sendMail(mailOptions);\r\n    console.log('Email sent:', info.messageId);\r\n    return true;\r\n  } catch (error) {\r\n    console.error('Error sending email:', error);\r\n    return false;\r\n  }\r\n} "
+        }
+    ]
+}

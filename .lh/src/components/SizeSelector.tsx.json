@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/SizeSelector.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746893166627,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "import { useState } from \"react\";\r\n\r\ninterface SizeSelectorProps {\r\n  quantityM: number;\r\n  quantityL: number;\r\n  quantityXL: number;\r\n  onSizeSelect: (size: string | null) => void;\r\n  selectedSize: string | null;\r\n}\r\n\r\nexport const SizeSelector = ({\r\n  quantityM,\r\n  quantityL,\r\n  quantityXL,\r\n  onSizeSelect,\r\n  selectedSize,\r\n}: SizeSelectorProps) => {\r\n  const sizes = [\r\n    { label: \"M\", quantity: quantityM },\r\n    { label: \"L\", quantity: quantityL },\r\n    { label: \"XL\", quantity: quantityXL },\r\n  ];\r\n\r\n  return (\r\n    <div className=\"space-y-4\">\r\n      <div className=\"flex flex-wrap gap-2\">\r\n        {sizes.map((size) => (\r\n          <button\r\n            key={size.label}\r\n            onClick={() => onSizeSelect(size.label)}\r\n            disabled={size.quantity <= 0}\r\n            className={`px-4 py-2 border rounded-md text-sm font-medium transition-colors\r\n              ${\r\n                selectedSize === size.label\r\n                  ? \"bg-black text-white border-black\"\r\n                  : \"border-gray-300 text-gray-700 hover:border-black\"\r\n              }\r\n              ${\r\n                size.quantity <= 0\r\n                  ? \"opacity-50 cursor-not-allowed\"\r\n                  : \"cursor-pointer\"\r\n              }\r\n            `}\r\n          >\r\n            {size.label} - Còn {size.quantity} sản phẩm\r\n          </button>\r\n        ))}\r\n      </div>\r\n      {selectedSize && (\r\n        <p className=\"text-sm text-gray-500\">\r\n          Đã chọn size: {selectedSize}\r\n        </p>\r\n      )}\r\n    </div>\r\n  );\r\n}; "
+        }
+    ]
+}

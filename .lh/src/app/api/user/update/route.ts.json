@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/api/user/update/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747117880999,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747118134387,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,13 +37,16 @@\n         }\r\n       }\r\n     );\r\n \r\n-    if (result.modifiedCount === 0) {\r\n-      return NextResponse.json({ error: 'Failed to update user' }, { status: 400 });\r\n+    if (result.matchedCount === 0) {\r\n+      return NextResponse.json({ error: 'User not found' }, { status: 404 });\r\n     }\r\n \r\n-    return NextResponse.json({ success: true });\r\n+    return NextResponse.json({ \r\n+      success: true,\r\n+      message: 'User information updated successfully'\r\n+    });\r\n   } catch (error) {\r\n     console.error('Error updating user:', error);\r\n     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });\r\n   }\r\n"
+                }
+            ],
+            "date": 1747117880999,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from 'next/server';\r\nimport { connectToDatabase } from '@/lib/mongodb';\r\nimport { getServerSession } from 'next-auth';\r\nimport { authOptions } from '../../auth/[...nextauth]/route';\r\n\r\nexport async function PUT(request: Request) {\r\n  try {\r\n    const session = await getServerSession(authOptions);\r\n    if (!session?.user?.email) {\r\n      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });\r\n    }\r\n\r\n    const { firstName, lastName, birthDay, birthMonth, birthYear, email } = await request.json();\r\n\r\n    const { db } = await connectToDatabase();\r\n    \r\n    // Kiểm tra xem email mới đã tồn tại chưa (nếu email thay đổi)\r\n    if (email !== session.user.email) {\r\n      const existingUser = await db.collection('users').findOne({ email });\r\n      if (existingUser) {\r\n        return NextResponse.json({ error: 'Email already exists' }, { status: 400 });\r\n      }\r\n    }\r\n\r\n    // Cập nhật thông tin người dùng\r\n    const result = await db.collection('users').updateOne(\r\n      { email: session.user.email },\r\n      {\r\n        $set: {\r\n          firstName,\r\n          lastName,\r\n          birthDay,\r\n          birthMonth,\r\n          birthYear,\r\n          email,\r\n          updatedAt: new Date()\r\n        }\r\n      }\r\n    );\r\n\r\n    if (result.modifiedCount === 0) {\r\n      return NextResponse.json({ error: 'Failed to update user' }, { status: 400 });\r\n    }\r\n\r\n    return NextResponse.json({ success: true });\r\n  } catch (error) {\r\n    console.error('Error updating user:', error);\r\n    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });\r\n  }\r\n} "
+        }
+    ]
+}

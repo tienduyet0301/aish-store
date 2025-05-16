@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/components/ProductGrid.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1746893166550,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747211359480,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,10 +7,10 @@\n \r\n export default function ProductGrid({ products }: ProductGridProps) {\r\n   return (\r\n     <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4\">\r\n-      {products.map((product) => (\r\n-        <ProductCard key={product._id} product={product} />\r\n+      {products.map((product, idx) => (\r\n+        <ProductCard key={product._id || product.id || idx} product={product} />\r\n       ))}\r\n     </div>\r\n   );\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747211365364,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n export default function ProductGrid({ products }: ProductGridProps) {\r\n   return (\r\n     <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4\">\r\n       {products.map((product, idx) => (\r\n-        <ProductCard key={product._id || product.id || idx} product={product} />\r\n+        <ProductCard key={product._id || (product as any).id || idx} product={product} />\r\n       ))}\r\n     </div>\r\n   );\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747211450459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,11 +5,15 @@\n   products: Product[];\r\n }\r\n \r\n export default function ProductGrid({ products }: ProductGridProps) {\r\n+  // Loại bỏ sản phẩm trùng _id\r\n+  const uniqueProducts = Array.from(\r\n+    new Map(products.map(p => [p._id, p])).values()\r\n+  );\r\n   return (\r\n     <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4\">\r\n-      {products.map((product, idx) => (\r\n+      {uniqueProducts.map((product, idx) => (\r\n         <ProductCard key={product._id || (product as any).id || idx} product={product} />\r\n       ))}\r\n     </div>\r\n   );\r\n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "import { Product } from \"../types/product\";\r\nimport ProductCard from \"@/components/ProductCard\";\r\n\r\ninterface ProductGridProps {\r\n  products: Product[];\r\n}\r\n\r\nexport default function ProductGrid({ products }: ProductGridProps) {\r\n  return (\r\n    <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4\">\r\n      {products.map((product) => (\r\n        <ProductCard key={product._id} product={product} />\r\n      ))}\r\n    </div>\r\n  );\r\n} "
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/polo/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747283882477,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747283882477,
+            "name": "Commit-0",
+            "content": "import { Metadata } from \"next\";\r\n\r\nexport const metadata: Metadata = {\r\n  title: \"Polo | AISH\",\r\n};\r\n\r\nexport default function PoloPage() {\r\n  return (\r\n    <div>\r\n      {/* Your Polo page content */}\r\n    </div>\r\n  );\r\n} "
+        }
+    ]
+}

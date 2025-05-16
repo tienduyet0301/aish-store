@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/app/login/layout.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1747279040886,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747279057369,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,1 @@\n-export const metadata = {\r\n-  title: 'Đăng nhập - AISH',\r\n-};\r\n-\r\n-export default function LoginLayout({\r\n-  children,\r\n-}: {\r\n-  children: React.ReactNode;\r\n-}) {\r\n-  return children;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747279169510,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,11 @@\n- \n\\ No newline at end of file\n+export const metadata = {\r\n+    title: 'Đăng nhập - AISH',\r\n+  };\r\n+  \r\n+  export default function LoginLayout({\r\n+    children,\r\n+  }: {\r\n+    children: React.ReactNode;\r\n+  }) {\r\n+    return children;\r\n+  }\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747279040886,
+            "name": "Commit-0",
+            "content": "export const metadata = {\r\n  title: 'Đăng nhập - AISH',\r\n};\r\n\r\nexport default function LoginLayout({\r\n  children,\r\n}: {\r\n  children: React.ReactNode;\r\n}) {\r\n  return children;\r\n} "
+        }
+    ]
+}

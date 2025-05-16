@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/components/Navbar.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747299429380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747299445217,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,24 +1,1 @@\n-import Link from 'next/link'\r\n-import { useTranslation } from 'react-i18next'\r\n-\r\n-const Navbar: React.FC = () => {\r\n-  const { t } = useTranslation()\r\n-\r\n-  return (\r\n-    <div className=\"flex items-center justify-between p-4\">\r\n-      <div className=\"flex items-center space-x-4\">\r\n-        <Link href=\"/collection/accept_problem\" className=\"text-black hover:text-gray-600\">\r\n-          {t('navbar.acceptProblem')}\r\n-        </Link>\r\n-        <Link href=\"/collection/back-to-summer\" className=\"text-black hover:text-gray-600\">\r\n-          {t('navbar.backToSummer')}\r\n-        </Link>\r\n-        <Link href=\"/collection/chill-calm-down\" className=\"text-black hover:text-gray-600\">\r\n-          {t('navbar.chillCalmDown')}\r\n-        </Link>\r\n-      </div>\r\n-    </div>\r\n-  )\r\n-}\r\n-\r\n-export default Navbar \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747299429380,
+            "name": "Commit-0",
+            "content": "import Link from 'next/link'\r\nimport { useTranslation } from 'react-i18next'\r\n\r\nconst Navbar: React.FC = () => {\r\n  const { t } = useTranslation()\r\n\r\n  return (\r\n    <div className=\"flex items-center justify-between p-4\">\r\n      <div className=\"flex items-center space-x-4\">\r\n        <Link href=\"/collection/accept_problem\" className=\"text-black hover:text-gray-600\">\r\n          {t('navbar.acceptProblem')}\r\n        </Link>\r\n        <Link href=\"/collection/back-to-summer\" className=\"text-black hover:text-gray-600\">\r\n          {t('navbar.backToSummer')}\r\n        </Link>\r\n        <Link href=\"/collection/chill-calm-down\" className=\"text-black hover:text-gray-600\">\r\n          {t('navbar.chillCalmDown')}\r\n        </Link>\r\n      </div>\r\n    </div>\r\n  )\r\n}\r\n\r\nexport default Navbar "
+        }
+    ]
+}

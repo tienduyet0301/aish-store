@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/messages/en.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747290429319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747320694346,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,5 +44,6 @@\n   \"updates\": {\r\n     \"title\": \"I would like to receive updates\",\r\n     \"description\": \"I would like to receive updates (including by email, SMS, MMS, social media, phone...) about AISH new activities, exclusive products, tailored services and to have a personalised client experience based on my interests.\"\r\n   }\r\n-} \n\\ No newline at end of file\n+} \r\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747290429319,
+            "name": "Commit-0",
+            "content": "{\r\n  \"common\": {\r\n    \"login\": \"LOGIN\",\r\n    \"register\": \"REGISTER\",\r\n    \"continue\": \"CONTINUE\",\r\n    \"back\": \"Back\",\r\n    \"email\": \"EMAIL*\",\r\n    \"password\": \"PASSWORD*\",\r\n    \"firstName\": \"FIRST NAME*\",\r\n    \"lastName\": \"LAST NAME*\",\r\n    \"dateOfBirth\": \"DATE OF BIRTH\",\r\n    \"month\": \"MONTH*\",\r\n    \"day\": \"DAY*\",\r\n    \"year\": \"YEAR*\",\r\n    \"forgotPassword\": \"FORGOT PASSWORD\",\r\n    \"sendNewPassword\": \"Send new password\",\r\n    \"sending\": \"Sending...\",\r\n    \"continueWithGoogle\": \"CONTINUE WITH GOOGLE\",\r\n    \"continueWithEmail\": \"CONTINUE WITH YOUR EMAIL ADDRESS\",\r\n    \"signInWithEmail\": \"Sign in with your email and password or create a profile if you are new\",\r\n    \"or\": \"OR\",\r\n    \"joinMyAish\": \"JOIN MY AISH\",\r\n    \"myAishAccount\": \"MY AISH ACCOUNT\",\r\n    \"forgotPasswordText\": \"Don't worry! It happens. Please enter your email address and we'll send you a new password.\",\r\n    \"backToLogin\": \"Back to login\",\r\n    \"language\": \"Language\",\r\n    \"english\": \"English\",\r\n    \"vietnamese\": \"Vietnamese\"\r\n  },\r\n  \"validation\": {\r\n    \"requiredEmail\": \"Please enter a valid email address\",\r\n    \"requiredPassword\": \"Please enter a valid password\",\r\n    \"requiredFirstName\": \"Please enter your first name\",\r\n    \"requiredLastName\": \"Please enter your last name\",\r\n    \"requiredDate\": \"Please enter your full date of birth\",\r\n    \"requiredUpdates\": \"You must agree to receive updates\",\r\n    \"invalidEmail\": \"Invalid email format\",\r\n    \"passwordRequirements\": {\r\n      \"length\": \"Please enter at least 8 characters\",\r\n      \"number\": \"Please enter at least one number\",\r\n      \"special\": \"Please enter one special character (!@#$%^&*(),.?\\\":{}|<>)\"\r\n    }\r\n  },\r\n  \"updates\": {\r\n    \"title\": \"I would like to receive updates\",\r\n    \"description\": \"I would like to receive updates (including by email, SMS, MMS, social media, phone...) about AISH new activities, exclusive products, tailored services and to have a personalised client experience based on my interests.\"\r\n  }\r\n} "
+        }
+    ]
+}

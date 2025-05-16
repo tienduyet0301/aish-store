@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/auth/[...nextauth]/route.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746904060425,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746904060425,
+            "name": "Commit-0",
+            "content": "import NextAuth from \"next-auth\";\r\nimport GoogleProvider from \"next-auth/providers/google\";\r\n\r\nconst handler = NextAuth({\r\n  providers: [\r\n    GoogleProvider({\r\n      clientId: process.env.GOOGLE_CLIENT_ID,\r\n      clientSecret: process.env.GOOGLE_CLIENT_SECRET,\r\n    }),\r\n  ],\r\n  callbacks: {\r\n    async signIn({ user, account, profile }) {\r\n      // Kiểm tra xem email có được phép đăng nhập không\r\n      const allowedEmails = [\"test@example.com\", \"user@gmail.com\"]; // Thay thế bằng danh sách email thực tế\r\n      if (allowedEmails.includes(user.email)) {\r\n        return true;\r\n      }\r\n      return false; // Chặn đăng nhập nếu email không được phép\r\n    },\r\n    async redirect({ url, baseUrl }) {\r\n      // Chuyển hướng sau khi đăng nhập thành công\r\n      return `${baseUrl}/dashboard`;\r\n    },\r\n  },\r\n  pages: {\r\n    signIn: '/login',\r\n    error: '/login', // Trang hiển thị lỗi\r\n  },\r\n});\r\n\r\nexport { handler as GET, handler as POST }; "
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".next/server/pages/_app/pages-manifest.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891737401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "{\n  \"/_app\": \"pages/_app.js\"\n}"
+        }
+    ]
+}

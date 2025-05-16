@@ -1,0 +1,62 @@
+{
+    "sourceFile": "src/app/layout.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1746892149430,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1746892207631,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,30 +1,1 @@\n-\"use client\";\r\n-import { Inter } from \"next/font/google\";\r\n-import \"./globals.css\";\r\n-import { CartProvider } from \"../context/CartContext\";\r\n-import { WishlistProvider } from \"../context/WishlistContext\";\r\n-import { OrderProvider } from \"../context/OrderContext\";\r\n-import { Toaster } from \"react-hot-toast\";\r\n-\r\n-const inter = Inter({ subsets: [\"latin\"] });\r\n-\r\n-export default function RootLayout({\r\n-  children,\r\n-}: {\r\n-  children: React.ReactNode;\r\n-}) {\r\n-  return (\r\n-    <html lang=\"en\">\r\n-      <body className={inter.className}>\r\n-        <CartProvider>\r\n-          <WishlistProvider>\r\n-            <OrderProvider>\r\n-              {children}\r\n-              <Toaster position=\"top-center\" />\r\n-            </OrderProvider>\r\n-          </WishlistProvider>\r\n-        </CartProvider>\r\n-      </body>\r\n-    </html>\r\n-  );\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747291263178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,21 @@\n- \n\\ No newline at end of file\n+import { Inter } from \"next/font/google\";\r\n+import \"./globals.css\";\r\n+import { LanguageProvider } from \"@/contexts/LanguageContext\";\r\n+\r\n+const inter = Inter({ subsets: [\"latin\"] });\r\n+\r\n+export default function RootLayout({\r\n+  children,\r\n+}: {\r\n+  children: React.ReactNode;\r\n+}) {\r\n+  return (\r\n+    <html lang=\"en\">\r\n+      <body className={inter.className}>\r\n+        <LanguageProvider>\r\n+          {children}\r\n+        </LanguageProvider>\r\n+      </body>\r\n+    </html>\r\n+  );\r\n+} \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747292374162,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,21 @@\n+import type { Metadata } from \"next\";\r\n import { Inter } from \"next/font/google\";\r\n import \"./globals.css\";\r\n-import { LanguageProvider } from \"@/contexts/LanguageContext\";\r\n+import { LanguageProvider } from \"@/context/LanguageContext\";\r\n \r\n const inter = Inter({ subsets: [\"latin\"] });\r\n \r\n+export const metadata: Metadata = {\r\n+  title: \"AISH\",\r\n+  description: \"AISH - Your Fashion Destination\",\r\n+};\r\n+\r\n export default function RootLayout({\r\n   children,\r\n-}: {\r\n+}: Readonly<{\r\n   children: React.ReactNode;\r\n-}) {\r\n+}>) {\r\n   return (\r\n     <html lang=\"en\">\r\n       <body className={inter.className}>\r\n         <LanguageProvider>\r\n"
+                },
+                {
+                    "date": 1747292433503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,12 @@\n import type { Metadata } from \"next\";\r\n import { Inter } from \"next/font/google\";\r\n import \"./globals.css\";\r\n import { LanguageProvider } from \"@/context/LanguageContext\";\r\n+import Navbar from \"@/components/Navbar\";\r\n+import Footer from \"@/components/Footer\";\r\n+import Providers from \"@/components/Providers\";\r\n+import AnnouncementBanner from \"@/components/AnnouncementBanner\";\r\n \r\n const inter = Inter({ subsets: [\"latin\"] });\r\n \r\n export const metadata: Metadata = {\r\n@@ -18,9 +22,14 @@\n   return (\r\n     <html lang=\"en\">\r\n       <body className={inter.className}>\r\n         <LanguageProvider>\r\n-          {children}\r\n+          <Providers>\r\n+            <Navbar />\r\n+            <AnnouncementBanner />\r\n+            <main className=\"flex-grow\">{children}</main>\r\n+            <Footer />\r\n+          </Providers>\r\n         </LanguageProvider>\r\n       </body>\r\n     </html>\r\n   );\r\n"
+                },
+                {
+                    "date": 1747292545668,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,16 +21,18 @@\n }>) {\r\n   return (\r\n     <html lang=\"en\">\r\n       <body className={inter.className}>\r\n-        <LanguageProvider>\r\n-          <Providers>\r\n-            <Navbar />\r\n-            <AnnouncementBanner />\r\n-            <main className=\"flex-grow\">{children}</main>\r\n-            <Footer />\r\n-          </Providers>\r\n-        </LanguageProvider>\r\n+        <Providers>\r\n+          <LanguageProvider>\r\n+            <div className=\"flex flex-col min-h-screen\">\r\n+              <Navbar />\r\n+              <AnnouncementBanner />\r\n+              <main className=\"flex-grow\">{children}</main>\r\n+              <Footer />\r\n+            </div>\r\n+          </LanguageProvider>\r\n+        </Providers>\r\n       </body>\r\n     </html>\r\n   );\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747292653041,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,18 +21,18 @@\n }>) {\r\n   return (\r\n     <html lang=\"en\">\r\n       <body className={inter.className}>\r\n-        <Providers>\r\n+        <div className=\"flex flex-col min-h-screen\">\r\n           <LanguageProvider>\r\n-            <div className=\"flex flex-col min-h-screen\">\r\n+            <Providers>\r\n               <Navbar />\r\n               <AnnouncementBanner />\r\n               <main className=\"flex-grow\">{children}</main>\r\n               <Footer />\r\n-            </div>\r\n+            </Providers>\r\n           </LanguageProvider>\r\n-        </Providers>\r\n+        </div>\r\n       </body>\r\n     </html>\r\n   );\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747292834741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,7 @@\n import type { Metadata } from \"next\";\r\n import { Inter } from \"next/font/google\";\r\n import \"./globals.css\";\r\n-import { LanguageProvider } from \"@/context/LanguageContext\";\r\n import Navbar from \"@/components/Navbar\";\r\n import Footer from \"@/components/Footer\";\r\n import Providers from \"@/components/Providers\";\r\n import AnnouncementBanner from \"@/components/AnnouncementBanner\";\r\n@@ -22,16 +21,14 @@\n   return (\r\n     <html lang=\"en\">\r\n       <body className={inter.className}>\r\n         <div className=\"flex flex-col min-h-screen\">\r\n-          <LanguageProvider>\r\n-            <Providers>\r\n-              <Navbar />\r\n-              <AnnouncementBanner />\r\n-              <main className=\"flex-grow\">{children}</main>\r\n-              <Footer />\r\n-            </Providers>\r\n-          </LanguageProvider>\r\n+          <Providers>\r\n+            <Navbar />\r\n+            <AnnouncementBanner />\r\n+            <main className=\"flex-grow\">{children}</main>\r\n+            <Footer />\r\n+          </Providers>\r\n         </div>\r\n       </body>\r\n     </html>\r\n   );\r\n"
+                },
+                {
+                    "date": 1747374768148,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,8 +19,14 @@\n   children: React.ReactNode;\r\n }>) {\r\n   return (\r\n     <html lang=\"en\">\r\n+      <head>\r\n+        <link\r\n+          href=\"https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap\"\r\n+          rel=\"stylesheet\"\r\n+        />\r\n+      </head>\r\n       <body className={inter.className}>\r\n         <div className=\"flex flex-col min-h-screen\">\r\n           <Providers>\r\n             <Navbar />\r\n"
+                },
+                {
+                    "date": 1747374846656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,14 +19,8 @@\n   children: React.ReactNode;\r\n }>) {\r\n   return (\r\n     <html lang=\"en\">\r\n-      <head>\r\n-        <link\r\n-          href=\"https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap\"\r\n-          rel=\"stylesheet\"\r\n-        />\r\n-      </head>\r\n       <body className={inter.className}>\r\n         <div className=\"flex flex-col min-h-screen\">\r\n           <Providers>\r\n             <Navbar />\r\n"
+                },
+                {
+                    "date": 1747375492743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,8 +19,14 @@\n   children: React.ReactNode;\r\n }>) {\r\n   return (\r\n     <html lang=\"en\">\r\n+      <head>\r\n+        <link\r\n+          href=\"https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap\"\r\n+          rel=\"stylesheet\"\r\n+        />\r\n+      </head>\r\n       <body className={inter.className}>\r\n         <div className=\"flex flex-col min-h-screen\">\r\n           <Providers>\r\n             <Navbar />\r\n"
+                },
+                {
+                    "date": 1747375542281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,14 +19,8 @@\n   children: React.ReactNode;\r\n }>) {\r\n   return (\r\n     <html lang=\"en\">\r\n-      <head>\r\n-        <link\r\n-          href=\"https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap\"\r\n-          rel=\"stylesheet\"\r\n-        />\r\n-      </head>\r\n       <body className={inter.className}>\r\n         <div className=\"flex flex-col min-h-screen\">\r\n           <Providers>\r\n             <Navbar />\r\n"
+                }
+            ],
+            "date": 1746892149430,
+            "name": "Commit-0",
+            "content": "\"use client\";\r\nimport { Inter } from \"next/font/google\";\r\nimport \"./globals.css\";\r\nimport { CartProvider } from \"../context/CartContext\";\r\nimport { WishlistProvider } from \"../context/WishlistContext\";\r\nimport { OrderProvider } from \"../context/OrderContext\";\r\nimport { Toaster } from \"react-hot-toast\";\r\n\r\nconst inter = Inter({ subsets: [\"latin\"] });\r\n\r\nexport default function RootLayout({\r\n  children,\r\n}: {\r\n  children: React.ReactNode;\r\n}) {\r\n  return (\r\n    <html lang=\"en\">\r\n      <body className={inter.className}>\r\n        <CartProvider>\r\n          <WishlistProvider>\r\n            <OrderProvider>\r\n              {children}\r\n              <Toaster position=\"top-center\" />\r\n            </OrderProvider>\r\n          </WishlistProvider>\r\n        </CartProvider>\r\n      </body>\r\n    </html>\r\n  );\r\n} "
+        }
+    ]
+}

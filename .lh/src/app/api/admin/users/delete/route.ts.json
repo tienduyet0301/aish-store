@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/api/admin/users/delete/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1746959208026,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747214763724,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n import { NextResponse } from \"next/server\";\r\n import { connectToDatabase } from \"@/lib/mongodb\";\r\n+import { ObjectId } from \"mongodb\";\r\n \r\n export async function DELETE(request: Request) {\r\n   try {\r\n     const { userId } = await request.json();\r\n@@ -11,9 +12,9 @@\n \r\n     const { db } = await connectToDatabase();\r\n     \r\n     // Xóa tài khoản khỏi database\r\n-    await db.collection(\"users\").deleteOne({ _id: userId });\r\n+    await db.collection(\"users\").deleteOne({ _id: new ObjectId(userId) });\r\n \r\n     return NextResponse.json({ message: \"User deleted successfully\" });\r\n   } catch (error) {\r\n     return NextResponse.json({ error: \"Internal Server Error\" }, { status: 500 });\r\n"
+                }
+            ],
+            "date": 1746959208026,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from \"@/lib/mongodb\";\r\n\r\nexport async function DELETE(request: Request) {\r\n  try {\r\n    const { userId } = await request.json();\r\n    \r\n    if (!userId) {\r\n      return NextResponse.json({ error: \"Missing user ID\" }, { status: 400 });\r\n    }\r\n\r\n    const { db } = await connectToDatabase();\r\n    \r\n    // Xóa tài khoản khỏi database\r\n    await db.collection(\"users\").deleteOne({ _id: userId });\r\n\r\n    return NextResponse.json({ message: \"User deleted successfully\" });\r\n  } catch (error) {\r\n    return NextResponse.json({ error: \"Internal Server Error\" }, { status: 500 });\r\n  }\r\n} "
+        }
+    ]
+}

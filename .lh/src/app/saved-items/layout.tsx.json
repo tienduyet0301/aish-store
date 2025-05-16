@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/saved-items/layout.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747279206470,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747279206470,
+            "name": "Commit-0",
+            "content": "export const metadata = {\r\n  title: 'Saved items | AISH',\r\n};\r\n\r\nexport default function SavedItemsLayout({\r\n  children,\r\n}: {\r\n  children: React.ReactNode;\r\n}) {\r\n  return children;\r\n} "
+        }
+    ]
+}

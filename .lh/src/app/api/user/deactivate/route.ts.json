@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/api/user/deactivate/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747122730731,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747122822824,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,27 +18,20 @@\n     }\r\n \r\n     const { db } = await connectToDatabase();\r\n \r\n-    // Cập nhật trạng thái tài khoản\r\n-    const result = await db.collection(\"users\").updateOne(\r\n-      { email: session.user.email },\r\n-      { \r\n-        $set: { \r\n-          status: \"deactivated\",\r\n-          deactivatedAt: new Date(),\r\n-          deactivationReason: reason\r\n-        } \r\n-      }\r\n+    // Xóa hoàn toàn tài khoản khỏi database\r\n+    const result = await db.collection(\"users\").deleteOne(\r\n+      { email: session.user.email }\r\n     );\r\n \r\n-    if (result.matchedCount === 0) {\r\n+    if (result.deletedCount === 0) {\r\n       return NextResponse.json({ error: \"User not found\" }, { status: 404 });\r\n     }\r\n \r\n-    return NextResponse.json({ message: \"Account deactivated successfully\" });\r\n+    return NextResponse.json({ message: \"Account deleted successfully\" });\r\n   } catch (error) {\r\n-    console.error(\"[DEACTIVATE_ACCOUNT]\", error);\r\n+    console.error(\"[DELETE_ACCOUNT]\", error);\r\n     return NextResponse.json(\r\n       { error: \"Internal Server Error\" },\r\n       { status: 500 }\r\n     );\r\n"
+                }
+            ],
+            "date": 1747122730731,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { getServerSession } from \"next-auth/next\";\r\nimport { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\nimport { connectToDatabase } from \"@/lib/mongodb\";\r\n\r\nexport async function POST(request: Request) {\r\n  try {\r\n    const session = await getServerSession(authOptions);\r\n    \r\n    if (!session?.user?.email) {\r\n      return NextResponse.json({ error: \"Unauthorized\" }, { status: 401 });\r\n    }\r\n\r\n    const { reason } = await request.json();\r\n    \r\n    if (!reason) {\r\n      return NextResponse.json({ error: \"Reason is required\" }, { status: 400 });\r\n    }\r\n\r\n    const { db } = await connectToDatabase();\r\n\r\n    // Cập nhật trạng thái tài khoản\r\n    const result = await db.collection(\"users\").updateOne(\r\n      { email: session.user.email },\r\n      { \r\n        $set: { \r\n          status: \"deactivated\",\r\n          deactivatedAt: new Date(),\r\n          deactivationReason: reason\r\n        } \r\n      }\r\n    );\r\n\r\n    if (result.matchedCount === 0) {\r\n      return NextResponse.json({ error: \"User not found\" }, { status: 404 });\r\n    }\r\n\r\n    return NextResponse.json({ message: \"Account deactivated successfully\" });\r\n  } catch (error) {\r\n    console.error(\"[DEACTIVATE_ACCOUNT]\", error);\r\n    return NextResponse.json(\r\n      { error: \"Internal Server Error\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

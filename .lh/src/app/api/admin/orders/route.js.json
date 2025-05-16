@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/admin/orders/route.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747059967422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747059967422,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from \"../../../../lib/mongodb\";\r\n\r\nexport async function GET() {\r\n  try {\r\n    const { db } = await connectToDatabase();\r\n    \r\n    // Lấy tất cả đơn hàng và sắp xếp theo thời gian tạo mới nhất\r\n    const orders = await db.collection(\"orders\")\r\n      .find({})\r\n      .sort({ createdAt: -1 })\r\n      .toArray();\r\n\r\n    return NextResponse.json({\r\n      ok: true,\r\n      orders: orders.map(order => ({\r\n        ...order,\r\n        _id: order._id.toString()\r\n      }))\r\n    });\r\n  } catch (error) {\r\n    console.error(\"Error fetching orders:\", error);\r\n    return NextResponse.json(\r\n      { ok: false, message: \"Có lỗi xảy ra khi lấy danh sách đơn hàng\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

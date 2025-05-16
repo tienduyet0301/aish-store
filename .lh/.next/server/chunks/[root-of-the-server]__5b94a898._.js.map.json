@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".next/server/chunks/[root-of-the-server]__5b94a898._.js.map",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891737058,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "{\n  \"version\": 3,\n  \"sources\": [],\n  \"sections\": [\n    {\"offset\": {\"line\": 6, \"column\": 0}, \"map\": {\"version\":3,\"sources\":[],\"names\":[],\"mappings\":\"\",\"debugId\":null}},\n    {\"offset\": {\"line\": 140, \"column\": 0}, \"map\": {\"version\":3,\"sources\":[\"file://C%3A/Users/hongh/aishh/src/app/api/auth/%5B...nextauth%5D/route.ts\"],\"sourcesContent\":[\"import NextAuth from \\\"next-auth\\\";\\r\\nimport CredentialsProvider from \\\"next-auth/providers/credentials\\\";\\r\\n\\r\\nconst handler = NextAuth({\\r\\n  providers: [\\r\\n    CredentialsProvider({\\r\\n      name: \\\"Credentials\\\",\\r\\n      credentials: {\\r\\n        username: { label: \\\"Username\\\", type: \\\"text\\\" },\\r\\n        password: { label: \\\"Password\\\", type: \\\"password\\\" }\\r\\n      },\\r\\n      async authorize(credentials) {\\r\\n        // Add your own logic here to validate the credentials\\r\\n        if (credentials?.username === process.env.ADMIN_USERNAME && \\r\\n            credentials?.password === process.env.ADMIN_PASSWORD) {\\r\\n          return {\\r\\n            id: \\\"1\\\",\\r\\n            name: \\\"Admin\\\",\\r\\n            email: \\\"admin@example.com\\\",\\r\\n          };\\r\\n        }\\r\\n        return null;\\r\\n      }\\r\\n    })\\r\\n  ],\\r\\n  pages: {\\r\\n    signIn: \\\"/admin/login\\\",\\r\\n  },\\r\\n  session: {\\r\\n    strategy: \\\"jwt\\\",\\r\\n  },\\r\\n  secret: process.env.NEXTAUTH_SECRET,\\r\\n});\\r\\n\\r\\nexport { handler as GET, handler as POST }; \"],\"names\":[],\"mappings\":\";;;;AAAA;AACA;;;AAEA,MAAM,UAAU,CAAA,GAAA,uIAAA,CAAA,UAAQ,AAAD,EAAE;IACvB,WAAW;QACT,CAAA,GAAA,0JAAA,CAAA,UAAmB,AAAD,EAAE;YAClB,MAAM;YACN,aAAa;gBACX,UAAU;oBAAE,OAAO;oBAAY,MAAM;gBAAO;gBAC5C,UAAU;oBAAE,OAAO;oBAAY,MAAM;gBAAW;YAClD;YACA,MAAM,WAAU,WAAW;gBACzB,sDAAsD;gBACtD,IAAI,aAAa,aAAa,QAAQ,GAAG,CAAC,cAAc,IACpD,aAAa,aAAa,QAAQ,GAAG,CAAC,cAAc,EAAE;oBACxD,OAAO;wBACL,IAAI;wBACJ,MAAM;wBACN,OAAO;oBACT;gBACF;gBACA,OAAO;YACT;QACF;KACD;IACD,OAAO;QACL,QAAQ;IACV;IACA,SAAS;QACP,UAAU;IACZ;IACA,QAAQ,QAAQ,GAAG,CAAC,eAAe;AACrC\",\"debugId\":null}}]\n}"
+        }
+    ]
+}

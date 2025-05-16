@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/components/LanguageSwitcher.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747290812577,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747291254757,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,35 +1,22 @@\n 'use client';\r\n \r\n-import { useLocale } from 'next-intl';\r\n-import { usePathname, useRouter } from 'next-intl/client';\r\n-import { useTransition } from 'react';\r\n+import { useLanguage } from '@/contexts/LanguageContext';\r\n \r\n export default function LanguageSwitcher() {\r\n-  const locale = useLocale();\r\n-  const router = useRouter();\r\n-  const pathname = usePathname();\r\n-  const [isPending, startTransition] = useTransition();\r\n+  const { language, setLanguage } = useLanguage();\r\n \r\n-  const handleLanguageChange = (newLocale: string) => {\r\n-    startTransition(() => {\r\n-      router.replace(pathname, { locale: newLocale });\r\n-    });\r\n-  };\r\n-\r\n   return (\r\n     <div className=\"flex items-center gap-2\">\r\n       <button\r\n-        onClick={() => handleLanguageChange('en')}\r\n-        className={`px-2 py-1 rounded ${locale === 'en' ? 'bg-black text-white' : 'bg-gray-200'}`}\r\n-        disabled={isPending}\r\n+        onClick={() => setLanguage('en')}\r\n+        className={`px-2 py-1 rounded ${language === 'en' ? 'bg-black text-white' : 'bg-gray-200'}`}\r\n       >\r\n         EN\r\n       </button>\r\n       <button\r\n-        onClick={() => handleLanguageChange('vi')}\r\n-        className={`px-2 py-1 rounded ${locale === 'vi' ? 'bg-black text-white' : 'bg-gray-200'}`}\r\n-        disabled={isPending}\r\n+        onClick={() => setLanguage('vi')}\r\n+        className={`px-2 py-1 rounded ${language === 'vi' ? 'bg-black text-white' : 'bg-gray-200'}`}\r\n       >\r\n         VI\r\n       </button>\r\n     </div>\r\n"
+                }
+            ],
+            "date": 1747290812577,
+            "name": "Commit-0",
+            "content": "'use client';\r\n\r\nimport { useLocale } from 'next-intl';\r\nimport { usePathname, useRouter } from 'next-intl/client';\r\nimport { useTransition } from 'react';\r\n\r\nexport default function LanguageSwitcher() {\r\n  const locale = useLocale();\r\n  const router = useRouter();\r\n  const pathname = usePathname();\r\n  const [isPending, startTransition] = useTransition();\r\n\r\n  const handleLanguageChange = (newLocale: string) => {\r\n    startTransition(() => {\r\n      router.replace(pathname, { locale: newLocale });\r\n    });\r\n  };\r\n\r\n  return (\r\n    <div className=\"flex items-center gap-2\">\r\n      <button\r\n        onClick={() => handleLanguageChange('en')}\r\n        className={`px-2 py-1 rounded ${locale === 'en' ? 'bg-black text-white' : 'bg-gray-200'}`}\r\n        disabled={isPending}\r\n      >\r\n        EN\r\n      </button>\r\n      <button\r\n        onClick={() => handleLanguageChange('vi')}\r\n        className={`px-2 py-1 rounded ${locale === 'vi' ? 'bg-black text-white' : 'bg-gray-200'}`}\r\n        disabled={isPending}\r\n      >\r\n        VI\r\n      </button>\r\n    </div>\r\n  );\r\n} "
+        }
+    ]
+}

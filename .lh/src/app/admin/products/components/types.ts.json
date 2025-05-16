@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/app/admin/products/components/types.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1746893159110,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747286850857,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,15 +17,15 @@\n }\r\n \r\n export interface ProductForm {\r\n   name: string;\r\n-  price: string;\r\n+  price: number;\r\n   description: string;\r\n   images: File[];\r\n-  quantityM: string;\r\n-  quantityL: string;\r\n-  quantityXL: string;\r\n-  quantityHat: string;\r\n+  quantityM: number;\r\n+  quantityL: number;\r\n+  quantityXL: number;\r\n+  quantityHat: number;\r\n   productCode: string;\r\n   details: string;\r\n   category: string;\r\n   collection: string;\r\n@@ -34,15 +34,15 @@\n }\r\n \r\n export const initialFormState: ProductForm = {\r\n   name: \"\",\r\n-  price: \"\",\r\n+  price: 0,\r\n   description: \"\",\r\n   images: [],\r\n-  quantityM: \"\",\r\n-  quantityL: \"\",\r\n-  quantityXL: \"\",\r\n-  quantityHat: \"\",\r\n+  quantityM: 0,\r\n+  quantityL: 0,\r\n+  quantityXL: 0,\r\n+  quantityHat: 0,\r\n   productCode: \"\",\r\n   details: \"\",\r\n   category: \"\",\r\n   collection: \"\",\r\n"
+                },
+                {
+                    "date": 1747286868704,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,15 +17,15 @@\n }\r\n \r\n export interface ProductForm {\r\n   name: string;\r\n-  price: number;\r\n+  price: string;\r\n   description: string;\r\n   images: File[];\r\n-  quantityM: number;\r\n-  quantityL: number;\r\n-  quantityXL: number;\r\n-  quantityHat: number;\r\n+  quantityM: string;\r\n+  quantityL: string;\r\n+  quantityXL: string;\r\n+  quantityHat: string;\r\n   productCode: string;\r\n   details: string;\r\n   category: string;\r\n   collection: string;\r\n@@ -34,15 +34,15 @@\n }\r\n \r\n export const initialFormState: ProductForm = {\r\n   name: \"\",\r\n-  price: 0,\r\n+  price: \"\",\r\n   description: \"\",\r\n   images: [],\r\n-  quantityM: 0,\r\n-  quantityL: 0,\r\n-  quantityXL: 0,\r\n-  quantityHat: 0,\r\n+  quantityM: \"\",\r\n+  quantityL: \"\",\r\n+  quantityXL: \"\",\r\n+  quantityHat: \"\",\r\n   productCode: \"\",\r\n   details: \"\",\r\n   category: \"\",\r\n   collection: \"\",\r\n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "export interface Product {\r\n  _id: string;\r\n  name: string;\r\n  price: number;\r\n  description: string;\r\n  images: string[];\r\n  quantityM: number;\r\n  quantityL: number;\r\n  quantityXL: number;\r\n  quantityHat: number;\r\n  productCode: string;\r\n  details: string;\r\n  category: string;\r\n  collection: string;\r\n  createdAt: string;\r\n  colors: string[];\r\n}\r\n\r\nexport interface ProductForm {\r\n  name: string;\r\n  price: string;\r\n  description: string;\r\n  images: File[];\r\n  quantityM: string;\r\n  quantityL: string;\r\n  quantityXL: string;\r\n  quantityHat: string;\r\n  productCode: string;\r\n  details: string;\r\n  category: string;\r\n  collection: string;\r\n  sizeGuideImage: File | null;\r\n  colors: string[];\r\n}\r\n\r\nexport const initialFormState: ProductForm = {\r\n  name: \"\",\r\n  price: \"\",\r\n  description: \"\",\r\n  images: [],\r\n  quantityM: \"\",\r\n  quantityL: \"\",\r\n  quantityXL: \"\",\r\n  quantityHat: \"\",\r\n  productCode: \"\",\r\n  details: \"\",\r\n  category: \"\",\r\n  collection: \"\",\r\n  sizeGuideImage: null,\r\n  colors: [],\r\n}; "
+        }
+    ]
+}

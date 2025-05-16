@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".next/server/app/about-us/page/app-paths-manifest.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891714985,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "{\n  \"/about-us/page\": \"app/about-us/page.js\"\n}"
+        }
+    ]
+}

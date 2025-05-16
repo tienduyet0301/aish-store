@@ -1,0 +1,32 @@
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  images: string[];
+  category: string;
+  sizes: string[];
+  colors: string[];
+  inStock: boolean;
+  _id: string;
+  sizeGuideImage?: string;
+  quantityM: number;
+  quantityL: number;
+  quantityXL: number;
+  quantityHat: number;
+  outOfStockM: boolean;
+  outOfStockL: boolean;
+  outOfStockXL: boolean;
+  outOfStockHat: boolean;
+  outOfStock: boolean;
+  productCode: string;
+  details: string;
+  collection: string;
+  selectedSize?: string;
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+  slug: string;
+  [key: `quantity${string}`]: number;
+  [key: `outOfStock${string}`]: boolean;
+} 

@@ -1,0 +1,41 @@
+import dynamic from 'next/dynamic';
+
+// Product Images
+export const LazyProductImage = dynamic(() => import('@/components/ProductImage').then(mod => mod.default), {
+  loading: () => <div className="w-full h-full bg-gray-200 animate-pulse" />,
+  ssr: true
+});
+
+// Product Detail Images
+export const LazyProductDetailImage = dynamic(() => import('@/components/ProductDetailImage').then(mod => mod.default), {
+  loading: () => <div className="w-full h-[600px] bg-gray-200 animate-pulse" />,
+  ssr: true
+});
+
+// Modals
+export const LazyHelpPanel = dynamic(() => import('./HelpPanel'), {
+  loading: () => <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50" />,
+  ssr: false
+});
+
+export const LazyOrderConfirmationModal = dynamic(() => import('./OrderConfirmationModal'), {
+  loading: () => <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50" />,
+  ssr: false
+});
+
+// Footer Components
+export const LazyFooter = dynamic(() => import('./Footer'), {
+  loading: () => <div className="w-full h-60 bg-gray-100 animate-pulse" />,
+  ssr: true
+});
+
+// Dropdowns
+export const LazyCartDropdown = dynamic(() => import('./CartDropdown'), {
+  loading: () => <div className="absolute top-[55px] right-4 sm:right-10 w-72 sm:w-120 h-80 sm:h-100 bg-white shadow-md animate-pulse" />,
+  ssr: false
+});
+
+export const LazyUserDropdown = dynamic(() => import('./UserDropdown'), {
+  loading: () => <div className="absolute top-[55px] right-4 sm:right-10 w-48 bg-white shadow-md animate-pulse" />,
+  ssr: false
+}); 

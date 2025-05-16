@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/change-password/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747243160439,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747243160439,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from \"@/lib/mongodb\";\r\nimport bcrypt from \"bcryptjs\";\r\nimport { getServerSession } from \"next-auth\";\r\nimport { authOptions } from \"@/lib/auth\";\r\n\r\nexport async function POST(request: Request) {\r\n  try {\r\n    const session = await getServerSession(authOptions);\r\n    if (!session?.user?.email) {\r\n      return NextResponse.json(\r\n        { error: \"Unauthorized\" },\r\n        { status: 401 }\r\n      );\r\n    }\r\n\r\n    const { currentPassword, newPassword } = await request.json();\r\n\r\n    if (!currentPassword || !newPassword) {\r\n      return NextResponse.json(\r\n        { error: \"Current password and new password are required\" },\r\n        { status: 400 }\r\n      );\r\n    }\r\n\r\n    if (newPassword.length < 8) {\r\n      return NextResponse.json(\r\n        { error: \"New password must be at least 8 characters long\" },\r\n        { status: 400 }\r\n      );\r\n    }\r\n\r\n    const { db } = await connectToDatabase();\r\n    const user = await db.collection(\"users\").findOne({ email: session.user.email });\r\n\r\n    if (!user) {\r\n      return NextResponse.json(\r\n        { error: \"User not found\" },\r\n        { status: 404 }\r\n      );\r\n    }\r\n\r\n    const isPasswordValid = await bcrypt.compare(currentPassword, user.password);\r\n    if (!isPasswordValid) {\r\n      return NextResponse.json(\r\n        { error: \"Current password is incorrect\" },\r\n        { status: 400 }\r\n      );\r\n    }\r\n\r\n    const hashedNewPassword = await bcrypt.hash(newPassword, 10);\r\n    await db.collection(\"users\").updateOne(\r\n      { email: session.user.email },\r\n      { $set: { password: hashedNewPassword } }\r\n    );\r\n\r\n    return NextResponse.json({\r\n      message: \"Password updated successfully\"\r\n    });\r\n  } catch (error) {\r\n    console.error(\"Error in change password:\", error);\r\n    return NextResponse.json(\r\n      { error: \"Internal server error\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

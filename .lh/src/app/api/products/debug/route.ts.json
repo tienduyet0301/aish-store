@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/products/debug/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747127035197,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747127035197,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport clientPromise from \"@/lib/mongodb\";\r\n\r\nexport async function GET() {\r\n  try {\r\n    const client = await clientPromise;\r\n    const db = client.db(\"aishh\");\r\n    \r\n    const products = await db.collection(\"products\").find({}).toArray();\r\n    \r\n    // Chỉ trả về thông tin cần thiết để debug\r\n    const debugInfo = products.map(product => ({\r\n      _id: product._id.toString(),\r\n      name: product.name,\r\n      slug: product.slug\r\n    }));\r\n\r\n    return NextResponse.json({\r\n      ok: true,\r\n      products: debugInfo\r\n    });\r\n  } catch (error) {\r\n    console.error(\"Error fetching debug info:\", error);\r\n    return NextResponse.json(\r\n      { ok: false, error: \"Failed to fetch debug info\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

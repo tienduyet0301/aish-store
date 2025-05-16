@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".next/server/app/warranty-policy/page/app-paths-manifest.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891723301,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "{\n  \"/warranty-policy/page\": \"app/warranty-policy/page.js\"\n}"
+        }
+    ]
+}

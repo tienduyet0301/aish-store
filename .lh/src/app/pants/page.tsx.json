@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/pants/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747283929944,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747283929944,
+            "name": "Commit-0",
+            "content": "import { Metadata } from \"next\";\r\n\r\nexport const metadata: Metadata = {\r\n  title: \"Pants | AISH\",\r\n};\r\n\r\nexport default function PantsPage() {\r\n  return (\r\n    <div>\r\n      {/* Your Pants page content */}\r\n    </div>\r\n  );\r\n} "
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "public/robots.txt",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747408462399,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747408462399,
+            "name": "Commit-0",
+            "content": "# Allow all crawlers\r\nUser-agent: *\r\nAllow: /\r\n\r\n# Sitemap location\r\nSitemap: https://your-domain.com/sitemap.xml\r\n\r\n# Disallow admin and api routes\r\nDisallow: /admin/\r\nDisallow: /api/ "
+        }
+    ]
+}

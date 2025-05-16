@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/app/care-instructions/layout.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1747284404401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747284588236,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,13 @@\n \"use client\";\r\n \r\n import { SessionProvider } from \"next-auth/react\";\r\n+import { Metadata } from \"next\";\r\n \r\n+export const metadata: Metadata = {\r\n+  title: \"Care Instructions | AISH\",\r\n+};\r\n+\r\n export default function CareInstructionsLayout({\r\n   children,\r\n }: {\r\n   children: React.ReactNode;\r\n"
+                },
+                {
+                    "date": 1747284596632,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,8 @@\n \"use client\";\r\n \r\n import { SessionProvider } from \"next-auth/react\";\r\n-import { Metadata } from \"next\";\r\n \r\n-export const metadata: Metadata = {\r\n-  title: \"Care Instructions | AISH\",\r\n-};\r\n-\r\n export default function CareInstructionsLayout({\r\n   children,\r\n }: {\r\n   children: React.ReactNode;\r\n"
+                }
+            ],
+            "date": 1747284404401,
+            "name": "Commit-0",
+            "content": "\"use client\";\r\n\r\nimport { SessionProvider } from \"next-auth/react\";\r\n\r\nexport default function CareInstructionsLayout({\r\n  children,\r\n}: {\r\n  children: React.ReactNode;\r\n}) {\r\n  return <SessionProvider>{children}</SessionProvider>;\r\n} "
+        }
+    ]
+}

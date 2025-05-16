@@ -1,0 +1,34 @@
+{
+    "sourceFile": "src/app/api/products/by-slug/[slug]/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1747126664321,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747282029411,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n ) {\r\n   try {\r\n     const client = await clientPromise;\r\n     const db = client.db(\"aishh\");\r\n-    const { slug } = params;\r\n+    const slug = params.slug;\r\n \r\n     const product = await db\r\n       .collection(\"products\")\r\n       .findOne({ slug: slug });\r\n@@ -37,9 +37,9 @@\n     });\r\n   } catch (error) {\r\n     console.error(\"Error fetching product:\", error);\r\n     return NextResponse.json(\r\n-      { ok: false, error: \"Failed to fetch product\" },\r\n+      { ok: false, error: \"Internal server error\" },\r\n       { status: 500 }\r\n     );\r\n   }\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747282080014,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n ) {\r\n   try {\r\n     const client = await clientPromise;\r\n     const db = client.db(\"aishh\");\r\n-    const slug = params.slug;\r\n+    const { slug } = params;\r\n \r\n     const product = await db\r\n       .collection(\"products\")\r\n       .findOne({ slug: slug });\r\n@@ -37,9 +37,9 @@\n     });\r\n   } catch (error) {\r\n     console.error(\"Error fetching product:\", error);\r\n     return NextResponse.json(\r\n-      { ok: false, error: \"Internal server error\" },\r\n+      { ok: false, error: \"Failed to fetch product\" },\r\n       { status: 500 }\r\n     );\r\n   }\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747282105635,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,14 +6,14 @@\n \r\n // GET /api/products/by-slug/[slug] - Lấy thông tin sản phẩm theo slug\r\n export async function GET(\r\n   request: Request,\r\n-  { params }: { params: { slug: string } }\r\n+  context: { params: { slug: string } }\r\n ) {\r\n   try {\r\n     const client = await clientPromise;\r\n     const db = client.db(\"aishh\");\r\n-    const { slug } = params;\r\n+    const slug = await context.params.slug;\r\n \r\n     const product = await db\r\n       .collection(\"products\")\r\n       .findOne({ slug: slug });\r\n"
+                },
+                {
+                    "date": 1747282405749,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n ) {\r\n   try {\r\n     const client = await clientPromise;\r\n     const db = client.db(\"aishh\");\r\n-    const slug = await context.params.slug;\r\n+    const slug = context.params.slug;\r\n \r\n     const product = await db\r\n       .collection(\"products\")\r\n       .findOne({ slug: slug });\r\n"
+                }
+            ],
+            "date": 1747126664321,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport clientPromise from \"@/lib/mongodb\";\r\nimport { createSlug } from \"@/lib/utils\";\r\n\r\nconst DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || \"http://localhost:3000\";\r\n\r\n// GET /api/products/by-slug/[slug] - Lấy thông tin sản phẩm theo slug\r\nexport async function GET(\r\n  request: Request,\r\n  { params }: { params: { slug: string } }\r\n) {\r\n  try {\r\n    const client = await clientPromise;\r\n    const db = client.db(\"aishh\");\r\n    const { slug } = params;\r\n\r\n    const product = await db\r\n      .collection(\"products\")\r\n      .findOne({ slug: slug });\r\n\r\n    if (!product) {\r\n      return NextResponse.json(\r\n        { ok: false, error: \"Product not found\" },\r\n        { status: 404 }\r\n      );\r\n    }\r\n\r\n    return NextResponse.json({\r\n      ok: true,\r\n      product: {\r\n        ...product,\r\n        _id: product._id.toString(),\r\n        images: product.images?.map((url: string) => \r\n          url.startsWith('http') ? url : `${DOMAIN}${url}`\r\n        ) || []\r\n      }\r\n    });\r\n  } catch (error) {\r\n    console.error(\"Error fetching product:\", error);\r\n    return NextResponse.json(\r\n      { ok: false, error: \"Failed to fetch product\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

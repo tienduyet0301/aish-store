@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/lib/products.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747283076002,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747283227518,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n import clientPromise from \"./mongodb\";\r\n+import { Product } from \"@/types/product\";\r\n \r\n const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || \"http://localhost:3000\";\r\n \r\n-export async function getProduct(slug: string) {\r\n+export async function getProduct(slug: string): Promise<Product> {\r\n   try {\r\n     const client = await clientPromise;\r\n     const db = client.db(\"aishh\");\r\n \r\n@@ -20,9 +21,9 @@\n       _id: product._id.toString(),\r\n       images: product.images?.map((url: string) => \r\n         url.startsWith('http') ? url : `${DOMAIN}${url}`\r\n       ) || []\r\n-    };\r\n+    } as Product;\r\n   } catch (error) {\r\n     console.error(\"Error fetching product:\", error);\r\n     throw error;\r\n   }\r\n"
+                }
+            ],
+            "date": 1747283076002,
+            "name": "Commit-0",
+            "content": "import clientPromise from \"./mongodb\";\r\n\r\nconst DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || \"http://localhost:3000\";\r\n\r\nexport async function getProduct(slug: string) {\r\n  try {\r\n    const client = await clientPromise;\r\n    const db = client.db(\"aishh\");\r\n\r\n    const product = await db\r\n      .collection(\"products\")\r\n      .findOne({ slug: slug });\r\n\r\n    if (!product) {\r\n      throw new Error(\"Product not found\");\r\n    }\r\n\r\n    return {\r\n      ...product,\r\n      _id: product._id.toString(),\r\n      images: product.images?.map((url: string) => \r\n        url.startsWith('http') ? url : `${DOMAIN}${url}`\r\n      ) || []\r\n    };\r\n  } catch (error) {\r\n    console.error(\"Error fetching product:\", error);\r\n    throw error;\r\n  }\r\n} "
+        }
+    ]
+}

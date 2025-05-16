@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/lib/utils.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1746893166927,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747126641508,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,5 +2,17 @@\n import { twMerge } from \"tailwind-merge\";\r\n \r\n export function cn(...inputs: ClassValue[]) {\r\n   return twMerge(clsx(inputs));\r\n+}\r\n+\r\n+export function createSlug(name: string): string {\r\n+  return name\r\n+    .toLowerCase()\r\n+    .normalize('NFD')\r\n+    .replace(/[\\u0300-\\u036f]/g, '')\r\n+    .replace(/[đĐ]/g, 'd')\r\n+    .replace(/([^0-9a-z-\\s])/g, '')\r\n+    .replace(/(\\s+)/g, '-')\r\n+    .replace(/-+/g, '-')\r\n+    .replace(/^-+|-+$/g, '');\r\n } \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "import { type ClassValue, clsx } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]) {\r\n  return twMerge(clsx(inputs));\r\n} "
+        }
+    ]
+}

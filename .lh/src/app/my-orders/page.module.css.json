@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/app/my-orders/page.module.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1747405381835,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747405397582,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,21 +1,1 @@\n-.orderCode {\r\n-  font-size: 16px;\r\n-  font-weight: 600;\r\n-  color: #2C3E50;\r\n-  margin-bottom: 4px;\r\n-}\r\n-\r\n-.orderDate {\r\n-  font-size: 14px;\r\n-  color: #666;\r\n-}\r\n-\r\n-@media (max-width: 768px) {\r\n-  .orderCode {\r\n-    font-size: 13px;\r\n-  }\r\n-  \r\n-  .orderDate {\r\n-    font-size: 11px;\r\n-  }\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747405613989,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,21 @@\n- \n\\ No newline at end of file\n+.orderCode {\r\n+  font-size: 16px;\r\n+  font-weight: 600;\r\n+  color: #2C3E50;\r\n+  margin-bottom: 4px;\r\n+}\r\n+\r\n+.orderDate {\r\n+  font-size: 14px;\r\n+  color: #666;\r\n+}\r\n+\r\n+@media screen and (max-width: 768px) {\r\n+  .orderCode {\r\n+    font-size: 13px;\r\n+  }\r\n+  \r\n+  .orderDate {\r\n+    font-size: 11px;\r\n+  }\r\n+} \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747405381835,
+            "name": "Commit-0",
+            "content": ".orderCode {\r\n  font-size: 16px;\r\n  font-weight: 600;\r\n  color: #2C3E50;\r\n  margin-bottom: 4px;\r\n}\r\n\r\n.orderDate {\r\n  font-size: 14px;\r\n  color: #666;\r\n}\r\n\r\n@media (max-width: 768px) {\r\n  .orderCode {\r\n    font-size: 13px;\r\n  }\r\n  \r\n  .orderDate {\r\n    font-size: 11px;\r\n  }\r\n} "
+        }
+    ]
+}

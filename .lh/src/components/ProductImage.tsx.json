@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/ProductImage.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747280550613,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747280550613,
+            "name": "Commit-0",
+            "content": "import Image from 'next/image';\r\n\r\ninterface ProductImageProps {\r\n  src: string;\r\n  alt: string;\r\n  width?: number;\r\n  height?: number;\r\n  className?: string;\r\n}\r\n\r\nexport default function ProductImage({ src, alt, width, height, className }: ProductImageProps) {\r\n  return (\r\n    <div className={`relative ${className}`}>\r\n      <Image\r\n        src={src}\r\n        alt={alt}\r\n        width={width || 300}\r\n        height={height || 400}\r\n        className=\"object-cover\"\r\n        loading=\"lazy\"\r\n      />\r\n    </div>\r\n  );\r\n} "
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/context/WishlistContext.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746893166794,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "'use client';\r\n\r\nimport { createContext, useContext, useState, useEffect } from 'react';\r\n\r\nconst WishlistContext = createContext();\r\n\r\nexport function WishlistProvider({ children }) {\r\n  const [wishlist, setWishlist] = useState([]);\r\n\r\n  // Load wishlist from localStorage when component mounts\r\n  useEffect(() => {\r\n    const savedWishlist = localStorage.getItem('wishlist');\r\n    if (savedWishlist) {\r\n      setWishlist(JSON.parse(savedWishlist));\r\n    }\r\n  }, []);\r\n\r\n  // Save wishlist to localStorage whenever it changes\r\n  useEffect(() => {\r\n    localStorage.setItem('wishlist', JSON.stringify(wishlist));\r\n  }, [wishlist]);\r\n\r\n  const toggleWishlist = (product) => {\r\n    setWishlist(prevWishlist => {\r\n      const isProductInWishlist = prevWishlist.some(item => item.id === product.id);\r\n      if (isProductInWishlist) {\r\n        return prevWishlist.filter(item => item.id !== product.id);\r\n      } else {\r\n        return [...prevWishlist, product];\r\n      }\r\n    });\r\n  };\r\n\r\n  const isInWishlist = (productId) => {\r\n    return wishlist.some(item => item.id === productId);\r\n  };\r\n\r\n  return (\r\n    <WishlistContext.Provider value={{ wishlist, toggleWishlist, isInWishlist }}>\r\n      {children}\r\n    </WishlistContext.Provider>\r\n  );\r\n}\r\n\r\nexport function useWishlist() {\r\n  const context = useContext(WishlistContext);\r\n  if (!context) {\r\n    throw new Error('useWishlist must be used within a WishlistProvider');\r\n  }\r\n  return context;\r\n} "
+        }
+    ]
+}

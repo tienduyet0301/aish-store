@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/mongodb.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891749057,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "import { MongoClient } from \"mongodb\";\r\n\r\nif (!process.env.MONGODB_URI) {\r\n  throw new Error('Invalid/Missing environment variable: \"MONGODB_URI\"');\r\n}\r\n\r\nconst uri = process.env.MONGODB_URI;\r\nconst options = {};\r\n\r\nlet client: MongoClient;\r\nlet clientPromise: Promise<MongoClient>;\r\n\r\nif (process.env.NODE_ENV === \"development\") {\r\n  // In development mode, use a global variable so that the value\r\n  // is preserved across module reloads caused by HMR (Hot Module Replacement).\r\n  let globalWithMongo = global as typeof globalThis & {\r\n    _mongoClientPromise?: Promise<MongoClient>;\r\n  };\r\n\r\n  if (!globalWithMongo._mongoClientPromise) {\r\n    client = new MongoClient(uri, options);\r\n    globalWithMongo._mongoClientPromise = client.connect();\r\n  }\r\n  clientPromise = globalWithMongo._mongoClientPromise;\r\n} else {\r\n  // In production mode, it's best to not use a global variable.\r\n  client = new MongoClient(uri, options);\r\n  clientPromise = client.connect();\r\n}\r\n\r\n// Export a module-scoped MongoClient promise. By doing this in a\r\n// separate module, the client can be shared across functions.\r\nexport default clientPromise;\r\n"
+        }
+    ]
+}

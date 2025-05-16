@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/ui/button.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746893166679,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "import * as React from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\nexport interface ButtonProps\r\n  extends React.ButtonHTMLAttributes<HTMLButtonElement> {\r\n  variant?: \"default\" | \"outline\" | \"ghost\" | \"secondary\";\r\n  size?: \"default\" | \"sm\" | \"lg\" | \"icon\";\r\n}\r\n\r\nconst Button = React.forwardRef<HTMLButtonElement, ButtonProps>(\r\n  ({ className, variant = \"default\", size = \"default\", ...props }, ref) => {\r\n    return (\r\n      <button\r\n        className={cn(\r\n          \"inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50\",\r\n          {\r\n            \"bg-primary text-primary-foreground shadow hover:bg-primary/90\":\r\n              variant === \"default\",\r\n            \"border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground\":\r\n              variant === \"outline\",\r\n            \"hover:bg-accent hover:text-accent-foreground\":\r\n              variant === \"ghost\",\r\n            \"bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80\":\r\n              variant === \"secondary\",\r\n            \"h-9 px-4 py-2\": size === \"default\",\r\n            \"h-8 rounded-md px-3 text-xs\": size === \"sm\",\r\n            \"h-10 rounded-md px-8\": size === \"lg\",\r\n            \"h-9 w-9\": size === \"icon\",\r\n          },\r\n          className\r\n        )}\r\n        ref={ref}\r\n        {...props}\r\n      />\r\n    );\r\n  }\r\n);\r\nButton.displayName = \"Button\";\r\n\r\nexport { Button }; "
+        }
+    ]
+}

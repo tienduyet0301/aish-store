@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/care-instructions/metadata.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747284359581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747284359581,
+            "name": "Commit-0",
+            "content": "import { Metadata } from \"next\";\r\n\r\nexport const metadata: Metadata = {\r\n  title: \"Care Instructions | AISH\",\r\n}; "
+        }
+    ]
+}

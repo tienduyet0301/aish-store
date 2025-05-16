@@ -1,0 +1,194 @@
+{
+    "sourceFile": "src/app/globals.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 44,
+            "patches": [
+                {
+                    "date": 1746893162857,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747370630040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,13 @@\n-@import \"tailwindcss\";\n+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');\n \n+@tailwind base;\n+@tailwind components;\n+@tailwind utilities;\n+\n :root {\n+  --foreground-rgb: 0, 0, 0;\n+  --background-rgb: 255, 255, 255;\n   --background: #ffffff;\n   --foreground: #171717;\n }\n \n@@ -19,12 +25,13 @@\n   }\n }\n \n body {\n-  background: var(--background);\n-  color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  color: rgb(var(--foreground-rgb));\n+  background: rgb(var(--background-rgb));\n+  font-family: 'Inter', sans-serif;\n }\n+\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747370646979,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,7 @@\n-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');\n+@import \"tailwindcss\";\n \n-@tailwind base;\n-@tailwind components;\n-@tailwind utilities;\n-\n :root {\n-  --foreground-rgb: 0, 0, 0;\n-  --background-rgb: 255, 255, 255;\n   --background: #ffffff;\n   --foreground: #171717;\n }\n \n@@ -25,13 +19,12 @@\n   }\n }\n \n body {\n-  color: rgb(var(--foreground-rgb));\n-  background: rgb(var(--background-rgb));\n-  font-family: 'Inter', sans-serif;\n+  background: var(--background);\n+  color: var(--foreground);\n+  font-family: Arial, Helvetica, sans-serif;\n }\n-\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747370668647,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,24 @@\n @import \"tailwindcss\";\n \n+@font-face {\n+  font-family: 'Coolvetica';\n+  src: url('/fonts/Coolvetica.woff2') format('woff2'),\n+       url('/fonts/Coolvetica.woff') format('woff');\n+  font-weight: normal;\n+  font-style: normal;\n+  font-display: swap;\n+}\n+\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n \n @theme inline {\n   --color-background: var(--background);\n   --color-foreground: var(--foreground);\n-  --font-sans: var(--font-geist-sans);\n+  --font-sans: 'Coolvetica', sans-serif;\n   --font-mono: var(--font-geist-mono);\n }\n \n @media (prefers-color-scheme: dark) {\n@@ -21,9 +30,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: 'Coolvetica', sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747370699060,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,24 +1,15 @@\n @import \"tailwindcss\";\n \n-@font-face {\n-  font-family: 'Coolvetica';\n-  src: url('/fonts/Coolvetica.woff2') format('woff2'),\n-       url('/fonts/Coolvetica.woff') format('woff');\n-  font-weight: normal;\n-  font-style: normal;\n-  font-display: swap;\n-}\n-\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n \n @theme inline {\n   --color-background: var(--background);\n   --color-foreground: var(--foreground);\n-  --font-sans: 'Coolvetica', sans-serif;\n+  --font-sans: var(--font-geist-sans);\n   --font-mono: var(--font-geist-mono);\n }\n \n @media (prefers-color-scheme: dark) {\n@@ -30,9 +21,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: 'Coolvetica', sans-serif;\n+  font-family: Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747370787593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,10 @@\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n+  --font-sans: Arial, Helvetica, sans-serif;\n+  --font-mono: monospace;\n }\n \n @theme inline {\n   --color-background: var(--background);\n@@ -21,10 +23,11 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: var(--font-sans);\n }\n+\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747370861596,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n-@import \"tailwindcss\";\n+@tailwind base;\n+@tailwind components;\n+@tailwind utilities;\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n"
+                },
+                {
+                    "date": 1747370875894,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,5 @@\n-@tailwind base;\n-@tailwind components;\n-@tailwind utilities;\n+@import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n"
+                },
+                {
+                    "date": 1747371005629,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,10 +2,8 @@\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n-  --font-sans: Arial, Helvetica, sans-serif;\n-  --font-mono: monospace;\n }\n \n @theme inline {\n   --color-background: var(--background);\n@@ -23,11 +21,10 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: var(--font-sans);\n+  font-family: Arial, Helvetica, sans-serif;\n }\n-\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747371890769,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,26 @@\n-@import \"tailwindcss\";\n+@tailwind base;\n+@tailwind components;\n+@tailwind utilities;\n \n+@font-face {\n+  font-family: 'Coolvetica';\n+  src: url('/fonts/Coolvetica.woff2') format('woff2'),\n+       url('/fonts/Coolvetica.woff') format('woff');\n+  font-weight: normal;\n+  font-style: normal;\n+  font-display: swap;\n+}\n+\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n+  --font-sans: 'Coolvetica', Arial, Helvetica, sans-serif;\n }\n \n @theme inline {\n   --color-background: var(--background);\n   --color-foreground: var(--foreground);\n-  --font-sans: var(--font-geist-sans);\n   --font-mono: var(--font-geist-mono);\n }\n \n @media (prefers-color-scheme: dark) {\n@@ -21,9 +32,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: var(--font-sans);\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747371983379,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,9 @@\n @tailwind utilities;\n \n @font-face {\n   font-family: 'Coolvetica';\n-  src: url('/fonts/Coolvetica.woff2') format('woff2'),\n-       url('/fonts/Coolvetica.woff') format('woff');\n+  src: url('/fonts/coolvetica.otf') format('opentype');\n   font-weight: normal;\n   font-style: normal;\n   font-display: swap;\n }\n"
+                },
+                {
+                    "date": 1747372052387,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n @tailwind utilities;\n \n @font-face {\n   font-family: 'Coolvetica';\n-  src: url('/fonts/coolvetica.otf') format('opentype');\n+  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n   font-weight: normal;\n   font-style: normal;\n   font-display: swap;\n }\n"
+                },
+                {
+                    "date": 1747372100918,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,25 +1,15 @@\n-@tailwind base;\n-@tailwind components;\n-@tailwind utilities;\n+@import \"tailwindcss\";\n \n-@font-face {\n-  font-family: 'Coolvetica';\n-  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n-  font-weight: normal;\n-  font-style: normal;\n-  font-display: swap;\n-}\n-\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n-  --font-sans: 'Coolvetica', Arial, Helvetica, sans-serif;\n }\n \n @theme inline {\n   --color-background: var(--background);\n   --color-foreground: var(--foreground);\n+  --font-sans: var(--font-geist-sans);\n   --font-mono: var(--font-geist-mono);\n }\n \n @media (prefers-color-scheme: dark) {\n@@ -31,9 +21,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: var(--font-sans);\n+  font-family: Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747372637444,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,25 @@\n-@import \"tailwindcss\";\n+@tailwind base;\n+@tailwind components;\n+@tailwind utilities;\n \n+@font-face {\n+  font-family: 'Coolvetica';\n+  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n+  font-weight: normal;\n+  font-style: normal;\n+  font-display: swap;\n+}\n+\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n \n @theme inline {\n   --color-background: var(--background);\n   --color-foreground: var(--foreground);\n-  --font-sans: var(--font-geist-sans);\n+  --font-sans: 'Coolvetica', var(--font-geist-sans);\n   --font-mono: var(--font-geist-mono);\n }\n \n @media (prefers-color-scheme: dark) {\n@@ -21,10 +31,11 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: var(--font-sans);\n }\n+\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747372776353,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,25 +1,15 @@\n-@tailwind base;\n-@tailwind components;\n-@tailwind utilities;\n+@import \"tailwindcss\";\n \n-@font-face {\n-  font-family: 'Coolvetica';\n-  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n-  font-weight: normal;\n-  font-style: normal;\n-  font-display: swap;\n-}\n-\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n \n @theme inline {\n   --color-background: var(--background);\n   --color-foreground: var(--foreground);\n-  --font-sans: 'Coolvetica', var(--font-geist-sans);\n+  --font-sans: var(--font-geist-sans);\n   --font-mono: var(--font-geist-mono);\n }\n \n @media (prefers-color-scheme: dark) {\n@@ -31,11 +21,10 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: var(--font-sans);\n+  font-family: Arial, Helvetica, sans-serif;\n }\n-\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747372977137,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,16 @@\n-@import \"tailwindcss\";\n+@tailwind base;\n+@tailwind components;\n+@tailwind utilities;\n \n+@font-face {\n+  font-family: 'Coolvetica';\n+  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n+  font-weight: normal;\n+  font-style: normal;\n+  font-display: swap;\n+}\n+\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n@@ -21,9 +31,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: 'Coolvetica', Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747373022704,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,6 @@\n-@tailwind base;\n-@tailwind components;\n-@tailwind utilities;\n+@import \"tailwindcss\";\n \n-@font-face {\n-  font-family: 'Coolvetica';\n-  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n-  font-weight: normal;\n-  font-style: normal;\n-  font-display: swap;\n-}\n-\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n@@ -31,9 +21,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: 'Coolvetica', Arial, Helvetica, sans-serif;\n+  font-family: Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747373350179,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,14 @@\n @import \"tailwindcss\";\n \n+@font-face {\n+  font-family: 'Coolvetica';\n+  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n+  font-weight: normal;\n+  font-style: normal;\n+  font-display: swap;\n+}\n+\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n@@ -21,9 +29,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: 'Coolvetica', Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747373414805,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,6 @@\n @import \"tailwindcss\";\n \n-@font-face {\n-  font-family: 'Coolvetica';\n-  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n-  font-weight: normal;\n-  font-style: normal;\n-  font-display: swap;\n-}\n-\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n@@ -29,9 +21,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: 'Coolvetica', Arial, Helvetica, sans-serif;\n+  font-family: Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747373594040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,14 @@\n @import \"tailwindcss\";\n \n+@font-face {\n+  font-family: 'Coolvetica';\n+  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n+  font-weight: normal;\n+  font-style: normal;\n+  font-display: swap;\n+}\n+\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n@@ -21,9 +29,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: 'Coolvetica', Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747373678889,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,6 @@\n @import \"tailwindcss\";\n \n-@font-face {\n-  font-family: 'Coolvetica';\n-  src: url('/fonts/Coolvetica Rg.otf') format('opentype');\n-  font-weight: normal;\n-  font-style: normal;\n-  font-display: swap;\n-}\n-\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n@@ -29,9 +21,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: 'Coolvetica', Arial, Helvetica, sans-serif;\n+  font-family: Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747373843029,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n @import \"tailwindcss\";\n+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n@@ -21,9 +22,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: 'Bebas Neue', Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747374216397,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n @import \"tailwindcss\";\n-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n@@ -22,9 +21,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: 'Bebas Neue', Arial, Helvetica, sans-serif;\n+  font-family: Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747374541669,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n @import \"tailwindcss\";\n+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n@@ -21,10 +22,11 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: 'Bebas Neue', Arial, Helvetica, sans-serif;\n }\n+\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747374776072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n @import \"tailwindcss\";\n-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n"
+                },
+                {
+                    "date": 1747374847952,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n @import \"tailwindcss\";\n+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n"
+                },
+                {
+                    "date": 1747374918717,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\n @import \"tailwindcss\";\n-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\n \n+\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n"
+                },
+                {
+                    "date": 1747375015484,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,7 @@\n+@import \"tailwindcss\";\n @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\n-@import \"tailwindcss\";\n \n-\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n"
+                },
+                {
+                    "date": 1747375023391,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n @import \"tailwindcss\";\n-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n@@ -22,11 +21,10 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: 'Bebas Neue', Arial, Helvetica, sans-serif;\n+  font-family: Arial, Helvetica, sans-serif;\n }\n-\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747375196180,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n @import \"tailwindcss\";\n+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');\n \n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n@@ -21,9 +22,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: 'Space Grotesk', Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747375208465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n-@import \"tailwindcss\";\n @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');\n \n+@import \"tailwindcss\";\n+\n :root {\n   --background: #ffffff;\n   --foreground: #171717;\n }\n"
+                },
+                {
+                    "date": 1747375372876,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,4 @@\n-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');\n-\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n@@ -23,9 +21,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: 'Space Grotesk', Arial, Helvetica, sans-serif;\n+  font-family: Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747375385119,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n@@ -21,9 +22,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: 'Satoshi', Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747375501929,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,4 @@\n-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n@@ -24,8 +23,9 @@\n   background: var(--background);\n   color: var(--foreground);\n   font-family: 'Satoshi', Arial, Helvetica, sans-serif;\n }\n+\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747375543448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n@@ -23,9 +24,8 @@\n   background: var(--background);\n   color: var(--foreground);\n   font-family: 'Satoshi', Arial, Helvetica, sans-serif;\n }\n-\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                },
+                {
+                    "date": 1747375548986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,4 @@\n-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n@@ -22,9 +21,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: 'Satoshi', Arial, Helvetica, sans-serif;\n+  font-family: Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747375681069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,5 @@\n+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n@@ -21,9 +22,9 @@\n \n body {\n   background: var(--background);\n   color: var(--foreground);\n-  font-family: Arial, Helvetica, sans-serif;\n+  font-family: 'Outfit', Arial, Helvetica, sans-serif;\n }\n nav ul li {\n   transition: color 0.3s;\n }\n"
+                },
+                {
+                    "date": 1747378172826,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');\n+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@100;200;300;400;500;600;700;800;900&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n"
+                },
+                {
+                    "date": 1747378384643,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');\n-@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@100;200;300;400;500;600;700;800;900&display=swap');\n+@import url('https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n"
+                },
+                {
+                    "date": 1747378675689,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');\n-@import url('https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap');\n+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n"
+                },
+                {
+                    "date": 1747378795281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');\n-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');\n+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@100;200;300;400;500;600;700;800&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n"
+                },
+                {
+                    "date": 1747378882888,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');\n-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@100;200;300;400;500;600;700;800&display=swap');\n+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@100;200;300;400;500;600;700;800;900&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n"
+                },
+                {
+                    "date": 1747379191004,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');\n-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@100;200;300;400;500;600;700;800;900&display=swap');\n+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n"
+                },
+                {
+                    "date": 1747379322454,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');\n-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');\n+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');\n @import \"tailwindcss\";\n \n :root {\n   --background: #ffffff;\n"
+                },
+                {
+                    "date": 1747379511228,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,11 @@\n body {\n   background: var(--background);\n   color: var(--foreground);\n   font-family: 'Outfit', Arial, Helvetica, sans-serif;\n+  text-transform: uppercase;\n }\n+\n nav ul li {\n   transition: color 0.3s;\n }\n \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "@import \"tailwindcss\";\n\n:root {\n  --background: #ffffff;\n  --foreground: #171717;\n}\n\n@theme inline {\n  --color-background: var(--background);\n  --color-foreground: var(--foreground);\n  --font-sans: var(--font-geist-sans);\n  --font-mono: var(--font-geist-mono);\n}\n\n@media (prefers-color-scheme: dark) {\n  :root {\n    --background: #0a0a0a;\n    --foreground: #ededed;\n  }\n}\n\nbody {\n  background: var(--background);\n  color: var(--foreground);\n  font-family: Arial, Helvetica, sans-serif;\n}\nnav ul li {\n  transition: color 0.3s;\n}\n\nnav ul li:hover {\n  color: gray;\n}\n\nbutton {\n  transition: transform 0.2s;\n}\n\nbutton:hover {\n  transform: scale(1.1);\n}\n\nhtml,\nbody {\n  height: 100%;\n  margin: 0;\n}\n\nbody {\n  display: flex;\n  flex-direction: column;\n}"
+        }
+    ]
+}

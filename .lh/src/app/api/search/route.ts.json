@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/search/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747123104070,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747123104070,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from 'next/server';\r\nimport { connectToDatabase } from '@/lib/mongodb';\r\n\r\nexport async function GET(request: Request) {\r\n  try {\r\n    const { searchParams } = new URL(request.url);\r\n    const query = searchParams.get('q');\r\n\r\n    if (!query) {\r\n      return NextResponse.json({ error: 'Search query is required' }, { status: 400 });\r\n    }\r\n\r\n    const { db } = await connectToDatabase();\r\n    \r\n    // Tìm kiếm sản phẩm theo tên, mô tả hoặc danh mục\r\n    const products = await db.collection('products').find({\r\n      $or: [\r\n        { name: { $regex: query, $options: 'i' } },\r\n        { description: { $regex: query, $options: 'i' } },\r\n        { category: { $regex: query, $options: 'i' } }\r\n      ]\r\n    }).limit(10).toArray();\r\n\r\n    return NextResponse.json(products);\r\n  } catch (error) {\r\n    console.error('Search error:', error);\r\n    return NextResponse.json(\r\n      { error: 'Internal server error' },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

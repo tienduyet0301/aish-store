@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/app/api/admin/users/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1746957598431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1746958435503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,9 @@\n import { NextResponse } from \"next/server\";\r\n import { connectToDatabase } from \"@/lib/mongodb\";\r\n-import { getServerSession } from \"next-auth/next\";\r\n-import { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\n \r\n export async function GET() {\r\n   try {\r\n-    // Kiểm tra xem người dùng có phải là admin không\r\n-    const session = await getServerSession(authOptions);\r\n-    if (!session || session.user.email !== process.env.ADMIN_EMAIL) {\r\n-      return NextResponse.json({ error: \"Unauthorized\" }, { status: 401 });\r\n-    }\r\n-\r\n     const { db } = await connectToDatabase();\r\n     const users = await db.collection(\"users\").find({}).toArray();\r\n \r\n     return NextResponse.json(users);\r\n"
+                },
+                {
+                    "date": 1746958500551,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,17 @@\n import { NextResponse } from \"next/server\";\r\n import { connectToDatabase } from \"@/lib/mongodb\";\r\n+import { getServerSession } from \"next-auth/next\";\r\n+import { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\n \r\n export async function GET() {\r\n   try {\r\n+    // Kiểm tra xem người dùng có phải là admin không\r\n+    const session = await getServerSession(authOptions);\r\n+    if (!session || session.user.email !== process.env.ADMIN_EMAIL) {\r\n+      return NextResponse.json({ error: \"Unauthorized\" }, { status: 401 });\r\n+    }\r\n+\r\n     const { db } = await connectToDatabase();\r\n     const users = await db.collection(\"users\").find({}).toArray();\r\n \r\n     return NextResponse.json(users);\r\n"
+                },
+                {
+                    "date": 1746958723012,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,20 +1,11 @@\n import { NextResponse } from \"next/server\";\r\n import { connectToDatabase } from \"@/lib/mongodb\";\r\n-import { getServerSession } from \"next-auth/next\";\r\n-import { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\n \r\n export async function GET() {\r\n   try {\r\n-    // Kiểm tra xem người dùng có phải là admin không\r\n-    const session = await getServerSession(authOptions);\r\n-    if (!session || session.user.email !== process.env.ADMIN_EMAIL) {\r\n-      return NextResponse.json({ error: \"Unauthorized\" }, { status: 401 });\r\n-    }\r\n-\r\n     const { db } = await connectToDatabase();\r\n     const users = await db.collection(\"users\").find({}).toArray();\r\n-\r\n     return NextResponse.json(users);\r\n   } catch (error) {\r\n     return NextResponse.json({ error: \"Internal Server Error\" }, { status: 500 });\r\n   }\r\n"
+                }
+            ],
+            "date": 1746957598431,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from \"@/lib/mongodb\";\r\nimport { getServerSession } from \"next-auth/next\";\r\nimport { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\n\r\nexport async function GET() {\r\n  try {\r\n    // Kiểm tra xem người dùng có phải là admin không\r\n    const session = await getServerSession(authOptions);\r\n    if (!session || session.user.email !== process.env.ADMIN_EMAIL) {\r\n      return NextResponse.json({ error: \"Unauthorized\" }, { status: 401 });\r\n    }\r\n\r\n    const { db } = await connectToDatabase();\r\n    const users = await db.collection(\"users\").find({}).toArray();\r\n\r\n    return NextResponse.json(users);\r\n  } catch (error) {\r\n    return NextResponse.json({ error: \"Internal Server Error\" }, { status: 500 });\r\n  }\r\n} "
+        }
+    ]
+}

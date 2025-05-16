@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/hooks/useProductFilters.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1746893166842,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747301356187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,8 +43,13 @@\n         filteredProducts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());\r\n         break;\r\n     }\r\n \r\n+    console.log('Filtered Products:', filteredProducts);\r\n+    console.log('Selected Colors:', selectedColors);\r\n+    console.log('Selected Sizes:', selectedSizes);\r\n+    console.log('Sort Option:', sortOption);\r\n+\r\n     return filteredProducts;\r\n   }, [initialProducts, selectedColors, selectedSizes, sortOption]);\r\n \r\n   return {\r\n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "import { useState, useMemo } from \"react\";\r\nimport { Product } from \"../types/product\";\r\n\r\nexport const useProductFilters = (initialProducts: Product[]) => {\r\n  const [selectedColors, setSelectedColors] = useState<string[]>([]);\r\n  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);\r\n  const [sortOption, setSortOption] = useState<string>(\"newest\");\r\n\r\n  const sortedProducts = useMemo(() => {\r\n    let filteredProducts = [...initialProducts];\r\n\r\n    // Lọc theo màu sắc\r\n    if (selectedColors.length > 0) {\r\n      filteredProducts = filteredProducts.filter(product => {\r\n        if (!product.colors || !Array.isArray(product.colors)) return false;\r\n        return selectedColors.some(selectedColor => \r\n          product.colors.some(color => color.toLowerCase() === selectedColor.toLowerCase())\r\n        );\r\n      });\r\n    }\r\n\r\n    // Lọc theo kích thước\r\n    if (selectedSizes.length > 0) {\r\n      filteredProducts = filteredProducts.filter(product => {\r\n        const availableSizes: string[] = [];\r\n        if (product.quantityM > 0) availableSizes.push('m');\r\n        if (product.quantityL > 0) availableSizes.push('l');\r\n        if (product.quantityXL > 0) availableSizes.push('xl');\r\n        return selectedSizes.some(size => availableSizes.includes(size.toLowerCase()));\r\n      });\r\n    }\r\n\r\n    // Sắp xếp sản phẩm\r\n    switch (sortOption) {\r\n      case \"price-high-to-low\":\r\n        filteredProducts.sort((a, b) => b.price - a.price);\r\n        break;\r\n      case \"price-low-to-high\":\r\n        filteredProducts.sort((a, b) => a.price - b.price);\r\n        break;\r\n      case \"newest\":\r\n      default:\r\n        filteredProducts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());\r\n        break;\r\n    }\r\n\r\n    return filteredProducts;\r\n  }, [initialProducts, selectedColors, selectedSizes, sortOption]);\r\n\r\n  return {\r\n    selectedColors,\r\n    setSelectedColors,\r\n    selectedSizes,\r\n    setSelectedSizes,\r\n    sortOption,\r\n    setSortOption,\r\n    sortedProducts,\r\n  };\r\n}; "
+        }
+    ]
+}

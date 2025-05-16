@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/context/AuthContext.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747115309564,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747116338756,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,55 +1,1 @@\n-'use client';\r\n-\r\n-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';\r\n-\r\n-interface User {\r\n-  id: string;\r\n-  email: string;\r\n-}\r\n-\r\n-interface AuthContextType {\r\n-  user: User | null;\r\n-  login: (email: string, password: string) => Promise<void>;\r\n-  logout: () => void;\r\n-}\r\n-\r\n-const AuthContext = createContext<AuthContextType | undefined>(undefined);\r\n-\r\n-export function AuthProvider({ children }: { children: ReactNode }) {\r\n-  const [user, setUser] = useState<User | null>(null);\r\n-\r\n-  useEffect(() => {\r\n-    // Check if user is logged in from localStorage\r\n-    const storedUser = localStorage.getItem('user');\r\n-    if (storedUser) {\r\n-      setUser(JSON.parse(storedUser));\r\n-    }\r\n-  }, []);\r\n-\r\n-  const login = async (email: string, password: string) => {\r\n-    // Implement your login logic here\r\n-    // For now, we'll just simulate a successful login\r\n-    const user = { id: '1', email };\r\n-    setUser(user);\r\n-    localStorage.setItem('user', JSON.stringify(user));\r\n-  };\r\n-\r\n-  const logout = () => {\r\n-    setUser(null);\r\n-    localStorage.removeItem('user');\r\n-  };\r\n-\r\n-  return (\r\n-    <AuthContext.Provider value={{ user, login, logout }}>\r\n-      {children}\r\n-    </AuthContext.Provider>\r\n-  );\r\n-}\r\n-\r\n-export function useAuth() {\r\n-  const context = useContext(AuthContext);\r\n-  if (context === undefined) {\r\n-    throw new Error('useAuth must be used within an AuthProvider');\r\n-  }\r\n-  return context;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747115309564,
+            "name": "Commit-0",
+            "content": "'use client';\r\n\r\nimport { createContext, useContext, useState, useEffect, ReactNode } from 'react';\r\n\r\ninterface User {\r\n  id: string;\r\n  email: string;\r\n}\r\n\r\ninterface AuthContextType {\r\n  user: User | null;\r\n  login: (email: string, password: string) => Promise<void>;\r\n  logout: () => void;\r\n}\r\n\r\nconst AuthContext = createContext<AuthContextType | undefined>(undefined);\r\n\r\nexport function AuthProvider({ children }: { children: ReactNode }) {\r\n  const [user, setUser] = useState<User | null>(null);\r\n\r\n  useEffect(() => {\r\n    // Check if user is logged in from localStorage\r\n    const storedUser = localStorage.getItem('user');\r\n    if (storedUser) {\r\n      setUser(JSON.parse(storedUser));\r\n    }\r\n  }, []);\r\n\r\n  const login = async (email: string, password: string) => {\r\n    // Implement your login logic here\r\n    // For now, we'll just simulate a successful login\r\n    const user = { id: '1', email };\r\n    setUser(user);\r\n    localStorage.setItem('user', JSON.stringify(user));\r\n  };\r\n\r\n  const logout = () => {\r\n    setUser(null);\r\n    localStorage.removeItem('user');\r\n  };\r\n\r\n  return (\r\n    <AuthContext.Provider value={{ user, login, logout }}>\r\n      {children}\r\n    </AuthContext.Provider>\r\n  );\r\n}\r\n\r\nexport function useAuth() {\r\n  const context = useContext(AuthContext);\r\n  if (context === undefined) {\r\n    throw new Error('useAuth must be used within an AuthProvider');\r\n  }\r\n  return context;\r\n} "
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/context/CartContext.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1746893166749,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1746893822407,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,27 @@\n \"use client\";\r\n-import { createContext, useContext, useState } from \"react\";\r\n+import { createContext, useContext, useState, useEffect } from \"react\";\r\n \r\n const CartContext = createContext();\r\n \r\n export function CartProvider({ children }) {\r\n-  const [cartItems, setCartItems] = useState([]);\r\n+  // Đọc cartItems từ localStorage khi khởi tạo\r\n+  const [cartItems, setCartItems] = useState(() => {\r\n+    if (typeof window !== \"undefined\") {\r\n+      const stored = localStorage.getItem(\"cartItems\");\r\n+      return stored ? JSON.parse(stored) : [];\r\n+    }\r\n+    return [];\r\n+  });\r\n   const [isCartOpen, setIsCartOpen] = useState(false);\r\n \r\n+  // Lưu cartItems vào localStorage mỗi khi thay đổi\r\n+  useEffect(() => {\r\n+    if (typeof window !== \"undefined\") {\r\n+      localStorage.setItem(\"cartItems\", JSON.stringify(cartItems));\r\n+    }\r\n+  }, [cartItems]);\r\n+\r\n   const addToCart = (item) => {\r\n     setCartItems(prevItems => {\r\n       const existingItem = prevItems.find(i => i.id === item.id && i.size === item.size);\r\n       if (existingItem) {\r\n"
+                },
+                {
+                    "date": 1747063457359,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -69,8 +69,15 @@\n       })\r\n     );\r\n   };\r\n \r\n+  const clearCart = () => {\r\n+    setCartItems([]);\r\n+    if (typeof window !== \"undefined\") {\r\n+      localStorage.removeItem(\"cartItems\");\r\n+    }\r\n+  };\r\n+\r\n   const toggleCart = () => {\r\n     setIsCartOpen((prev) => !prev);\r\n   };\r\n \r\n@@ -83,8 +90,9 @@\n         setIsCartOpen,\r\n         addToCart,\r\n         removeItem,\r\n         updateQuantity,\r\n+        clearCart,\r\n         toggleCart,\r\n       }}\r\n     >\r\n       {children}\r\n"
+                },
+                {
+                    "date": 1747207943656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,16 +54,17 @@\n       ];\r\n     });\r\n   };\r\n \r\n-  const updateQuantity = (itemId, newQuantity, newSize = null) => {\r\n+  const updateQuantity = (itemId, newQuantity, newSize = null, newStock = null) => {\r\n     setCartItems(prevItems => \r\n       prevItems.map(item => {\r\n         if (item.cartItemId === itemId || item.id === itemId) {\r\n           return {\r\n             ...item,\r\n             quantity: newQuantity,\r\n-            ...(newSize && { size: newSize })\r\n+            ...(newSize && { size: newSize }),\r\n+            ...(newStock !== null && { currentStock: newStock })\r\n           };\r\n         }\r\n         return item;\r\n       })\r\n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "\"use client\";\r\nimport { createContext, useContext, useState } from \"react\";\r\n\r\nconst CartContext = createContext();\r\n\r\nexport function CartProvider({ children }) {\r\n  const [cartItems, setCartItems] = useState([]);\r\n  const [isCartOpen, setIsCartOpen] = useState(false);\r\n\r\n  const addToCart = (item) => {\r\n    setCartItems(prevItems => {\r\n      const existingItem = prevItems.find(i => i.id === item.id && i.size === item.size);\r\n      if (existingItem) {\r\n        return prevItems.map(i => \r\n          i.id === item.id && i.size === item.size \r\n            ? { ...i, quantity: i.quantity + item.quantity }\r\n            : i\r\n        );\r\n      }\r\n      return [...prevItems, item];\r\n    });\r\n    setIsCartOpen(true);\r\n  };\r\n\r\n  const removeItem = (itemId) => {\r\n    setCartItems(prevItems => {\r\n      const itemToRemove = prevItems.find(item => item.cartItemId === itemId || item.id === itemId);\r\n      if (!itemToRemove) return prevItems;\r\n      \r\n      const indexToRemove = prevItems.findIndex(item => \r\n        item.cartItemId === itemToRemove.cartItemId || \r\n        (item.id === itemToRemove.id && item.size === itemToRemove.size)\r\n      );\r\n      \r\n      if (indexToRemove === -1) return prevItems;\r\n      \r\n      return [\r\n        ...prevItems.slice(0, indexToRemove),\r\n        ...prevItems.slice(indexToRemove + 1)\r\n      ];\r\n    });\r\n  };\r\n\r\n  const updateQuantity = (itemId, newQuantity, newSize = null) => {\r\n    setCartItems(prevItems => \r\n      prevItems.map(item => {\r\n        if (item.cartItemId === itemId || item.id === itemId) {\r\n          return {\r\n            ...item,\r\n            quantity: newQuantity,\r\n            ...(newSize && { size: newSize })\r\n          };\r\n        }\r\n        return item;\r\n      })\r\n    );\r\n  };\r\n\r\n  const toggleCart = () => {\r\n    setIsCartOpen((prev) => !prev);\r\n  };\r\n\r\n  return (\r\n    <CartContext.Provider\r\n      value={{\r\n        cartItems,\r\n        setCartItems,\r\n        isCartOpen,\r\n        setIsCartOpen,\r\n        addToCart,\r\n        removeItem,\r\n        updateQuantity,\r\n        toggleCart,\r\n      }}\r\n    >\r\n      {children}\r\n    </CartContext.Provider>\r\n  );\r\n}\r\n\r\nexport function useCart() {\r\n  return useContext(CartContext);\r\n}"
+        }
+    ]
+}

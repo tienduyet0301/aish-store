@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/types/next-auth.d.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747245902629,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747245937552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,19 +1,1 @@\n-import NextAuth from \"next-auth\";\r\n-\r\n-declare module \"next-auth\" {\r\n-  interface Session {\r\n-    user: {\r\n-      id?: string;\r\n-      name?: string | null;\r\n-      email?: string | null;\r\n-      image?: string | null;\r\n-      role?: string;\r\n-      firstName?: string;\r\n-      lastName?: string;\r\n-      birthDay?: string;\r\n-      birthMonth?: string;\r\n-      birthYear?: string;\r\n-      provider?: string;\r\n-    }\r\n-  }\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747245902629,
+            "name": "Commit-0",
+            "content": "import NextAuth from \"next-auth\";\r\n\r\ndeclare module \"next-auth\" {\r\n  interface Session {\r\n    user: {\r\n      id?: string;\r\n      name?: string | null;\r\n      email?: string | null;\r\n      image?: string | null;\r\n      role?: string;\r\n      firstName?: string;\r\n      lastName?: string;\r\n      birthDay?: string;\r\n      birthMonth?: string;\r\n      birthYear?: string;\r\n      provider?: string;\r\n    }\r\n  }\r\n} "
+        }
+    ]
+}

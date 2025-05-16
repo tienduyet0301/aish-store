@@ -1,0 +1,34 @@
+{
+    "sourceFile": "src/app/api/admin/check-access/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1747119991378,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747120079805,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import { NextResponse } from \"next/server\";\r\n+    import { NextResponse } from \"next/server\";\r\n import { getServerSession } from \"next-auth\";\r\n import { authOptions } from \"@/lib/auth\";\r\n import prisma from \"@/lib/prisma\";\r\n \r\n"
+                },
+                {
+                    "date": 1747120134744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n-    import { NextResponse } from \"next/server\";\r\n+import { NextResponse } from \"next/server\";\r\n import { getServerSession } from \"next-auth\";\r\n-import { authOptions } from \"@/lib/auth\";\r\n-import prisma from \"@/lib/prisma\";\r\n+import { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\n+import { connectToDatabase } from \"@/lib/mongodb\";\r\n \r\n export async function GET() {\r\n   try {\r\n     const session = await getServerSession(authOptions);\r\n@@ -10,14 +10,21 @@\n     if (!session?.user?.email) {\r\n       return new NextResponse(\"Unauthorized\", { status: 401 });\r\n     }\r\n \r\n-    const user = await prisma.user.findUnique({\r\n-      where: { email: session.user.email },\r\n-      select: { role: true }\r\n+    // Kiểm tra nếu là admin\r\n+    if (session.user.email === process.env.ADMIN_USERNAME) {\r\n+      return new NextResponse(\"Authorized\", { status: 200 });\r\n+    }\r\n+\r\n+    // Kiểm tra user thường\r\n+    const { db } = await connectToDatabase();\r\n+    const user = await db.collection(\"users\").findOne({ \r\n+      email: session.user.email,\r\n+      role: \"ADMIN\"\r\n     });\r\n \r\n-    if (!user || user.role !== \"ADMIN\") {\r\n+    if (!user) {\r\n       return new NextResponse(\"Forbidden\", { status: 403 });\r\n     }\r\n \r\n     return new NextResponse(\"Authorized\", { status: 200 });\r\n"
+                },
+                {
+                    "date": 1747120204999,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,10 +10,10 @@\n     if (!session?.user?.email) {\r\n       return new NextResponse(\"Unauthorized\", { status: 401 });\r\n     }\r\n \r\n-    // Kiểm tra nếu là admin\r\n-    if (session.user.email === process.env.ADMIN_USERNAME) {\r\n+    // Kiểm tra nếu là admin từ session\r\n+    if (session.user.role === \"ADMIN\") {\r\n       return new NextResponse(\"Authorized\", { status: 200 });\r\n     }\r\n \r\n     // Kiểm tra user thường\r\n"
+                },
+                {
+                    "date": 1747122277849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,7 @@\n import { NextResponse } from \"next/server\";\r\n import { getServerSession } from \"next-auth\";\r\n import { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\n-import { connectToDatabase } from \"@/lib/mongodb\";\r\n \r\n export async function GET() {\r\n   try {\r\n     const session = await getServerSession(authOptions);\r\n@@ -10,25 +9,14 @@\n     if (!session?.user?.email) {\r\n       return new NextResponse(\"Unauthorized\", { status: 401 });\r\n     }\r\n \r\n-    // Kiểm tra nếu là admin từ session\r\n+    // Chỉ cần kiểm tra role trong session\r\n     if (session.user.role === \"ADMIN\") {\r\n       return new NextResponse(\"Authorized\", { status: 200 });\r\n     }\r\n \r\n-    // Kiểm tra user thường\r\n-    const { db } = await connectToDatabase();\r\n-    const user = await db.collection(\"users\").findOne({ \r\n-      email: session.user.email,\r\n-      role: \"ADMIN\"\r\n-    });\r\n-\r\n-    if (!user) {\r\n-      return new NextResponse(\"Forbidden\", { status: 403 });\r\n-    }\r\n-\r\n-    return new NextResponse(\"Authorized\", { status: 200 });\r\n+    return new NextResponse(\"Forbidden\", { status: 403 });\r\n   } catch (error) {\r\n     console.error(\"[ADMIN_CHECK_ACCESS]\", error);\r\n     return new NextResponse(\"Internal Error\", { status: 500 });\r\n   }\r\n"
+                }
+            ],
+            "date": 1747119991378,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { getServerSession } from \"next-auth\";\r\nimport { authOptions } from \"@/lib/auth\";\r\nimport prisma from \"@/lib/prisma\";\r\n\r\nexport async function GET() {\r\n  try {\r\n    const session = await getServerSession(authOptions);\r\n\r\n    if (!session?.user?.email) {\r\n      return new NextResponse(\"Unauthorized\", { status: 401 });\r\n    }\r\n\r\n    const user = await prisma.user.findUnique({\r\n      where: { email: session.user.email },\r\n      select: { role: true }\r\n    });\r\n\r\n    if (!user || user.role !== \"ADMIN\") {\r\n      return new NextResponse(\"Forbidden\", { status: 403 });\r\n    }\r\n\r\n    return new NextResponse(\"Authorized\", { status: 200 });\r\n  } catch (error) {\r\n    console.error(\"[ADMIN_CHECK_ACCESS]\", error);\r\n    return new NextResponse(\"Internal Error\", { status: 500 });\r\n  }\r\n} "
+        }
+    ]
+}

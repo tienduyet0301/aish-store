@@ -1,0 +1,21 @@
+.orderCode {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2C3E50;
+  margin-bottom: 4px;
+}
+
+.orderDate {
+  font-size: 14px;
+  color: #666;
+}
+
+@media screen and (max-width: 768px) {
+  .orderCode {
+    font-size: 13px;
+  }
+  
+  .orderDate {
+    font-size: 11px;
+  }
+} 

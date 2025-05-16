@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/lib/mongodb.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1747059133796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747059146874,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,38 +1,1 @@\n-import mongoose from 'mongoose';\r\n-\r\n-const MONGODB_URI = process.env.MONGODB_URI;\r\n-\r\n-if (!MONGODB_URI) {\r\n-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');\r\n-}\r\n-\r\n-let cached = global.mongoose;\r\n-\r\n-if (!cached) {\r\n-  cached = global.mongoose = { conn: null, promise: null };\r\n-}\r\n-\r\n-export async function connectToDatabase() {\r\n-  if (cached.conn) {\r\n-    return cached.conn;\r\n-  }\r\n-\r\n-  if (!cached.promise) {\r\n-    const opts = {\r\n-      bufferCommands: false,\r\n-    };\r\n-\r\n-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {\r\n-      return mongoose;\r\n-    });\r\n-  }\r\n-\r\n-  try {\r\n-    cached.conn = await cached.promise;\r\n-  } catch (e) {\r\n-    cached.promise = null;\r\n-    throw e;\r\n-  }\r\n-\r\n-  return cached.conn;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747112876937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,35 @@\n- \n\\ No newline at end of file\n+import { MongoClient } from 'mongodb';\r\n+\r\n+const MONGODB_URI = process.env.MONGODB_URI;\r\n+\r\n+if (!MONGODB_URI) {\r\n+  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');\r\n+}\r\n+\r\n+let cached = global.mongo;\r\n+\r\n+if (!cached) {\r\n+  cached = global.mongo = { conn: null, promise: null };\r\n+}\r\n+\r\n+export async function connectToDatabase() {\r\n+  if (cached.conn) {\r\n+    return cached.conn;\r\n+  }\r\n+\r\n+  if (!cached.promise) {\r\n+    const opts = {\r\n+      useNewUrlParser: true,\r\n+      useUnifiedTopology: true,\r\n+    };\r\n+\r\n+    cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {\r\n+      return {\r\n+        client,\r\n+        db: client.db(process.env.MONGODB_DB),\r\n+      };\r\n+    });\r\n+  }\r\n+  cached.conn = await cached.promise;\r\n+  return cached.conn;\r\n+} \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747112885647,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,35 +1,1 @@\n-import { MongoClient } from 'mongodb';\r\n-\r\n-const MONGODB_URI = process.env.MONGODB_URI;\r\n-\r\n-if (!MONGODB_URI) {\r\n-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');\r\n-}\r\n-\r\n-let cached = global.mongo;\r\n-\r\n-if (!cached) {\r\n-  cached = global.mongo = { conn: null, promise: null };\r\n-}\r\n-\r\n-export async function connectToDatabase() {\r\n-  if (cached.conn) {\r\n-    return cached.conn;\r\n-  }\r\n-\r\n-  if (!cached.promise) {\r\n-    const opts = {\r\n-      useNewUrlParser: true,\r\n-      useUnifiedTopology: true,\r\n-    };\r\n-\r\n-    cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {\r\n-      return {\r\n-        client,\r\n-        db: client.db(process.env.MONGODB_DB),\r\n-      };\r\n-    });\r\n-  }\r\n-  cached.conn = await cached.promise;\r\n-  return cached.conn;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747059133796,
+            "name": "Commit-0",
+            "content": "import mongoose from 'mongoose';\r\n\r\nconst MONGODB_URI = process.env.MONGODB_URI;\r\n\r\nif (!MONGODB_URI) {\r\n  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');\r\n}\r\n\r\nlet cached = global.mongoose;\r\n\r\nif (!cached) {\r\n  cached = global.mongoose = { conn: null, promise: null };\r\n}\r\n\r\nexport async function connectToDatabase() {\r\n  if (cached.conn) {\r\n    return cached.conn;\r\n  }\r\n\r\n  if (!cached.promise) {\r\n    const opts = {\r\n      bufferCommands: false,\r\n    };\r\n\r\n    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {\r\n      return mongoose;\r\n    });\r\n  }\r\n\r\n  try {\r\n    cached.conn = await cached.promise;\r\n  } catch (e) {\r\n    cached.promise = null;\r\n    throw e;\r\n  }\r\n\r\n  return cached.conn;\r\n} "
+        }
+    ]
+}

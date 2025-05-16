@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/app/api/admin/users/change-password/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1746958977118,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747214772238,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n import { NextResponse } from \"next/server\";\r\n import { connectToDatabase } from \"@/lib/mongodb\";\r\n import bcrypt from \"bcryptjs\";\r\n+import { ObjectId } from \"mongodb\";\r\n \r\n export async function POST(request: Request) {\r\n   try {\r\n     const { userId, newPassword } = await request.json();\r\n@@ -16,9 +17,9 @@\n     const hashedPassword = await bcrypt.hash(newPassword, 10);\r\n     \r\n     // Cập nhật mật khẩu trong database\r\n     await db.collection(\"users\").updateOne(\r\n-      { _id: userId },\r\n+      { _id: new ObjectId(userId) },\r\n       { $set: { password: hashedPassword } }\r\n     );\r\n \r\n     return NextResponse.json({ message: \"Password updated successfully\" });\r\n"
+                },
+                {
+                    "date": 1747215001733,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,17 @@\n       return NextResponse.json({ error: \"Missing required fields\" }, { status: 400 });\r\n     }\r\n \r\n     const { db } = await connectToDatabase();\r\n+\r\n+    // Kiểm tra user tồn tại và provider\r\n+    const user = await db.collection(\"users\").findOne({ _id: new ObjectId(userId) });\r\n+    if (!user) {\r\n+      return NextResponse.json({ error: \"User not found\" }, { status: 404 });\r\n+    }\r\n+    if (user.provider && user.provider !== \"credentials\") {\r\n+      return NextResponse.json({ error: \"Cannot change password for Google account\" }, { status: 400 });\r\n+    }\r\n     \r\n     // Hash mật khẩu mới\r\n     const hashedPassword = await bcrypt.hash(newPassword, 10);\r\n     \r\n"
+                }
+            ],
+            "date": 1746958977118,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from \"@/lib/mongodb\";\r\nimport bcrypt from \"bcryptjs\";\r\n\r\nexport async function POST(request: Request) {\r\n  try {\r\n    const { userId, newPassword } = await request.json();\r\n    \r\n    if (!userId || !newPassword) {\r\n      return NextResponse.json({ error: \"Missing required fields\" }, { status: 400 });\r\n    }\r\n\r\n    const { db } = await connectToDatabase();\r\n    \r\n    // Hash mật khẩu mới\r\n    const hashedPassword = await bcrypt.hash(newPassword, 10);\r\n    \r\n    // Cập nhật mật khẩu trong database\r\n    await db.collection(\"users\").updateOne(\r\n      { _id: userId },\r\n      { $set: { password: hashedPassword } }\r\n    );\r\n\r\n    return NextResponse.json({ message: \"Password updated successfully\" });\r\n  } catch (error) {\r\n    return NextResponse.json({ error: \"Internal Server Error\" }, { status: 500 });\r\n  }\r\n} "
+        }
+    ]
+}

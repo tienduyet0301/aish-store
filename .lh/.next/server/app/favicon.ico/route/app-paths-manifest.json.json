@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".next/server/app/favicon.ico/route/app-paths-manifest.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891720728,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "{\n  \"/favicon.ico/route\": \"app/favicon.ico/route.js\"\n}"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/hooks/useCart.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746959429137,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746959429137,
+            "name": "Commit-0",
+            "content": "import { create } from \"zustand\";\r\nimport { persist } from \"zustand/middleware\";\r\nimport { useSession } from \"next-auth/react\";\r\nimport { useEffect } from \"react\";\r\n\r\ninterface CartItem {\r\n  id: string;\r\n  name: string;\r\n  price: number;\r\n  quantity: number;\r\n  image: string;\r\n}\r\n\r\ninterface CartStore {\r\n  items: CartItem[];\r\n  addItem: (item: CartItem) => void;\r\n  removeItem: (id: string) => void;\r\n  updateQuantity: (id: string, quantity: number) => void;\r\n  clearCart: () => void;\r\n  setItems: (items: CartItem[]) => void;\r\n}\r\n\r\nconst useCartStore = create<CartStore>()(\r\n  persist(\r\n    (set) => ({\r\n      items: [],\r\n      addItem: (item) =>\r\n        set((state) => {\r\n          const existingItem = state.items.find((i) => i.id === item.id);\r\n          if (existingItem) {\r\n            return {\r\n              items: state.items.map((i) =>\r\n                i.id === item.id\r\n                  ? { ...i, quantity: i.quantity + item.quantity }\r\n                  : i\r\n              ),\r\n            };\r\n          }\r\n          return { items: [...state.items, item] };\r\n        }),\r\n      removeItem: (id) =>\r\n        set((state) => ({\r\n          items: state.items.filter((item) => item.id !== id),\r\n        })),\r\n      updateQuantity: (id, quantity) =>\r\n        set((state) => ({\r\n          items: state.items.map((item) =>\r\n            item.id === id ? { ...item, quantity } : item\r\n          ),\r\n        })),\r\n      clearCart: () => set({ items: [] }),\r\n      setItems: (items) => set({ items }),\r\n    }),\r\n    {\r\n      name: \"cart-storage\",\r\n    }\r\n  )\r\n);\r\n\r\nexport const useCart = () => {\r\n  const { data: session } = useSession();\r\n  const { items, addItem, removeItem, updateQuantity, clearCart, setItems } = useCartStore();\r\n\r\n  // Khi đăng nhập, lấy giỏ hàng từ database\r\n  useEffect(() => {\r\n    if (session?.user?.email) {\r\n      fetch(\"/api/cart\")\r\n        .then((res) => res.json())\r\n        .then((data) => {\r\n          if (data.length > 0) {\r\n            setItems(data);\r\n          }\r\n        })\r\n        .catch((error) => console.error(\"Error fetching cart:\", error));\r\n    }\r\n  }, [session]);\r\n\r\n  // Khi giỏ hàng thay đổi và đã đăng nhập, lưu vào database\r\n  useEffect(() => {\r\n    if (session?.user?.email && items.length > 0) {\r\n      fetch(\"/api/cart\", {\r\n        method: \"POST\",\r\n        headers: {\r\n          \"Content-Type\": \"application/json\",\r\n        },\r\n        body: JSON.stringify(items),\r\n      }).catch((error) => console.error(\"Error saving cart:\", error));\r\n    }\r\n  }, [items, session]);\r\n\r\n  return {\r\n    items,\r\n    addItem,\r\n    removeItem,\r\n    updateQuantity,\r\n    clearCart,\r\n  };\r\n}; "
+        }
+    ]
+}

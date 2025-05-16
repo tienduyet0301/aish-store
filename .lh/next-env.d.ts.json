@@ -1,0 +1,18 @@
+{
+    "sourceFile": "next-env.d.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891749070,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "/// <reference types=\"next\" />\r\n/// <reference types=\"next/image-types/global\" />\r\n\r\n// NOTE: This file should not be edited\r\n// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.\r\n"
+        }
+    ]
+}

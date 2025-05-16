@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/scripts/seedData.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746893166996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "import clientPromise from '../lib/mongodb';\r\n\r\nconst seedBanners = async (db) => {\r\n  const banners = [\r\n    {\r\n      imageUrl: \"/images/banner1.jpg\",\r\n      title: \"Banner 1\",\r\n      description: \"Summer Collection\",\r\n      link: \"/collections/summer\",\r\n      order: 1,\r\n      isActive: true,\r\n      createdAt: new Date(),\r\n      updatedAt: new Date()\r\n    },\r\n    {\r\n      imageUrl: \"/images/banner2.jpg\",\r\n      title: \"Banner 2\",\r\n      description: \"New Arrivals\",\r\n      link: \"/collections/new-arrivals\",\r\n      order: 2,\r\n      isActive: true,\r\n      createdAt: new Date(),\r\n      updatedAt: new Date()\r\n    }\r\n  ];\r\n\r\n  try {\r\n    await db.collection(\"banners\").deleteMany({});\r\n    const result = await db.collection(\"banners\").insertMany(banners);\r\n    console.log(`Seeded ${result.insertedCount} banners`);\r\n  } catch (error) {\r\n    console.error(\"Error seeding banners:\", error);\r\n  }\r\n};\r\n\r\nconst seedProducts = async (db) => {\r\n  const products = [\r\n    {\r\n      name: \"Product 1\",\r\n      price: 350000,\r\n      description: \"Product 1 description\",\r\n      images: [\"/images/product1.jpg\"],\r\n      category: \"Category 1\",\r\n      sizes: [\"S\", \"M\", \"L\"],\r\n      colors: [\"Black\", \"White\"],\r\n      stock: 100,\r\n      isActive: true,\r\n      createdAt: new Date(),\r\n      updatedAt: new Date()\r\n    },\r\n    {\r\n      name: \"Product 2\",\r\n      price: 450000,\r\n      description: \"Product 2 description\",\r\n      images: [\"/images/product2.jpg\"],\r\n      category: \"Category 2\",\r\n      sizes: [\"S\", \"M\", \"L\"],\r\n      colors: [\"Red\", \"Blue\"],\r\n      stock: 50,\r\n      isActive: true,\r\n      createdAt: new Date(),\r\n      updatedAt: new Date()\r\n    }\r\n  ];\r\n\r\n  try {\r\n    await db.collection(\"products\").deleteMany({});\r\n    const result = await db.collection(\"products\").insertMany(products);\r\n    console.log(`Seeded ${result.insertedCount} products`);\r\n  } catch (error) {\r\n    console.error(\"Error seeding products:\", error);\r\n  }\r\n};\r\n\r\nconst seedData = async () => {\r\n  try {\r\n    const client = await clientPromise;\r\n    const db = client.db(\"aishh\");\r\n\r\n    await seedBanners(db);\r\n    await seedProducts(db);\r\n\r\n    console.log(\"Seeding completed successfully\");\r\n    process.exit(0);\r\n  } catch (error) {\r\n    console.error(\"Error seeding data:\", error);\r\n    process.exit(1);\r\n  }\r\n};\r\n\r\nseedData(); "
+        }
+    ]
+}

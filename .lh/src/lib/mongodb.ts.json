@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/lib/mongodb.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746893166912,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "import { MongoClient } from \"mongodb\";\r\n\r\nif (!process.env.MONGODB_URI) {\r\n  throw new Error('Invalid/Missing environment variable: \"MONGODB_URI\"');\r\n}\r\n\r\nconst uri = process.env.MONGODB_URI;\r\nconst options = {};\r\n\r\nlet client;\r\nlet clientPromise: Promise<MongoClient>;\r\n\r\nif (process.env.NODE_ENV === \"development\") {\r\n  // In development mode, use a global variable so that the value\r\n  // is preserved across module reloads caused by HMR (Hot Module Replacement).\r\n  let globalWithMongo = global as typeof globalThis & {\r\n    _mongoClientPromise?: Promise<MongoClient>;\r\n  };\r\n\r\n  if (!globalWithMongo._mongoClientPromise) {\r\n    client = new MongoClient(uri, options);\r\n    globalWithMongo._mongoClientPromise = client.connect();\r\n  }\r\n  clientPromise = globalWithMongo._mongoClientPromise;\r\n} else {\r\n  // In production mode, it's best to not use a global variable.\r\n  client = new MongoClient(uri, options);\r\n  clientPromise = client.connect();\r\n}\r\n\r\nexport async function connectToDatabase() {\r\n  const client = await clientPromise;\r\n  const db = client.db(\"aishh\");\r\n\r\n  // Update schema if needed\r\n  const collections = await db.listCollections().toArray();\r\n  const collectionNames = collections.map(col => col.name);\r\n\r\n  // Create banners collection if it doesn't exist\r\n  if (!collectionNames.includes(\"banners\")) {\r\n    await db.createCollection(\"banners\");\r\n    // Create indexes\r\n    await db.collection(\"banners\").createIndex({ order: 1 });\r\n    await db.collection(\"banners\").createIndex({ createdAt: 1 });\r\n  }\r\n\r\n  // Update products schema if needed\r\n  if (collectionNames.includes(\"products\")) {\r\n    await db.collection(\"products\").updateMany(\r\n      { sizeGuideImage: { $exists: false } },\r\n      { $set: { sizeGuideImage: \"\" } }\r\n    );\r\n  }\r\n\r\n  return { client, db };\r\n}\r\n\r\nexport default clientPromise; "
+        }
+    ]
+}

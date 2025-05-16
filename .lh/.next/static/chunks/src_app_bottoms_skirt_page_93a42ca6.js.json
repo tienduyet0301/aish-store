@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".next/static/chunks/src_app_bottoms_skirt_page_93a42ca6.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891744172,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "(globalThis.TURBOPACK_CHUNK_LISTS = globalThis.TURBOPACK_CHUNK_LISTS || []).push({\n    script: typeof document === \"object\" ? document.currentScript : undefined,\n    chunks: [\n  \"static/chunks/node_modules_8c29bf8d._.js\",\n  \"static/chunks/src_38462cfa._.js\"\n],\n    source: \"dynamic\"\n});\n"
+        }
+    ]
+}

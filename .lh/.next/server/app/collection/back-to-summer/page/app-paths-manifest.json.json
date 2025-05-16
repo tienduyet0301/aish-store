@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".next/server/app/collection/back-to-summer/page/app-paths-manifest.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891720195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "{\n  \"/collection/back-to-summer/page\": \"app/collection/back-to-summer/page.js\"\n}"
+        }
+    ]
+}

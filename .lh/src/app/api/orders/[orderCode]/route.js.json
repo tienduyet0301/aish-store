@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/api/orders/[orderCode]/route.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747066488901,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747066528662,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,26 +1,1 @@\n-import { NextResponse } from 'next/server';\r\n-import { connectToDatabase } from '@/lib/mongodb';\r\n-\r\n-export async function GET(request, { params }) {\r\n-  try {\r\n-    const { orderCode } = params;\r\n-    const { db } = await connectToDatabase();\r\n-    \r\n-    const order = await db.collection('orders').findOne({ orderCode });\r\n-    \r\n-    if (!order) {\r\n-      return NextResponse.json(\r\n-        { error: 'Order not found' },\r\n-        { status: 404 }\r\n-      );\r\n-    }\r\n-\r\n-    return NextResponse.json(order);\r\n-  } catch (error) {\r\n-    console.error('Error fetching order:', error);\r\n-    return NextResponse.json(\r\n-      { error: 'Internal server error' },\r\n-      { status: 500 }\r\n-    );\r\n-  }\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747066488901,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from 'next/server';\r\nimport { connectToDatabase } from '@/lib/mongodb';\r\n\r\nexport async function GET(request, { params }) {\r\n  try {\r\n    const { orderCode } = params;\r\n    const { db } = await connectToDatabase();\r\n    \r\n    const order = await db.collection('orders').findOne({ orderCode });\r\n    \r\n    if (!order) {\r\n      return NextResponse.json(\r\n        { error: 'Order not found' },\r\n        { status: 404 }\r\n      );\r\n    }\r\n\r\n    return NextResponse.json(order);\r\n  } catch (error) {\r\n    console.error('Error fetching order:', error);\r\n    return NextResponse.json(\r\n      { error: 'Internal server error' },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

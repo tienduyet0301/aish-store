@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/api/products/update-slugs/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747126771120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747127048465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,10 +6,14 @@\n   try {\r\n     const { db } = await connectToDatabase();\r\n     const products = await db.collection(\"products\").find({}).toArray();\r\n     \r\n+    console.log(\"Found products:\", products.length);\r\n+    \r\n     for (const product of products) {\r\n       let slug = createSlug(product.name);\r\n+      console.log(`Processing product: ${product.name}`);\r\n+      console.log(`Generated slug: ${slug}`);\r\n       \r\n       // Kiểm tra xem slug đã tồn tại chưa\r\n       const existingProduct = await db.collection(\"products\").findOne({ \r\n         slug, \r\n@@ -19,19 +23,28 @@\n       if (existingProduct) {\r\n         // Nếu slug đã tồn tại, thêm timestamp vào cuối\r\n         const timestamp = Date.now();\r\n         slug = `${slug}-${timestamp}`;\r\n+        console.log(`Slug already exists, new slug: ${slug}`);\r\n       }\r\n \r\n-      await db.collection(\"products\").updateOne(\r\n+      const result = await db.collection(\"products\").updateOne(\r\n         { _id: product._id },\r\n         { $set: { slug } }\r\n       );\r\n+      \r\n+      console.log(`Update result for ${product.name}:`, result.modifiedCount > 0 ? \"Success\" : \"Failed\");\r\n     }\r\n \r\n+    // Kiểm tra lại sau khi cập nhật\r\n+    const updatedProducts = await db.collection(\"products\").find({}).toArray();\r\n+    const slugs = updatedProducts.map(p => ({ name: p.name, slug: p.slug }));\r\n+    console.log(\"Updated products with slugs:\", slugs);\r\n+\r\n     return NextResponse.json({ \r\n       ok: true, \r\n-      message: `Updated ${products.length} products with slugs` \r\n+      message: `Updated ${products.length} products with slugs`,\r\n+      slugs\r\n     });\r\n   } catch (error) {\r\n     console.error(\"Error updating slugs:\", error);\r\n     return NextResponse.json(\r\n"
+                }
+            ],
+            "date": 1747126771120,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from \"@/lib/mongodb\";\r\nimport { createSlug } from \"@/lib/utils\";\r\n\r\nexport async function POST() {\r\n  try {\r\n    const { db } = await connectToDatabase();\r\n    const products = await db.collection(\"products\").find({}).toArray();\r\n    \r\n    for (const product of products) {\r\n      let slug = createSlug(product.name);\r\n      \r\n      // Kiểm tra xem slug đã tồn tại chưa\r\n      const existingProduct = await db.collection(\"products\").findOne({ \r\n        slug, \r\n        _id: { $ne: product._id } \r\n      });\r\n      \r\n      if (existingProduct) {\r\n        // Nếu slug đã tồn tại, thêm timestamp vào cuối\r\n        const timestamp = Date.now();\r\n        slug = `${slug}-${timestamp}`;\r\n      }\r\n\r\n      await db.collection(\"products\").updateOne(\r\n        { _id: product._id },\r\n        { $set: { slug } }\r\n      );\r\n    }\r\n\r\n    return NextResponse.json({ \r\n      ok: true, \r\n      message: `Updated ${products.length} products with slugs` \r\n    });\r\n  } catch (error) {\r\n    console.error(\"Error updating slugs:\", error);\r\n    return NextResponse.json(\r\n      { ok: false, error: \"Failed to update slugs\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".next/server/app/bottoms/pants/page/react-loadable-manifest.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891718790,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "{}"
+        }
+    ]
+}

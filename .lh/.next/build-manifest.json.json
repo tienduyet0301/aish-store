@@ -1,0 +1,18 @@
+{
+    "sourceFile": ".next/build-manifest.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746891704527,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "{\n  \"pages\": {\n    \"/_app\": [\n      \"static/chunks/[root-of-the-server]__ec07ee34._.js\",\n      \"static/chunks/node_modules_react-dom_82bb97c6._.js\",\n      \"static/chunks/node_modules_a51498a5._.js\",\n      \"static/chunks/[root-of-the-server]__49fd8634._.js\",\n      \"static/chunks/pages__app_5771e187._.js\",\n      \"static/chunks/pages__app_049595de._.js\"\n    ],\n    \"/_error\": [\n      \"static/chunks/[root-of-the-server]__527cd323._.js\",\n      \"static/chunks/node_modules_react-dom_82bb97c6._.js\",\n      \"static/chunks/node_modules_a51498a5._.js\",\n      \"static/chunks/[root-of-the-server]__923cb372._.js\",\n      \"static/chunks/pages__error_5771e187._.js\",\n      \"static/chunks/pages__error_c5ed9705._.js\"\n    ]\n  },\n  \"devFiles\": [],\n  \"ampDevFiles\": [],\n  \"polyfillFiles\": [\n    \"static/chunks/node_modules_next_dist_build_polyfills_polyfill-nomodule.js\"\n  ],\n  \"lowPriorityFiles\": [\n    \"static/development/_ssgManifest.js\",\n    \"static/development/_buildManifest.js\"\n  ],\n  \"rootMainFiles\": [\n    \"static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_fd44f5a4._.js\",\n    \"static/chunks/node_modules_next_dist_compiled_2ce9398a._.js\",\n    \"static/chunks/node_modules_next_dist_client_8f19e6fb._.js\",\n    \"static/chunks/node_modules_next_dist_2ecbf5fa._.js\",\n    \"static/chunks/node_modules_@swc_helpers_cjs_00636ac3._.js\",\n    \"static/chunks/_e69f0d32._.js\",\n    \"static/chunks/_93808211._.js\"\n  ],\n  \"ampFirstPages\": []\n}"
+        }
+    ]
+}

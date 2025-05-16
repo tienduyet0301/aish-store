@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/types/product.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1746893167059,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747126790710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,5 +18,6 @@\n   createdAt: string;\n   updatedAt: string;\n   colors: string[];\n   sizes: string[];\n+  slug: string;\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747199326628,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,13 @@\n   quantityM: number;\n   quantityL: number;\n   quantityXL: number;\n   quantityHat: number;\n+  outOfStockM?: boolean;\n+  outOfStockL?: boolean;\n+  outOfStockXL?: boolean;\n+  outOfStockHat?: boolean;\n+  outOfStock?: boolean;\n   productCode: string;\n   details: string;\n   category: string;\n   collection: string;\n@@ -19,5 +24,7 @@\n   updatedAt: string;\n   colors: string[];\n   sizes: string[];\n   slug: string;\n+  [key: `quantity${string}`]: number;\n+  [key: `outOfStock${string}`]: boolean;\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747199334153,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,13 +8,13 @@\n   quantityM: number;\n   quantityL: number;\n   quantityXL: number;\n   quantityHat: number;\n-  outOfStockM?: boolean;\n-  outOfStockL?: boolean;\n-  outOfStockXL?: boolean;\n-  outOfStockHat?: boolean;\n-  outOfStock?: boolean;\n+  outOfStockM: boolean;\n+  outOfStockL: boolean;\n+  outOfStockXL: boolean;\n+  outOfStockHat: boolean;\n+  outOfStock: boolean;\n   productCode: string;\n   details: string;\n   category: string;\n   collection: string;\n"
+                },
+                {
+                    "date": 1747199339885,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n   details: string;\n   category: string;\n   collection: string;\n   selectedSize?: string;\n-  quantity?: number;\n+  quantity: number;\n   createdAt: string;\n   updatedAt: string;\n   colors: string[];\n   sizes: string[];\n"
+                },
+                {
+                    "date": 1747278614680,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,15 @@\n export interface Product {\n-  _id: string;\n+  id: string;\n   name: string;\n+  description: string;\n   price: number;\n-  description: string;\n   images: string[];\n+  category: string;\n+  sizes: string[];\n+  colors: string[];\n+  inStock: boolean;\n+  _id: string;\n   sizeGuideImage?: string;\n   quantityM: number;\n   quantityL: number;\n   quantityXL: number;\n@@ -15,16 +20,13 @@\n   outOfStockHat: boolean;\n   outOfStock: boolean;\n   productCode: string;\n   details: string;\n-  category: string;\n   collection: string;\n   selectedSize?: string;\n   quantity: number;\n   createdAt: string;\n   updatedAt: string;\n-  colors: string[];\n-  sizes: string[];\n   slug: string;\n   [key: `quantity${string}`]: number;\n   [key: `outOfStock${string}`]: boolean;\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747278658920,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,10 @@\n export interface Product {\n-  id: string;\n+  _id: string;\n   name: string;\n+  price: number;\n   description: string;\n-  price: number;\n   images: string[];\n-  category: string;\n-  sizes: string[];\n-  colors: string[];\n-  inStock: boolean;\n-  _id: string;\n   sizeGuideImage?: string;\n   quantityM: number;\n   quantityL: number;\n   quantityXL: number;\n@@ -20,13 +15,16 @@\n   outOfStockHat: boolean;\n   outOfStock: boolean;\n   productCode: string;\n   details: string;\n+  category: string;\n   collection: string;\n   selectedSize?: string;\n   quantity: number;\n   createdAt: string;\n   updatedAt: string;\n+  colors: string[];\n+  sizes: string[];\n   slug: string;\n   [key: `quantity${string}`]: number;\n   [key: `outOfStock${string}`]: boolean;\n } \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1746891704042,
+            "name": "cart",
+            "content": "export interface Product {\n  _id: string;\n  name: string;\n  price: number;\n  description: string;\n  images: string[];\n  sizeGuideImage?: string;\n  quantityM: number;\n  quantityL: number;\n  quantityXL: number;\n  quantityHat: number;\n  productCode: string;\n  details: string;\n  category: string;\n  collection: string;\n  selectedSize?: string;\n  quantity?: number;\n  createdAt: string;\n  updatedAt: string;\n  colors: string[];\n  sizes: string[];\n} "
+        }
+    ]
+}

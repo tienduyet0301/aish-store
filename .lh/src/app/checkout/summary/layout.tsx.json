@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/app/checkout/summary/layout.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1747287816227,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747287876768,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,17 @@\n export const metadata = {\r\n-  title: 'Checkout | AISH',\r\n+  title: 'Checkout Summary | AISH',\r\n };\r\n \r\n-export default function CartLayout({\r\n+export default function CheckoutSummaryLayout({\r\n   children,\r\n }: {\r\n   children: React.ReactNode;\r\n }) {\r\n-  return children;\r\n+  return (\r\n+    <div className=\"min-h-screen bg-white\">\r\n+      <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8\">\r\n+        {children}\r\n+      </div>\r\n+    </div>\r\n+  );\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747287948830,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,11 @@\n export const metadata = {\r\n-  title: 'Checkout Summary | AISH',\r\n+  title: 'Checkout | AISH',\r\n };\r\n \r\n-export default function CheckoutSummaryLayout({\r\n+export default function CheckoutLayout({\r\n   children,\r\n }: {\r\n   children: React.ReactNode;\r\n }) {\r\n-  return (\r\n-    <div className=\"min-h-screen bg-white\">\r\n-      <div className=\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8\">\r\n-        {children}\r\n-      </div>\r\n-    </div>\r\n-  );\r\n+  return children;\r\n } \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747287816227,
+            "name": "Commit-0",
+            "content": "export const metadata = {\r\n  title: 'Checkout | AISH',\r\n};\r\n\r\nexport default function CartLayout({\r\n  children,\r\n}: {\r\n  children: React.ReactNode;\r\n}) {\r\n  return children;\r\n} "
+        }
+    ]
+}

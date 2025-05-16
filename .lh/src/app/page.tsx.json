@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/app/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1747235864844,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747235878340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,20 @@\n+import Link from 'next/link';\r\n+\r\n+const menuItems = [\r\n+  { label: 'TSHIRT', href: '/tshirt' },\r\n+  { label: 'SHIRT', href: '/shirt' },\r\n+  { label: 'POLO', href: '/polo' },\r\n+  { label: 'SWEATER', href: '/sweater' },\r\n+  { label: 'HOODIE', href: '/hoodie' },\r\n+  { label: 'ACCEPT THE PROBLEM', href: '/accept-the-problem' },\r\n+  { label: 'BACK TO SUMMER', href: '/back-to-summer' },\r\n+  { label: 'CHILL, CALM DOWN', href: '/chill-calm-down' },\r\n+  { label: 'RETURN POLICY', href: '/return-policy' },\r\n+  { label: 'WARRANTY POLICY', href: '/warranty-policy' },\r\n+  { label: 'CARE INSTRUCTIONS', href: '/care-instructions' }\r\n+];\r\n+\r\n {menuItems.map((item, index) => (\r\n   <Link\r\n     key={index}\r\n     href={item.href || '#'}\r\n"
+                },
+                {
+                    "date": 1747235888586,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,25 +1,1 @@\n-import Link from 'next/link';\r\n-\r\n-const menuItems = [\r\n-  { label: 'TSHIRT', href: '/tshirt' },\r\n-  { label: 'SHIRT', href: '/shirt' },\r\n-  { label: 'POLO', href: '/polo' },\r\n-  { label: 'SWEATER', href: '/sweater' },\r\n-  { label: 'HOODIE', href: '/hoodie' },\r\n-  { label: 'ACCEPT THE PROBLEM', href: '/accept-the-problem' },\r\n-  { label: 'BACK TO SUMMER', href: '/back-to-summer' },\r\n-  { label: 'CHILL, CALM DOWN', href: '/chill-calm-down' },\r\n-  { label: 'RETURN POLICY', href: '/return-policy' },\r\n-  { label: 'WARRANTY POLICY', href: '/warranty-policy' },\r\n-  { label: 'CARE INSTRUCTIONS', href: '/care-instructions' }\r\n-];\r\n-\r\n-{menuItems.map((item, index) => (\r\n-  <Link\r\n-    key={index}\r\n-    href={item.href || '#'}\r\n-    className=\"text-gray-600 hover:text-gray-900\"\r\n-  >\r\n-    {item.label}\r\n-  </Link>\r\n-))} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747235942359,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,34 @@\n- \n\\ No newline at end of file\n+import Link from 'next/link';\r\n+\r\n+const menuItems = [\r\n+  { label: 'TSHIRT', href: '/tshirt' },\r\n+  { label: 'SHIRT', href: '/shirt' },\r\n+  { label: 'POLO', href: '/polo' },\r\n+  { label: 'SWEATER', href: '/sweater' },\r\n+  { label: 'HOODIE', href: '/hoodie' },\r\n+  { label: 'ACCEPT THE PROBLEM', href: '/accept-the-problem' },\r\n+  { label: 'BACK TO SUMMER', href: '/back-to-summer' },\r\n+  { label: 'CHILL, CALM DOWN', href: '/chill-calm-down' },\r\n+  { label: 'RETURN POLICY', href: '/return-policy' },\r\n+  { label: 'WARRANTY POLICY', href: '/warranty-policy' },\r\n+  { label: 'CARE INSTRUCTIONS', href: '/care-instructions' }\r\n+];\r\n+\r\n+export default function Home() {\r\n+  return (\r\n+    <div className=\"flex flex-col items-center justify-center min-h-screen p-4\">\r\n+      <h1 className=\"text-2xl font-bold mb-4\">Menu</h1>\r\n+      <div className=\"flex flex-col space-y-2\">\r\n+        {menuItems.map((item, index) => (\r\n+          <Link\r\n+            key={index}\r\n+            href={item.href || '#'}\r\n+            className=\"text-gray-600 hover:text-gray-900\"\r\n+          >\r\n+            {item.label}\r\n+          </Link>\r\n+        ))}\r\n+      </div>\r\n+    </div>\r\n+  );\r\n+} \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747235980349,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,34 +1,1 @@\n-import Link from 'next/link';\r\n-\r\n-const menuItems = [\r\n-  { label: 'TSHIRT', href: '/tshirt' },\r\n-  { label: 'SHIRT', href: '/shirt' },\r\n-  { label: 'POLO', href: '/polo' },\r\n-  { label: 'SWEATER', href: '/sweater' },\r\n-  { label: 'HOODIE', href: '/hoodie' },\r\n-  { label: 'ACCEPT THE PROBLEM', href: '/accept-the-problem' },\r\n-  { label: 'BACK TO SUMMER', href: '/back-to-summer' },\r\n-  { label: 'CHILL, CALM DOWN', href: '/chill-calm-down' },\r\n-  { label: 'RETURN POLICY', href: '/return-policy' },\r\n-  { label: 'WARRANTY POLICY', href: '/warranty-policy' },\r\n-  { label: 'CARE INSTRUCTIONS', href: '/care-instructions' }\r\n-];\r\n-\r\n-export default function Home() {\r\n-  return (\r\n-    <div className=\"flex flex-col items-center justify-center min-h-screen p-4\">\r\n-      <h1 className=\"text-2xl font-bold mb-4\">Menu</h1>\r\n-      <div className=\"flex flex-col space-y-2\">\r\n-        {menuItems.map((item, index) => (\r\n-          <Link\r\n-            key={index}\r\n-            href={item.href || '#'}\r\n-            className=\"text-gray-600 hover:text-gray-900\"\r\n-          >\r\n-            {item.label}\r\n-          </Link>\r\n-        ))}\r\n-      </div>\r\n-    </div>\r\n-  );\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747278116844,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,4 @@\n- \n\\ No newline at end of file\n+export const metadata = {\r\n+  title: 'AISH Official Site',\r\n+  description: 'Khám phá bộ sưu tập thời trang cao cấp của AISH. Chất liệu cao cấp, thiết kế độc đáo, phong cách hiện đại.',\r\n+}; \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747278296119,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,3 @@\n export const metadata = {\r\n   title: 'AISH Official Site',\r\n-  description: 'Khám phá bộ sưu tập thời trang cao cấp của AISH. Chất liệu cao cấp, thiết kế độc đáo, phong cách hiện đại.',\r\n }; \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747235864844,
+            "name": "Commit-0",
+            "content": "{menuItems.map((item, index) => (\r\n  <Link\r\n    key={index}\r\n    href={item.href || '#'}\r\n    className=\"text-gray-600 hover:text-gray-900\"\r\n  >\r\n    {item.label}\r\n  </Link>\r\n))} "
+        }
+    ]
+}

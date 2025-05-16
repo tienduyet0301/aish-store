@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/[locale]/layout.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747290801503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747290884517,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,35 +1,1 @@\n-import { Inter } from \"next/font/google\";\r\n-import \"./globals.css\";\r\n-import { NextIntlClientProvider } from 'next-intl';\r\n-import { notFound } from 'next/navigation';\r\n-\r\n-const inter = Inter({ subsets: [\"latin\"] });\r\n-\r\n-export function generateStaticParams() {\r\n-  return [{ locale: 'en' }, { locale: 'vi' }];\r\n-}\r\n-\r\n-export default async function RootLayout({\r\n-  children,\r\n-  params: { locale }\r\n-}: {\r\n-  children: React.ReactNode;\r\n-  params: { locale: string };\r\n-}) {\r\n-  let messages;\r\n-  try {\r\n-    messages = (await import(`../../messages/${locale}.json`)).default;\r\n-  } catch (error) {\r\n-    notFound();\r\n-  }\r\n-\r\n-  return (\r\n-    <html lang={locale}>\r\n-      <body className={inter.className}>\r\n-        <NextIntlClientProvider locale={locale} messages={messages}>\r\n-          {children}\r\n-        </NextIntlClientProvider>\r\n-      </body>\r\n-    </html>\r\n-  );\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747290801503,
+            "name": "Commit-0",
+            "content": "import { Inter } from \"next/font/google\";\r\nimport \"./globals.css\";\r\nimport { NextIntlClientProvider } from 'next-intl';\r\nimport { notFound } from 'next/navigation';\r\n\r\nconst inter = Inter({ subsets: [\"latin\"] });\r\n\r\nexport function generateStaticParams() {\r\n  return [{ locale: 'en' }, { locale: 'vi' }];\r\n}\r\n\r\nexport default async function RootLayout({\r\n  children,\r\n  params: { locale }\r\n}: {\r\n  children: React.ReactNode;\r\n  params: { locale: string };\r\n}) {\r\n  let messages;\r\n  try {\r\n    messages = (await import(`../../messages/${locale}.json`)).default;\r\n  } catch (error) {\r\n    notFound();\r\n  }\r\n\r\n  return (\r\n    <html lang={locale}>\r\n      <body className={inter.className}>\r\n        <NextIntlClientProvider locale={locale} messages={messages}>\r\n          {children}\r\n        </NextIntlClientProvider>\r\n      </body>\r\n    </html>\r\n  );\r\n} "
+        }
+    ]
+}
