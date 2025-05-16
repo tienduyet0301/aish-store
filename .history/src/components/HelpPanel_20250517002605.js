@@ -85,7 +85,7 @@ export default function HelpPanel({ isOpen, onClose }) {
                     color: "#666666",
                     marginLeft: "46px"
                   }}>
-                    <p>Please contact us during business hours for the fastest response and support.</p>
+                    <p>&quot;Please contact us during business hours for the fastest response and support.&quot;</p>
                   </div>
                 </div>
 
