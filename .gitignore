@@ -133,3 +133,9 @@ dist
 
 # Uploads directory
 public/uploads/
+
+# New additions
+.lh/.next/
+.lh/node_modules/
+.lh/public/images/
+.lh/public/uploads/
