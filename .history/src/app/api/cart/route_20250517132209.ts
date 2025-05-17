@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { ObjectId } from "mongodb";
 
 // Lấy giỏ hàng
-export async function GET(request: NextRequest) {
+export async function GET(request) {
   try {
     const { db } = await connectToDatabase();
     const session = await getServerSession(authOptions);
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
 }
 
 // Cập nhật giỏ hàng
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     const { db } = await connectToDatabase();
     const session = await getServerSession(authOptions);
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function DELETE(request: NextRequest) {
+export async function DELETE(request) {
   try {
     const { db } = await connectToDatabase();
     const session = await getServerSession(authOptions);
