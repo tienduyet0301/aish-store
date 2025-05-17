@@ -19,12 +19,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-type Props = {
-  children: React.ReactNode;
-}
-
 export default function ProductLayout({
   children,
-}: Props) {
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 }
