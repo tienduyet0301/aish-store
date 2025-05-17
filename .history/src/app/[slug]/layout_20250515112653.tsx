@@ -19,16 +19,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-interface ProductLayoutProps {
-  children: React.ReactNode;
-  params: {
-    slug: string;
-  };
-}
-
 export default function ProductLayout({
   children,
-  params,
-}: ProductLayoutProps) {
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 } 

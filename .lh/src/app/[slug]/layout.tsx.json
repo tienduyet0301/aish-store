@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1747279320555,
@@ -16,6 +16,10 @@
                 {
                     "date": 1747283211173,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,23 @@\n import { getProduct } from \"@/lib/products\";\r\n+import { Metadata } from \"next\";\r\n \r\n-export async function generateMetadata({ params }: { params: { slug: string } }) {\r\n-  const slug = params.slug;\r\n-  const product = await getProduct(slug);\r\n-  \r\n-  return {\r\n-    title: `${product.name} | AISH`,\r\n-    description: product.description,\r\n-  };\r\n+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\r\n+  try {\r\n+    const slug = params.slug;\r\n+    const product = await getProduct(slug);\r\n+    \r\n+    return {\r\n+      title: product?.name ? `${product.name} | AISH` : 'Product | AISH',\r\n+      description: product?.description || 'Product details',\r\n+    };\r\n+  } catch (error) {\r\n+    console.error('Error generating metadata:', error);\r\n+    return {\r\n+      title: 'Product | AISH',\r\n+      description: 'Product details',\r\n+    };\r\n+  }\r\n }\r\n \r\n export default function ProductLayout({\r\n   children,\r\n"
+                },
+                {
+                    "date": 1747447986382,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,17 @@\n     };\r\n   }\r\n }\r\n \r\n+interface ProductLayoutProps {\r\n+  children: React.ReactNode;\r\n+  params: {\r\n+    slug: string;\r\n+  };\r\n+}\r\n+\r\n export default function ProductLayout({\r\n   children,\r\n-}: {\r\n-  children: React.ReactNode;\r\n-}) {\r\n+  params,\r\n+}: ProductLayoutProps) {\r\n   return <>{children}</>;\r\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747279320555,
