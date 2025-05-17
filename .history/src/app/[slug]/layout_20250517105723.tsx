@@ -2,9 +2,16 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProduct } from "@/lib/actions";
-import { Product, LayoutProps } from "@/lib/types";
+import { Product } from "@/lib/types";
 import { Suspense } from "react";
 import Loading from "./loading";
+
+type LayoutProps = {
+  children: React.ReactNode;
+  params: Promise<{
+    slug: string;
+  }>;
+};
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const product = await getProduct(params.slug);
