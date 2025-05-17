@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ProductLayout({ children, params }: LayoutProps) {
+export default async function ProductLayout({ children, params }: { children: React.ReactNode; params: { slug: string } }) {
   const product = await getProduct(params.slug);
   if (!product) {
     notFound();
