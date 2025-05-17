@@ -5,15 +5,22 @@ import { revalidatePath } from "next/cache";
 
 const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000";
 
+type RouteSegmentProps = {
+  params: {
+    id: string;
+  };
+};
+
+// GET /api/products/[id] - Lấy thông tin sản phẩm theo ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  props: RouteSegmentProps
+): Promise<NextResponse> {
   try {
     const { db } = await connectToDatabase();
     const product = await db
       .collection("products")
-      .findOne({ _id: new ObjectId(params.id) });
+      .findOne({ _id: new ObjectId(props.params.id) });
 
     if (!product) {
       return NextResponse.json(
@@ -32,16 +39,17 @@ export async function GET(
   }
 }
 
+// PUT /api/products/[id] - Cập nhật sản phẩm theo ID
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  props: RouteSegmentProps
+): Promise<NextResponse> {
   try {
     const { db } = await connectToDatabase();
     const body = await request.json();
 
     const result = await db.collection("products").updateOne(
-      { _id: new ObjectId(params.id) },
+      { _id: new ObjectId(props.params.id) },
       { $set: body }
     );
 
@@ -52,7 +60,7 @@ export async function PUT(
       );
     }
 
-    revalidatePath(`/products/${params.id}`);
+    revalidatePath(`/products/${props.params.id}`);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error updating product:", error);
@@ -63,15 +71,16 @@ export async function PUT(
   }
 }
 
+// DELETE /api/products/[id] - Xóa sản phẩm theo ID
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+  props: RouteSegmentProps
+): Promise<NextResponse> {
   try {
     const { db } = await connectToDatabase();
     const result = await db
       .collection("products")
-      .deleteOne({ _id: new ObjectId(params.id) });
+      .deleteOne({ _id: new ObjectId(props.params.id) });
 
     if (result.deletedCount === 0) {
       return NextResponse.json(

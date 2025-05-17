@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 23,
             "patches": [
                 {
                     "date": 1746893159937,
@@ -96,6 +96,10 @@
                 {
                     "date": 1747212900696,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -111,33 +111,32 @@\n     const { db } = await connectToDatabase();\r\n     const { searchParams } = new URL(request.url);\r\n     const orderCode = searchParams.get('orderCode');\r\n \r\n-    // Lấy email user hiện tại từ session\r\n-    const session = await getServerSession(authOptions);\r\n-    const userEmail = session?.user?.email;\r\n-    if (!userEmail) {\r\n-      return NextResponse.json({ error: \"Unauthorized\" }, { status: 401 });\r\n-    }\r\n-\r\n     if (orderCode) {\r\n-      // Nếu có orderCode, tìm đơn hàng cụ thể (và phải thuộc về user này)\r\n-      const order = await db.collection(\"orders\").findOne({ orderCode, email: userEmail });\r\n+      // Cho phép bất kỳ ai lấy đơn hàng theo orderCode\r\n+      const order = await db.collection(\"orders\").findOne({ orderCode });\r\n       if (!order) {\r\n         return NextResponse.json(\r\n           { error: \"Order not found\" },\r\n           { status: 404 }\r\n         );\r\n       }\r\n       return NextResponse.json(order);\r\n-    } else {\r\n-      // Nếu không có orderCode, lấy tất cả đơn hàng của user hiện tại\r\n-      const orders = await db.collection(\"orders\")\r\n-        .find({ email: userEmail })\r\n-        .sort({ createdAt: -1 })\r\n-        .toArray();\r\n-      return NextResponse.json({ orders });\r\n     }\r\n+\r\n+    // Nếu không có orderCode, chỉ trả về đơn hàng của user đăng nhập\r\n+    const session = await getServerSession(authOptions);\r\n+    const userEmail = session?.user?.email;\r\n+    if (!userEmail) {\r\n+      return NextResponse.json({ error: \"Unauthorized\" }, { status: 401 });\r\n+    }\r\n+\r\n+    const orders = await db.collection(\"orders\")\r\n+      .find({ email: userEmail })\r\n+      .sort({ createdAt: -1 })\r\n+      .toArray();\r\n+    return NextResponse.json({ orders });\r\n   } catch (error) {\r\n     console.error(\"Error fetching orders:\", error);\r\n     return NextResponse.json(\r\n       { error: \"Failed to fetch orders\" },\r\n"
+                },
+                {
+                    "date": 1747458164976,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import { NextResponse } from \"next/server\";\r\n-import { connectToDatabase } from \"../../../lib/mongodb\";\r\n-import { createOrder } from \"../../../models/Order\";\r\n-import { getServerSession } from \"next-auth/next\";\r\n-import { authOptions } from \"../../api/auth/[...nextauth]/route\";\r\n+import { connectToDatabase } from \"@/lib/mongodb\";\r\n+import { createOrder } from \"@/models/Order\";\r\n+import { getServerSession } from \"next-auth\";\r\n+import { authOptions } from \"@/lib/auth\";\r\n import { ObjectId } from \"mongodb\";\r\n import { revalidatePath } from \"next/cache\";\r\n \r\n export async function POST(request) {\r\n"
                 }
             ],
             "date": 1746891704042,
