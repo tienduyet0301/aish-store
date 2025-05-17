@@ -34,8 +34,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function ProductLayout({ children, params }: LayoutProps) {
-  const resolvedParams = await params;
-  const product = await getProduct(resolvedParams.slug);
+  const product = await getProduct(params.slug);
   if (!product) {
     notFound();
   }
