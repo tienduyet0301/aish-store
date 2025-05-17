@@ -5,7 +5,6 @@ import { revalidatePath } from "next/cache";
 
 const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000";
 
-// @ts-ignore
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -33,7 +32,6 @@ export async function GET(
   }
 }
 
-// @ts-ignore
 export async function PUT(
   request: NextRequest,
   { params }: { params: { id: string } }
@@ -65,7 +63,6 @@ export async function PUT(
   }
 }
 
-// @ts-ignore
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } }
