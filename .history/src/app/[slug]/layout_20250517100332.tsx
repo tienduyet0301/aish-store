@@ -19,15 +19,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-type LayoutProps = {
-  children: React.ReactNode;
-  params: Promise<{ slug: string }>;
-}
-
-export default async function ProductLayout({
+export default function ProductLayout({
   children,
-  params,
-}: LayoutProps) {
-  const resolvedParams = await params;
+}: {
+  children: React.ReactNode;
+}) {
   return <>{children}</>;
 }

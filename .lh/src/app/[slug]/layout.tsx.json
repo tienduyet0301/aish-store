@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1747279320555,
@@ -44,6 +44,10 @@
                 {
                     "date": 1747450942099,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,11 +20,9 @@\n }\r\n \r\n export default function ProductLayout({\r\n   children,\r\n-  params,\r\n }: {\r\n   children: React.ReactNode;\r\n-  params: { slug: string };\r\n }) {\r\n   return <>{children}</>;\r\n }\r\n"
+                },
+                {
+                    "date": 1747451266072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,16 @@\n     };\r\n   }\r\n }\r\n \r\n-export default function ProductLayout({\r\n+type LayoutProps = {\r\n+  children: React.ReactNode;\r\n+  params: Promise<{ slug: string }>;\r\n+}\r\n+\r\n+export default async function ProductLayout({\r\n   children,\r\n-}: {\r\n-  children: React.ReactNode;\r\n-}) {\r\n+  params,\r\n+}: LayoutProps) {\r\n+  const resolvedParams = await params;\r\n   return <>{children}</>;\r\n }\r\n"
                 }
             ],
             "date": 1747279320555,
