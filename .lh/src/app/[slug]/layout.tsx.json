@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 24,
+            "activePatchIndex": 26,
             "patches": [
                 {
                     "date": 1747279320555,
@@ -104,6 +104,14 @@
                 {
                     "date": 1747456558439,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,15 @@\n     },\r\n   };\r\n }\r\n \r\n-export default async function ProductLayout({ children, params }) {\r\n+export default async function ProductLayout({\r\n+  children,\r\n+  params,\r\n+}: {\r\n+  children: React.ReactNode;\r\n+  params: { slug: string };\r\n+}) {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     notFound();\r\n   }\r\n"
+                },
+                {
+                    "date": 1747456733088,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n import { Product } from \"@/lib/types\";\r\n import { Suspense } from \"react\";\r\n import Loading from \"./loading\";\r\n \r\n-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\r\n+export async function generateMetadata({ params }) {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     return {\r\n       title: \"Product Not Found\",\r\n@@ -32,15 +32,9 @@\n     },\r\n   };\r\n }\r\n \r\n-export default async function ProductLayout({\r\n-  children,\r\n-  params,\r\n-}: {\r\n-  children: React.ReactNode;\r\n-  params: { slug: string };\r\n-}) {\r\n+export default async function ProductLayout({ children, params }) {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     notFound();\r\n   }\r\n"
+                },
+                {
+                    "date": 1747456742093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,9 @@\n import { Product } from \"@/lib/types\";\r\n import { Suspense } from \"react\";\r\n import Loading from \"./loading\";\r\n \r\n+// @ts-ignore\r\n export async function generateMetadata({ params }) {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     return {\r\n@@ -32,8 +33,9 @@\n     },\r\n   };\r\n }\r\n \r\n+// @ts-ignore\r\n export default async function ProductLayout({ children, params }) {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     notFound();\r\n"
                 }
             ],
             "date": 1747279320555,

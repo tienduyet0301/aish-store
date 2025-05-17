@@ -6,8 +6,7 @@ import { Product } from "@/lib/types";
 import { Suspense } from "react";
 import Loading from "./loading";
 
-// @ts-ignore
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const product = await getProduct(params.slug);
   if (!product) {
     return {
@@ -34,8 +33,13 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// @ts-ignore
-export default async function ProductLayout({ children, params }) {
+export default async function ProductLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { slug: string };
+}) {
   const product = await getProduct(params.slug);
   if (!product) {
     notFound();
