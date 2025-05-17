@@ -6,14 +6,14 @@ import { Product } from "@/lib/types";
 import { Suspense } from "react";
 import Loading from "./loading";
 
-type LayoutProps = {
+interface LayoutProps {
   children: React.ReactNode;
-  params: Promise<{
+  params: {
     slug: string;
-  }>;
-};
+  };
+}
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: LayoutProps): Promise<Metadata> {
   const product = await getProduct(params.slug);
   if (!product) {
     return {
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ProductLayout({ children, params }: { children: React.ReactNode; params: { slug: string } }) {
+export default async function ProductLayout({ children, params }: LayoutProps) {
   const product = await getProduct(params.slug);
   if (!product) {
     notFound();

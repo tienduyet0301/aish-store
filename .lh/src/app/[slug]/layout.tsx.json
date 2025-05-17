@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 15,
+            "activePatchIndex": 17,
             "patches": [
                 {
                     "date": 1747279320555,
@@ -68,6 +68,14 @@
                 {
                     "date": 1747453437393,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,16 +18,11 @@\n     };\r\n   }\r\n }\r\n \r\n-type Props = {\r\n+export default function ProductLayout({\r\n+  children,\r\n+}: {\r\n   children: React.ReactNode;\r\n-  params: Promise<{ slug: string }>;\r\n-}\r\n-\r\n-export default async function ProductLayout({\r\n-  children,\r\n-  params,\r\n-}: Props) {\r\n-  const resolvedParams = await params;\r\n+}) {\r\n   return <>{children}</>;\r\n }\r\n"
+                },
+                {
+                    "date": 1747454116109,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,28 +1,54 @@\n // src/app/[slug]/layout.tsx\r\n-import { getProduct } from \"@/lib/products\";\r\n import { Metadata } from \"next\";\r\n+import { notFound } from \"next/navigation\";\r\n+import { getProduct } from \"@/lib/actions\";\r\n+import { Product } from \"@/lib/types\";\r\n+import { Suspense } from \"react\";\r\n+import Loading from \"./loading\";\r\n \r\n-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\r\n-  try {\r\n-    const product = await getProduct(params.slug);\r\n+interface LayoutProps {\r\n+  children: React.ReactNode;\r\n+  params: {\r\n+    slug: string;\r\n+  };\r\n+}\r\n \r\n+export async function generateMetadata({ params }: LayoutProps): Promise<Metadata> {\r\n+  const product = await getProduct(params.slug);\r\n+  if (!product) {\r\n     return {\r\n-      title: product?.name ? `${product.name} | AISH` : \"Product | AISH\",\r\n-      description: product?.description || \"Product details\",\r\n+      title: \"Product Not Found\",\r\n+      description: \"The requested product could not be found.\",\r\n     };\r\n-  } catch (error) {\r\n-    console.error(\"Error generating metadata:\", error);\r\n-    return {\r\n-      title: \"Product | AISH\",\r\n-      description: \"Product details\",\r\n-    };\r\n   }\r\n+\r\n+  return {\r\n+    title: product.name,\r\n+    description: product.description,\r\n+    openGraph: {\r\n+      title: product.name,\r\n+      description: product.description,\r\n+      images: [\r\n+        {\r\n+          url: product.images[0]?.url || \"\",\r\n+          width: 800,\r\n+          height: 600,\r\n+          alt: product.name,\r\n+        },\r\n+      ],\r\n+    },\r\n+  };\r\n }\r\n \r\n-export default function ProductLayout({\r\n-  children,\r\n-}: {\r\n-  children: React.ReactNode;\r\n-}) {\r\n-  return <>{children}</>;\r\n+export default async function ProductLayout({ children, params }: LayoutProps) {\r\n+  const product = await getProduct(params.slug);\r\n+  if (!product) {\r\n+    notFound();\r\n+  }\r\n+\r\n+  return (\r\n+    <Suspense fallback={<Loading />}>\r\n+      {children}\r\n+    </Suspense>\r\n+  );\r\n }\r\n"
+                },
+                {
+                    "date": 1747454238590,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,16 +5,16 @@\n import { Product } from \"@/lib/types\";\r\n import { Suspense } from \"react\";\r\n import Loading from \"./loading\";\r\n \r\n-interface LayoutProps {\r\n+type LayoutProps = {\r\n   children: React.ReactNode;\r\n-  params: {\r\n+  params: Promise<{\r\n     slug: string;\r\n-  };\r\n-}\r\n+  }>;\r\n+};\r\n \r\n-export async function generateMetadata({ params }: LayoutProps): Promise<Metadata> {\r\n+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     return {\r\n       title: \"Product Not Found\",\r\n@@ -39,9 +39,9 @@\n     },\r\n   };\r\n }\r\n \r\n-export default async function ProductLayout({ children, params }: LayoutProps) {\r\n+export default async function ProductLayout({ children, params }: { children: React.ReactNode; params: { slug: string } }) {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     notFound();\r\n   }\r\n"
                 }
             ],
             "date": 1747279320555,

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/lib/types.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747454128248,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747454128248,
+            "name": "Commit-0",
+            "content": "export interface Product {\r\n  id: string;\r\n  name: string;\r\n  description: string;\r\n  price: number;\r\n  images: {\r\n    url: string;\r\n    alt: string;\r\n  }[];\r\n  category: string;\r\n  slug: string;\r\n  createdAt: string;\r\n  updatedAt: string;\r\n} "
+        }
+    ]
+}

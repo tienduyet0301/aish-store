@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/lib/actions.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747454121022,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747454121022,
+            "name": "Commit-0",
+            "content": "import { Product } from \"./types\";\r\n\r\nexport async function getProduct(slug: string): Promise<Product | null> {\r\n  try {\r\n    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${slug}`);\r\n    if (!response.ok) {\r\n      return null;\r\n    }\r\n    return response.json();\r\n  } catch (error) {\r\n    console.error(\"Error fetching product:\", error);\r\n    return null;\r\n  }\r\n} "
+        }
+    ]
+}
