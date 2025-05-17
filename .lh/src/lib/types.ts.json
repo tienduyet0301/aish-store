@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1747454128248,
@@ -20,6 +20,10 @@
                 {
                     "date": 1747455882062,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,8 @@\n }\r\n \r\n export interface LayoutProps {\r\n   children: ReactNode;\r\n-  params: {\r\n+  params: Promise<{\r\n     slug: string;\r\n-  };\r\n+  }>;\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747456268152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,12 +12,5 @@\n   category: string;\r\n   slug: string;\r\n   createdAt: string;\r\n   updatedAt: string;\r\n-}\r\n-\r\n-export interface LayoutProps {\r\n-  children: ReactNode;\r\n-  params: Promise<{\r\n-    slug: string;\r\n-  }>;\r\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747454128248,
