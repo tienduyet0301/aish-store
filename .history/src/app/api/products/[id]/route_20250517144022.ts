@@ -5,9 +5,15 @@ import { revalidatePath } from "next/cache";
 
 const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000";
 
+type RouteContext = {
+  params: {
+    id: string;
+  };
+};
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
   try {
     const { db } = await connectToDatabase();
@@ -34,7 +40,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
   try {
     const { db } = await connectToDatabase();
@@ -65,7 +71,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ) {
   try {
     const { db } = await connectToDatabase();
