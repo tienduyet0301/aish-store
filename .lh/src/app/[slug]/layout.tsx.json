@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 8,
             "patches": [
                 {
                     "date": 1747279320555,
@@ -36,6 +36,10 @@
                 {
                     "date": 1747449505021,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\r\n   try {\r\n     const slug = params.slug;\r\n     const product = await getProduct(slug);\r\n-    \r\n+\r\n     return {\r\n       title: product?.name ? `${product.name} | AISH` : 'Product | AISH',\r\n       description: product?.description || 'Product details',\r\n     };\r\n@@ -20,9 +20,11 @@\n }\r\n \r\n export default function ProductLayout({\r\n   children,\r\n+  params,\r\n }: {\r\n   children: React.ReactNode;\r\n+  params: { slug: string };\r\n }) {\r\n\\ No newline at end of file\n   return <>{children}</>;\r\n-} \n+}\r\n"
+                },
+                {
+                    "date": 1747450218962,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,21 +1,21 @@\n+// src/app/[slug]/layout.tsx\r\n import { getProduct } from \"@/lib/products\";\r\n import { Metadata } from \"next\";\r\n \r\n export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\r\n   try {\r\n-    const slug = params.slug;\r\n-    const product = await getProduct(slug);\r\n+    const product = await getProduct(params.slug);\r\n \r\n     return {\r\n-      title: product?.name ? `${product.name} | AISH` : 'Product | AISH',\r\n-      description: product?.description || 'Product details',\r\n+      title: product?.name ? `${product.name} | AISH` : \"Product | AISH\",\r\n+      description: product?.description || \"Product details\",\r\n     };\r\n   } catch (error) {\r\n-    console.error('Error generating metadata:', error);\r\n+    console.error(\"Error generating metadata:\", error);\r\n     return {\r\n-      title: 'Product | AISH',\r\n-      description: 'Product details',\r\n+      title: \"Product | AISH\",\r\n+      description: \"Product details\",\r\n     };\r\n   }\r\n }\r\n \r\n@@ -26,5 +26,5 @@\n   children: React.ReactNode;\r\n   params: { slug: string };\r\n }) {\r\n   return <>{children}</>;\r\n-}\n\\ No newline at end of file\n+}\r\n"
                 }
             ],
             "date": 1747279320555,
