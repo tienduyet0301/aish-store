@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 21,
+            "activePatchIndex": 22,
             "patches": [
                 {
                     "date": 1747279320555,
@@ -92,6 +92,10 @@
                 {
                     "date": 1747456101190,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,19 @@\n // src/app/[slug]/layout.tsx\r\n import { Metadata } from \"next\";\r\n import { notFound } from \"next/navigation\";\r\n import { getProduct } from \"@/lib/actions\";\r\n-import { Product, LayoutProps } from \"@/lib/types\";\r\n+import { Product } from \"@/lib/types\";\r\n import { Suspense } from \"react\";\r\n import Loading from \"./loading\";\r\n \r\n+interface ProductLayoutProps {\r\n+  children: React.ReactNode;\r\n+  params: {\r\n+    slug: string;\r\n+  };\r\n+}\r\n+\r\n export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     return {\r\n@@ -32,11 +39,10 @@\n     },\r\n   };\r\n }\r\n \r\n-export default async function ProductLayout({ children, params }: LayoutProps) {\r\n-  const resolvedParams = await params;\r\n-  const product = await getProduct(resolvedParams.slug);\r\n+export default async function ProductLayout({ children, params }: ProductLayoutProps) {\r\n+  const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     notFound();\r\n   }\r\n \r\n"
+                },
+                {
+                    "date": 1747456422454,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,15 +5,8 @@\n import { Product } from \"@/lib/types\";\r\n import { Suspense } from \"react\";\r\n import Loading from \"./loading\";\r\n \r\n-interface ProductLayoutProps {\r\n-  children: React.ReactNode;\r\n-  params: {\r\n-    slug: string;\r\n-  };\r\n-}\r\n-\r\n export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     return {\r\n@@ -39,9 +32,14 @@\n     },\r\n   };\r\n }\r\n \r\n-export default async function ProductLayout({ children, params }: ProductLayoutProps) {\r\n+type Props = {\r\n+  children: React.ReactNode;\r\n+  params: { slug: string };\r\n+};\r\n+\r\n+export default async function ProductLayout({ children, params }: Props) {\r\n   const product = await getProduct(params.slug);\r\n   if (!product) {\r\n     notFound();\r\n   }\r\n"
                 }
             ],
             "date": 1747279320555,
