@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1747119991378,
@@ -24,6 +24,10 @@
                 {
                     "date": 1747122277849,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,7 @@\n import { NextResponse } from \"next/server\";\r\n import { getServerSession } from \"next-auth\";\r\n import { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\n-import { connectToDatabase } from \"@/lib/mongodb\";\r\n \r\n export async function GET() {\r\n   try {\r\n     const session = await getServerSession(authOptions);\r\n@@ -10,25 +9,14 @@\n     if (!session?.user?.email) {\r\n       return new NextResponse(\"Unauthorized\", { status: 401 });\r\n     }\r\n \r\n-    // Kiểm tra nếu là admin từ session\r\n+    // Chỉ cần kiểm tra role trong session\r\n     if (session.user.role === \"ADMIN\") {\r\n       return new NextResponse(\"Authorized\", { status: 200 });\r\n     }\r\n \r\n-    // Kiểm tra user thường\r\n-    const { db } = await connectToDatabase();\r\n-    const user = await db.collection(\"users\").findOne({ \r\n-      email: session.user.email,\r\n-      role: \"ADMIN\"\r\n-    });\r\n-\r\n-    if (!user) {\r\n-      return new NextResponse(\"Forbidden\", { status: 403 });\r\n-    }\r\n-\r\n-    return new NextResponse(\"Authorized\", { status: 200 });\r\n+    return new NextResponse(\"Forbidden\", { status: 403 });\r\n   } catch (error) {\r\n     console.error(\"[ADMIN_CHECK_ACCESS]\", error);\r\n     return new NextResponse(\"Internal Error\", { status: 500 });\r\n   }\r\n"
+                },
+                {
+                    "date": 1747457972995,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n-import { NextResponse } from \"next/server\";\r\n+import { NextRequest, NextResponse } from \"next/server\";\r\n import { getServerSession } from \"next-auth\";\r\n-import { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\n+import { authOptions } from \"@/lib/auth\";\r\n+import { connectToDatabase } from \"@/lib/mongodb\";\r\n \r\n export async function GET() {\r\n   try {\r\n     const session = await getServerSession(authOptions);\r\n"
                 }
             ],
             "date": 1747119991378,
