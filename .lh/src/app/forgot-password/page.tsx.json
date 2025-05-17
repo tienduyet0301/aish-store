@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1747215530238,
@@ -44,6 +44,10 @@
                 {
                     "date": 1747447454159,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n \r\n       <div className=\"w-full max-w-[280px] md:max-w-[350px] flex flex-col items-center gap-4\">\r\n         <div className=\"text-center mb-4\">\r\n           <p className=\"text-black text-[8px] md:text-sm\">\r\n-            Don't worry! It happens. Please enter your email address and we'll send you a new password.\r\n+            Don't worry! It happens. Please enter your email address and we&apos;ll send you a new password.\r\n           </p>\r\n         </div>\r\n \r\n         <form onSubmit={handleSubmit} className=\"w-full flex flex-col items-center gap-4\">\r\n"
+                },
+                {
+                    "date": 1747447770466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n \r\n       <div className=\"w-full max-w-[280px] md:max-w-[350px] flex flex-col items-center gap-4\">\r\n         <div className=\"text-center mb-4\">\r\n           <p className=\"text-black text-[8px] md:text-sm\">\r\n-            Don't worry! It happens. Please enter your email address and we&apos;ll send you a new password.\r\n+            Don&apos;t worry! It happens. Please enter your email address and we&apos;ll send you a new password.\r\n           </p>\r\n         </div>\r\n \r\n         <form onSubmit={handleSubmit} className=\"w-full flex flex-col items-center gap-4\">\r\n"
                 }
             ],
             "date": 1747215530238,
