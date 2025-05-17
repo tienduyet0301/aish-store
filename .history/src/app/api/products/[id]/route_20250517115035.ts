@@ -5,10 +5,16 @@ import { revalidatePath } from "next/cache";
 
 const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000";
 
+type RouteContext = {
+  params: {
+    id: string;
+  };
+};
+
 // GET /api/products/[id] - Lấy thông tin sản phẩm theo ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ): Promise<NextResponse> {
   try {
     const { db } = await connectToDatabase();
@@ -36,7 +42,7 @@ export async function GET(
 // PUT /api/products/[id] - Cập nhật sản phẩm theo ID
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ): Promise<NextResponse> {
   try {
     const { db } = await connectToDatabase();
@@ -68,7 +74,7 @@ export async function PUT(
 // DELETE /api/products/[id] - Xóa sản phẩm theo ID
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteContext
 ): Promise<NextResponse> {
   try {
     const { db } = await connectToDatabase();

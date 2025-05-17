@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1747116695254,
@@ -32,6 +32,10 @@
                 {
                     "date": 1747239814909,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n \r\n     // Lấy danh sách sản phẩm từ wishlist\r\n     const wishlistIds = user.wishlist || [];\r\n     const products = await db.collection('products')\r\n-      .find({ _id: { $in: wishlistIds.map(id => new ObjectId(id)) } })\r\n+      .find({ _id: { $in: wishlistIds.map((id: string) => new ObjectId(id)) } })\r\n       .toArray();\r\n \r\n     return NextResponse.json({ wishlist: products });\r\n   } catch (error) {\r\n"
+                },
+                {
+                    "date": 1747457678306,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n-import { NextResponse } from 'next/server';\r\n+import { NextRequest, NextResponse } from 'next/server';\r\n import { connectToDatabase } from '@/lib/mongodb';\r\n import { getServerSession } from 'next-auth';\r\n-import { authOptions } from '../auth/[...nextauth]/route';\r\n+import { authOptions } from '@/lib/auth';\r\n import { ObjectId } from 'mongodb';\r\n \r\n // GET: Lấy danh sách wishlist của user\r\n export async function GET() {\r\n"
                 }
             ],
             "date": 1747116695254,
