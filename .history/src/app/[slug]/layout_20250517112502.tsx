@@ -2,16 +2,9 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProduct } from "@/lib/actions";
-import { Product } from "@/lib/types";
+import { Product, LayoutProps } from "@/lib/types";
 import { Suspense } from "react";
 import Loading from "./loading";
-
-interface ProductLayoutProps {
-  children: React.ReactNode;
-  params: {
-    slug: string;
-  };
-}
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const product = await getProduct(params.slug);
@@ -40,8 +33,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ProductLayout({ children, params }: ProductLayoutProps) {
-  const product = await getProduct(params.slug);
+export default async function ProductLayout({ children, params }: LayoutProps) {
+  const resolvedParams = await params;
+  const product = await getProduct(resolvedParams.slug);
   if (!product) {
     notFound();
   }
