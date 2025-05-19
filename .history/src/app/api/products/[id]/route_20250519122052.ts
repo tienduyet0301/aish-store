@@ -8,7 +8,7 @@ const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000";
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
-): Promise<NextResponse> {
+) {
   try {
     const { db } = await connectToDatabase();
     const product = await db
@@ -35,7 +35,7 @@ export async function GET(
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
-): Promise<NextResponse> {
+) {
   try {
     const { db } = await connectToDatabase();
     const body = await request.json();
@@ -66,7 +66,7 @@ export async function PUT(
 export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
-): Promise<NextResponse> {
+) {
   try {
     const { db } = await connectToDatabase();
     const result = await db
