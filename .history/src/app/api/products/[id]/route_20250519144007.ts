@@ -9,10 +9,6 @@ type Props = {
 
 export const dynamic = 'force-dynamic';
 
-export async function generateStaticParams() {
-  return [];
-}
-
 export async function GET(
   request: NextRequest,
   props: Props

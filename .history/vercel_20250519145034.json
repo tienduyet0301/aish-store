@@ -1,0 +1,25 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["sin1"],
+  "functions": {
+    "api/products/[id]/route.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "api/search/route.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "api/admin/check-access/route.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "api/user/profile/route.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
+} 
