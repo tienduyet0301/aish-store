@@ -3,11 +3,19 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1746893160441,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747637369365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n // Allowed file types\r\n const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];\r\n const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB\r\n \r\n-export const config = {\r\n+export const routeSegmentConfig = {\r\n   api: {\r\n     bodyParser: false,\r\n   },\r\n };\r\n"
+                },
+                {
+                    "date": 1747637519274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,13 +8,10 @@\n // Allowed file types\r\n const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];\r\n const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB\r\n \r\n-export const routeSegmentConfig = {\r\n-  api: {\r\n-    bodyParser: false,\r\n-  },\r\n-};\r\n+export const dynamic = 'force-dynamic';\r\n+export const runtime = 'nodejs';\r\n \r\n export async function POST(request: Request) {\r\n   try {\r\n     console.log(\"Starting file upload...\");\r\n"
                 }
             ],
             "date": 1746891704042,

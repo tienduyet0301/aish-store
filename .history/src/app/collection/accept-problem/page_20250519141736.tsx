@@ -4,10 +4,10 @@ import { useProductFilters } from "../../../hooks/useProductFilters";
 import ProductGrid from "../../../components/ProductGrid";
 import FilterSection from "../../../components/FilterSection";
 import SortSection from "../../../components/SortSection";
+import NoProductsMessage from "../../../components/NoProductsMessage";
 import { Product } from "../../../types/product";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import Link from "next/link";
 
 export default function AcceptTheProblemPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -133,16 +133,12 @@ export default function AcceptTheProblemPage() {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
-  const groupColorsByFirstLetter = () => {
-    const grouped: { [key: string]: string[] } = { a: ["all"] };
-    colorLabels.forEach((color) => {
-      const firstLetter = color.value.charAt(0).toLowerCase();
-      if (!grouped[firstLetter]) grouped[firstLetter] = [];
-      grouped[firstLetter].push(color.value);
-    });
-    const sortedLetters = Object.keys(grouped).sort();
-    return sortedLetters.reduce((acc: string[], letter) => [...acc, ...grouped[letter]], []);
-  };
+  const grouped: { [key: string]: string[] } = {};
+  colorLabels.forEach((color) => {
+    const firstLetter = color.value.charAt(0).toLowerCase();
+    if (!grouped[firstLetter]) grouped[firstLetter] = [];
+    grouped[firstLetter].push(color.value);
+  });
 
   const sortOptions = [
     { value: "newest", label: t('products.sort.newest') },
@@ -243,7 +239,7 @@ export default function AcceptTheProblemPage() {
           colors={colorLabels.map(c => c.value)}
           sizes={sizeLabels.map(s => s.value)}
           capitalizeFirstLetter={capitalizeFirstLetter}
-          groupedColors={groupColorsByFirstLetter()}
+          groupedColors={grouped}
           title={t('products.filter.title')}
           colorLabel={t('products.filter.colorLabel')}
           sizeLabel={t('products.filter.sizeLabel')}
@@ -258,15 +254,13 @@ export default function AcceptTheProblemPage() {
         />
       </div>
 
-      {products.length > 0 ? (
-        <ProductGrid products={products} />
+      {sortedProducts.length > 0 ? (
+        <ProductGrid products={sortedProducts} />
       ) : (
-        <div className="text-center py-12">
-          <p className="text-gray-600 mb-4">{t('products.filter.noProductsSimple')}</p>
-          <Link href="/collection" className="text-blue-600 hover:text-blue-800">
-            {t('common.back')}
-          </Link>
-        </div>
+        <NoProductsMessage
+          message={t('products.noProducts')}
+          backButtonText={t('products.back')}
+        />
       )}
     </div>
   );

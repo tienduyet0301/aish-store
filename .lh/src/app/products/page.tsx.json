@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 23,
+            "activePatchIndex": 24,
             "patches": [
                 {
                     "date": 1746893163116,
@@ -100,6 +100,10 @@
                 {
                     "date": 1747322851526,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -181,8 +181,20 @@\n     setCurrentPage(pageNumber);\n     window.scrollTo({ top: 0, behavior: \"smooth\" });\n   };\n \n+  const colorLabels = [\n+    { value: \"black\", label: t('products.filter.colorBlack') },\n+    { value: \"white\", label: t('products.filter.colorWhite') },\n+    { value: \"blue\", label: t('products.filter.colorBlue') },\n+    { value: \"grey\", label: t('products.filter.colorGrey') },\n+  ];\n+  const sizeLabels = [\n+    { value: \"M\", label: t('products.filter.sizeM') },\n+    { value: \"L\", label: t('products.filter.sizeL') },\n+    { value: \"XL\", label: t('products.filter.sizeXL') },\n+  ];\n+\n   if (isLoading) {\n     return (\n       <div className=\"flex justify-center items-center min-h-screen\">\n         <div className=\"animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900\"></div>\n@@ -345,19 +357,23 @@\n                 handleColorChange={handleColorChange}\n                 handleSizeChange={handleSizeChange}\n                 handleCloseFilter={() => setIsFilterOpen(false)}\n                 handleApplyFilter={() => setIsFilterOpen(false)}\n-                colors={colors}\n-                sizes={sizes}\n+                colors={colorLabels.map(c => c.value)}\n+                sizes={sizeLabels.map(s => s.value)}\n                 capitalizeFirstLetter={(str: string) => str.charAt(0).toUpperCase() + str.slice(1)}\n-                groupedColors={colors}\n+                groupedColors={colorLabels.map(c => c.value)}\n                 title={t('products.filter.title')}\n-                colorLabel={t('products.filter.color')}\n-                sizeLabel={t('products.filter.size')}\n+                colorLabel={t('products.filter.colorLabel')}\n+                sizeLabel={t('products.filter.sizeLabel')}\n                 applyLabel={t('products.filter.apply')}\n                 resetLabel={t('products.filter.reset')}\n                 allColorsLabel={t('products.filter.allColors')}\n                 allSizesLabel={t('products.filter.allSizes')}\n+                selectHint={t('products.filter.selectHint')}\n+                closeLabel={t('products.filter.close')}\n+                colorLabels={colorLabels}\n+                sizeLabels={sizeLabels}\n               />\n             )}\n           </div>\n         </div>\n"
+                },
+                {
+                    "date": 1747639389207,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -382,18 +382,9 @@\n       <div className=\"px-0 sm:px-0 md:px-0 lg:px-0 mt-4 sm:mt-8\">\n         <div className=\"w-full\">\n           <main className=\"max-w-full mx-auto\">\n             {sortedProducts.length === 0 ? (\n-              <NoProductsMessage \n-                resetFilters={() => { \n-                  setSelectedColors([]); \n-                  setSelectedSizes([]); \n-                  setSortOption(\"newest\");\n-                }}\n-                noProductsText={t('products.filter.noProducts')}\n-                tryAgainText={t('products.filter.tryAgain')}\n-                resetFiltersText={t('products.filter.resetFilters')}\n-              />\n+              <NoProductsMessage />\n             ) : (\n               <>\n                 <ProductGrid products={currentProducts} />\n                 {totalPages > 1 && (\n"
                 }
             ],
             "date": 1746891704042,

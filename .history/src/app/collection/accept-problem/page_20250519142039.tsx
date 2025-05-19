@@ -262,9 +262,9 @@ export default function AcceptTheProblemPage() {
         <ProductGrid products={products} />
       ) : (
         <div className="text-center py-12">
-          <p className="text-gray-600 mb-4">{t('products.filter.noProductsSimple')}</p>
+          <p className="text-gray-600 mb-4">{t('products.noProductsMessage')}</p>
           <Link href="/collection" className="text-blue-600 hover:text-blue-800">
-            {t('common.back')}
+            {t('products.backToCollection')}
           </Link>
         </div>
       )}

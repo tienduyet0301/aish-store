@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1747119991378,
@@ -28,6 +28,10 @@
                 {
                     "date": 1747457972995,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n-import { NextResponse } from \"next/server\";\r\n+import { NextRequest, NextResponse } from \"next/server\";\r\n import { getServerSession } from \"next-auth\";\r\n-import { authOptions } from \"@/app/api/auth/[...nextauth]/route\";\r\n+import { authOptions } from \"@/lib/auth\";\r\n+import { connectToDatabase } from \"@/lib/mongodb\";\r\n \r\n export async function GET() {\r\n   try {\r\n     const session = await getServerSession(authOptions);\r\n"
+                },
+                {
+                    "date": 1747638518637,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,14 +6,14 @@\n export async function GET() {\r\n   try {\r\n     const session = await getServerSession(authOptions);\r\n \r\n-    if (!session?.user?.email) {\r\n+    if (!session) {\r\n       return new NextResponse(\"Unauthorized\", { status: 401 });\r\n     }\r\n \r\n     // Chỉ cần kiểm tra role trong session\r\n-    if (session.user.role === \"ADMIN\") {\r\n+    if ((session.user as any).role === \"ADMIN\") {\r\n       return new NextResponse(\"Authorized\", { status: 200 });\r\n     }\r\n \r\n     return new NextResponse(\"Forbidden\", { status: 403 });\r\n"
                 }
             ],
             "date": 1747119991378,

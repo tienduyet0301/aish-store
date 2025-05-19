@@ -2,7 +2,26 @@
 import { useState, useEffect } from "react";
 import { useCart } from "../../../context/CartContext";
 
-export default function OrderSummary({ order }) {
+interface OrderItem {
+  name: string;
+  price: string | number;
+  quantity: number;
+  image: string;
+  color?: string;
+  size?: string;
+}
+
+interface Order {
+  items: OrderItem[];
+  promoCode?: string;
+  promoAmount?: number;
+}
+
+interface OrderSummaryProps {
+  order: Order;
+}
+
+export default function OrderSummary({ order }: OrderSummaryProps) {
     const { cartItems } = useCart();
     const [isMounted, setIsMounted] = useState(false);
     const [promoCode, setPromoCode] = useState("");
@@ -204,15 +223,13 @@ export default function OrderSummary({ order }) {
       fontWeight: "bold",
       marginBottom: "15px",
       color: "#000000",
-      display: "flex",
-      alignItems: "center",
-      gap: "8px",
     },
     orderItem: {
       display: "flex",
       gap: "15px",
-      marginBottom: "25px",
-      color: "#000000",
+      marginBottom: "20px",
+      paddingBottom: "20px",
+      borderBottom: "1px solid #e0e0e0",
     },
     orderImage: {
       width: "80px",
@@ -220,47 +237,37 @@ export default function OrderSummary({ order }) {
       objectFit: "cover",
     },
     orderItemDetails: {
-      color: "#000000",
       flex: 1,
     },
     orderDetailRow: {
       display: "flex",
       justifyContent: "space-between",
-      marginBottom: "8px",
-      fontSize: "0.75em",
+      fontSize: "0.85em",
+      marginBottom: "5px",
     },
     orderTotals: {
-      color: "#000000",
+      marginTop: "20px",
     },
     orderTotalRow: {
       display: "flex",
       justifyContent: "space-between",
-      marginBottom: "12px",
+      marginBottom: "10px",
+      fontSize: "0.9em",
     },
     viewDetailsSection: {
-      color: "#000000",
+      marginTop: "20px",
     },
     viewDetails: {
-      fontSize: "0.8em",
-      marginTop: "15px",
-      marginBottom: "15px",
-      cursor: "pointer",
-      textDecoration: "underline",
-      color: "#000000",
+      fontSize: "0.9em",
+      fontWeight: "bold",
+      marginBottom: "10px",
     },
     billingNote: {
-      fontSize: "0.75em",
-      color: "#000000",
-      marginTop: "15px",
-      marginBottom: "15px",
+      fontSize: "0.8em",
+      color: "#666",
+      lineHeight: "1.5",
     },
     helpSection: {
-      fontSize: "0.8em",
-      color: "#000000",
-    },
-    "@media (maxWidth: 768px)": {
-      rightSection: {
-        order: -1,
-      },
+      marginTop: "20px",
     },
   };

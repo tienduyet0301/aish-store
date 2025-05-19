@@ -4,10 +4,10 @@ import { useProductFilters } from "../../../hooks/useProductFilters";
 import ProductGrid from "../../../components/ProductGrid";
 import FilterSection from "../../../components/FilterSection";
 import SortSection from "../../../components/SortSection";
+import NoProductsMessage from "../../../components/NoProductsMessage";
 import { Product } from "../../../types/product";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import Link from "next/link";
 
 export default function AcceptTheProblemPage() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -258,15 +258,13 @@ export default function AcceptTheProblemPage() {
         />
       </div>
 
-      {products.length > 0 ? (
-        <ProductGrid products={products} />
+      {sortedProducts.length > 0 ? (
+        <ProductGrid products={sortedProducts} />
       ) : (
-        <div className="text-center py-12">
-          <p className="text-gray-600 mb-4">{t('products.filter.noProductsSimple')}</p>
-          <Link href="/collection" className="text-blue-600 hover:text-blue-800">
-            {t('common.back')}
-          </Link>
-        </div>
+        <NoProductsMessage
+          message={t('products.noProducts')}
+          backButtonText={t('products.back')}
+        />
       )}
     </div>
   );

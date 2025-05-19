@@ -4,6 +4,7 @@ import { useProductFilters } from "../../../hooks/useProductFilters";
 import ProductGrid from "../../../components/ProductGrid";
 import FilterSection from "../../../components/FilterSection";
 import SortSection from "../../../components/SortSection";
+import NoProductsMessage from "../../../components/NoProductsMessage";
 import { Product } from "../../../types/product";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
@@ -261,13 +262,24 @@ export default function AcceptTheProblemPage() {
       {products.length > 0 ? (
         <ProductGrid products={products} />
       ) : (
-        <div className="text-center py-12">
-          <p className="text-gray-600 mb-4">{t('products.filter.noProductsSimple')}</p>
-          <Link href="/collection" className="text-blue-600 hover:text-blue-800">
-            {t('common.back')}
-          </Link>
-        </div>
+        <NoProductsMessage />
       )}
     </div>
   );
-} 
+}
+
+interface NoProductsMessageProps {
+  message: string;
+  backButtonText: string;
+}
+
+const NoProductsMessage: React.FC<NoProductsMessageProps> = ({ message, backButtonText }) => {
+  return (
+    <div className="text-center py-12">
+      <p className="text-gray-600 mb-4">{message}</p>
+      <Link href="/collection" className="text-blue-600 hover:text-blue-800">
+        {backButtonText}
+      </Link>
+    </div>
+  );
+}; 
