@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 42,
+            "activePatchIndex": 43,
             "patches": [
                 {
                     "date": 1746893160195,
@@ -176,6 +176,10 @@
                 {
                     "date": 1747636861219,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,20 @@\n import { NextRequest, NextResponse } from 'next/server';\r\n import { prisma } from '@/lib/prisma';\r\n \r\n+type Props = {\r\n+  params: {\r\n+    id: string;\r\n+  };\r\n+};\r\n+\r\n export async function GET(\r\n   request: NextRequest,\r\n-  { params }: { params: { id: string } }\r\n+  props: Props\r\n ) {\r\n   try {\r\n     const product = await prisma.product.findUnique({\r\n-      where: { id: params.id },\r\n+      where: { id: props.params.id },\r\n       include: {\r\n         category: true,\r\n         images: true,\r\n         variants: {\r\n@@ -37,16 +43,16 @@\n }\r\n \r\n export async function PUT(\r\n   request: NextRequest,\r\n-  { params }: { params: { id: string } }\r\n+  props: Props\r\n ) {\r\n   try {\r\n     const body = await request.json();\r\n     const { name, description, price, categoryId, images, variants } = body;\r\n \r\n     const product = await prisma.product.update({\r\n-      where: { id: params.id },\r\n+      where: { id: props.params.id },\r\n       data: {\r\n         name,\r\n         description,\r\n         price,\r\n@@ -90,13 +96,13 @@\n }\r\n \r\n export async function DELETE(\r\n   request: NextRequest,\r\n-  { params }: { params: { id: string } }\r\n+  props: Props\r\n ) {\r\n   try {\r\n     await prisma.product.delete({\r\n-      where: { id: params.id },\r\n+      where: { id: props.params.id },\r\n     });\r\n \r\n     return NextResponse.json({ message: 'Product deleted successfully' });\r\n   } catch (error) {\r\n"
+                },
+                {
+                    "date": 1747640329708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,10 @@\n     id: string;\r\n   };\r\n };\r\n \r\n+export const dynamic = 'force-dynamic';\r\n+\r\n export async function GET(\r\n   request: NextRequest,\r\n   props: Props\r\n ) {\r\n"
                 }
             ],
             "date": 1746891704042,

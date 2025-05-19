@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1747119991378,
@@ -32,6 +32,10 @@
                 {
                     "date": 1747638518637,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,14 +6,14 @@\n export async function GET() {\r\n   try {\r\n     const session = await getServerSession(authOptions);\r\n \r\n-    if (!session?.user?.email) {\r\n+    if (!session) {\r\n       return new NextResponse(\"Unauthorized\", { status: 401 });\r\n     }\r\n \r\n     // Chỉ cần kiểm tra role trong session\r\n-    if (session.user.role === \"ADMIN\") {\r\n+    if ((session.user as any).role === \"ADMIN\") {\r\n       return new NextResponse(\"Authorized\", { status: 200 });\r\n     }\r\n \r\n     return new NextResponse(\"Forbidden\", { status: 403 });\r\n"
+                },
+                {
+                    "date": 1747640346460,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,10 @@\n import { getServerSession } from \"next-auth\";\r\n import { authOptions } from \"@/lib/auth\";\r\n import { connectToDatabase } from \"@/lib/mongodb\";\r\n \r\n+export const dynamic = 'force-dynamic';\r\n+\r\n export async function GET() {\r\n   try {\r\n     const session = await getServerSession(authOptions);\r\n \r\n"
                 }
             ],
             "date": 1747119991378,
