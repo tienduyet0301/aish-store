@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
@@ -6,14 +6,14 @@ import { revalidatePath } from "next/cache";
 const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000";
 
 export async function GET(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
     const { db } = await connectToDatabase();
     const product = await db
       .collection("products")
-      .findOne({ _id: new ObjectId(context.params.id) });
+      .findOne({ _id: new ObjectId(params.id) });
 
     if (!product) {
       return NextResponse.json(
@@ -33,15 +33,15 @@ export async function GET(
 }
 
 export async function PUT(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
     const { db } = await connectToDatabase();
     const body = await request.json();
 
     const result = await db.collection("products").updateOne(
-      { _id: new ObjectId(context.params.id) },
+      { _id: new ObjectId(params.id) },
       { $set: body }
     );
 
@@ -52,7 +52,7 @@ export async function PUT(
       );
     }
 
-    revalidatePath(`/products/${context.params.id}`);
+    revalidatePath(`/products/${params.id}`);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error updating product:", error);
@@ -64,14 +64,14 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
     const { db } = await connectToDatabase();
     const result = await db
       .collection("products")
-      .deleteOne({ _id: new ObjectId(context.params.id) });
+      .deleteOne({ _id: new ObjectId(params.id) });
 
     if (result.deletedCount === 0) {
       return NextResponse.json(
