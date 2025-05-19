@@ -3,17 +3,17 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-export const dynamic = 'force-dynamic';
-
-export async function generateStaticParams() {
-  return [];
-}
-
 type Props = {
   params: {
     id: string;
   };
 };
+
+export const dynamic = 'force-dynamic';
+
+export async function generateStaticParams() {
+  return [];
+}
 
 export async function GET(
   request: NextRequest,
