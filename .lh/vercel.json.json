@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1747641034263,
@@ -16,6 +16,10 @@
                 {
                     "date": 1747641805120,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,20 +6,24 @@\n   \"regions\": [\"sin1\"],\r\n   \"functions\": {\r\n     \"app/api/products/[id]/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10\r\n+      \"maxDuration\": 10,\r\n+      \"runtime\": \"edge\"\r\n     },\r\n     \"app/api/search/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10\r\n+      \"maxDuration\": 10,\r\n+      \"runtime\": \"edge\"\r\n     },\r\n     \"app/api/admin/check-access/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10\r\n+      \"maxDuration\": 10,\r\n+      \"runtime\": \"edge\"\r\n     },\r\n     \"app/api/user/profile/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10\r\n+      \"maxDuration\": 10,\r\n+      \"runtime\": \"edge\"\r\n     }\r\n   }\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747641943274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,24 +6,20 @@\n   \"regions\": [\"sin1\"],\r\n   \"functions\": {\r\n     \"app/api/products/[id]/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10,\r\n-      \"runtime\": \"edge\"\r\n+      \"maxDuration\": 10\r\n     },\r\n     \"app/api/search/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10,\r\n-      \"runtime\": \"edge\"\r\n+      \"maxDuration\": 10\r\n     },\r\n     \"app/api/admin/check-access/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10,\r\n-      \"runtime\": \"edge\"\r\n+      \"maxDuration\": 10\r\n     },\r\n     \"app/api/user/profile/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10,\r\n-      \"runtime\": \"edge\"\r\n+      \"maxDuration\": 10\r\n     }\r\n   }\r\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747641034263,
