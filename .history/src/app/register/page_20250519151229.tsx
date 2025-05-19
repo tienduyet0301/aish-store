@@ -223,15 +223,13 @@ const DateOfBirthSection: React.FC<DateOfBirthSectionProps> = ({ formData, handl
   );
 };
 
-function RegisterContent() {
+// Main Register Page Component
+const RegisterPage = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams.get("email") || "";
-  const name = searchParams.get("name") || "";
+  const email = searchParams.get('email') || '';
+  const name = searchParams.get('name') || '';
 
-  return <RegisterForm initialEmail={email} initialName={name} />;
-}
-
-export default function RegisterPage() {
   return (
     <>
       <Head>
@@ -245,10 +243,12 @@ export default function RegisterPage() {
             </h2>
           </div>
           <Suspense fallback={<div>Loading...</div>}>
-            <RegisterContent />
+            <RegisterForm initialEmail={email} initialName={name} />
           </Suspense>
         </div>
       </div>
     </>
   );
-} 
+};
+
+export default RegisterPage; 

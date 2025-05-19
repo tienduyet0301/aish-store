@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/DateOfBirthSection.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747642604181,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747642604181,
+            "name": "Commit-0",
+            "content": "\"use client\";\r\n\r\nimport { motion } from \"framer-motion\";\r\n\r\ninterface FormData {\r\n  day: string;\r\n  month: string;\r\n  year: string;\r\n}\r\n\r\ninterface Errors {\r\n  date?: string;\r\n}\r\n\r\ninterface Touched {\r\n  [key: string]: boolean;\r\n}\r\n\r\ninterface DateOfBirthSectionProps {\r\n  formData: FormData;\r\n  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;\r\n  errors: Errors;\r\n  touched: Touched;\r\n  setTouched: React.Dispatch<React.SetStateAction<Touched>>;\r\n}\r\n\r\nexport function DateOfBirthSection({\r\n  formData,\r\n  handleInputChange,\r\n  errors,\r\n  touched,\r\n  setTouched,\r\n}: DateOfBirthSectionProps) {\r\n  const handleBlur = (field: string) => {\r\n    setTouched((prev) => ({ ...prev, [field]: true }));\r\n  };\r\n\r\n  return (\r\n    <div className=\"mt-2\">\r\n      <label className=\"block text-xs md:text-sm text-gray-500 mb-2\">DATE OF BIRTH*</label>\r\n      <div className=\"grid grid-cols-3 gap-2\">\r\n        <div className=\"relative\">\r\n          <input\r\n            type=\"text\"\r\n            name=\"day\"\r\n            value={formData.day}\r\n            onChange={handleInputChange}\r\n            onBlur={() => handleBlur(\"day\")}\r\n            placeholder=\"DD\"\r\n            maxLength={2}\r\n            className={`w-full px-4 py-2 text-sm text-black border rounded-none focus:outline-none focus:ring-2 \r\n              ${errors.date && touched.day ? \"border-red-400 focus:ring-red-400\" : \"border-gray-300 focus:ring-black\"}`}\r\n            aria-label=\"Day\"\r\n            title=\"Day\"\r\n          />\r\n        </div>\r\n        <div className=\"relative\">\r\n          <input\r\n            type=\"text\"\r\n            name=\"month\"\r\n            value={formData.month}\r\n            onChange={handleInputChange}\r\n            onBlur={() => handleBlur(\"month\")}\r\n            placeholder=\"MM\"\r\n            maxLength={2}\r\n            className={`w-full px-4 py-2 text-sm text-black border rounded-none focus:outline-none focus:ring-2 \r\n              ${errors.date && touched.month ? \"border-red-400 focus:ring-red-400\" : \"border-gray-300 focus:ring-black\"}`}\r\n            aria-label=\"Month\"\r\n            title=\"Month\"\r\n          />\r\n        </div>\r\n        <div className=\"relative\">\r\n          <input\r\n            type=\"text\"\r\n            name=\"year\"\r\n            value={formData.year}\r\n            onChange={handleInputChange}\r\n            onBlur={() => handleBlur(\"year\")}\r\n            placeholder=\"YYYY\"\r\n            maxLength={4}\r\n            className={`w-full px-4 py-2 text-sm text-black border rounded-none focus:outline-none focus:ring-2 \r\n              ${errors.date && touched.year ? \"border-red-400 focus:ring-red-400\" : \"border-gray-300 focus:ring-black\"}`}\r\n            aria-label=\"Year\"\r\n            title=\"Year\"\r\n          />\r\n        </div>\r\n      </div>\r\n      {errors.date && (touched.day || touched.month || touched.year) && (\r\n        <p className=\"text-red-400 text-[7px] md:text-xs mt-1\">{errors.date}</p>\r\n      )}\r\n    </div>\r\n  );\r\n} "
+        }
+    ]
+}

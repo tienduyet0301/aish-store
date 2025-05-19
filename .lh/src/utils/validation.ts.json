@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/utils/validation.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747642619376,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747642619376,
+            "name": "Commit-0",
+            "content": "export function validateEmail(email: string): boolean {\r\n  const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\r\n  return emailRegex.test(email);\r\n}\r\n\r\nexport function validatePassword(password: string) {\r\n  const minLength = password.length >= 8;\r\n  const hasUpperCase = /[A-Z]/.test(password);\r\n  const hasLowerCase = /[a-z]/.test(password);\r\n  const hasNumbers = /\\d/.test(password);\r\n  const hasSpecialChar = /[!@#$%^&*(),.?\":{}|<>]/.test(password);\r\n\r\n  return {\r\n    minLength,\r\n    hasUpperCase,\r\n    hasLowerCase,\r\n    hasNumbers,\r\n    hasSpecialChar,\r\n  };\r\n} "
+        }
+    ]
+}
