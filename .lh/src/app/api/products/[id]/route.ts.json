@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 46,
+            "activePatchIndex": 47,
             "patches": [
                 {
                     "date": 1746893160195,
@@ -192,6 +192,10 @@
                 {
                     "date": 1747641573311,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,20 +2,20 @@\n import { prisma } from '@/lib/prisma';\r\n import { getServerSession } from 'next-auth';\r\n import { authOptions } from '@/lib/auth';\r\n \r\n+export const dynamic = 'force-dynamic';\r\n+\r\n+export async function generateStaticParams() {\r\n+  return [];\r\n+}\r\n+\r\n type Props = {\r\n   params: {\r\n     id: string;\r\n   };\r\n };\r\n \r\n-export const dynamic = 'force-dynamic';\r\n-\r\n-export async function generateStaticParams() {\r\n-  return [];\r\n-}\r\n-\r\n export async function GET(\r\n   request: NextRequest,\r\n   props: Props\r\n ) {\r\n"
+                },
+                {
+                    "date": 1747641795267,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,27 +2,22 @@\n import { prisma } from '@/lib/prisma';\r\n import { getServerSession } from 'next-auth';\r\n import { authOptions } from '@/lib/auth';\r\n \r\n+export const runtime = 'edge';\r\n export const dynamic = 'force-dynamic';\r\n \r\n export async function generateStaticParams() {\r\n   return [];\r\n }\r\n \r\n-type Props = {\r\n-  params: {\r\n-    id: string;\r\n-  };\r\n-};\r\n-\r\n export async function GET(\r\n   request: NextRequest,\r\n-  props: Props\r\n+  { params }: { params: { id: string } }\r\n ) {\r\n   try {\r\n     const product = await prisma.product.findUnique({\r\n-      where: { id: props.params.id },\r\n+      where: { id: params.id },\r\n       include: {\r\n         category: true,\r\n         images: true,\r\n         variants: {\r\n@@ -51,16 +46,16 @@\n }\r\n \r\n export async function PUT(\r\n   request: NextRequest,\r\n-  props: Props\r\n+  { params }: { params: { id: string } }\r\n ) {\r\n   try {\r\n     const body = await request.json();\r\n     const { name, description, price, categoryId, images, variants } = body;\r\n \r\n     const product = await prisma.product.update({\r\n-      where: { id: props.params.id },\r\n+      where: { id: params.id },\r\n       data: {\r\n         name,\r\n         description,\r\n         price,\r\n@@ -104,13 +99,13 @@\n }\r\n \r\n export async function DELETE(\r\n   request: NextRequest,\r\n-  props: Props\r\n+  { params }: { params: { id: string } }\r\n ) {\r\n   try {\r\n     await prisma.product.delete({\r\n-      where: { id: props.params.id },\r\n+      where: { id: params.id },\r\n     });\r\n \r\n     return NextResponse.json({ message: 'Product deleted successfully' });\r\n   } catch (error) {\r\n"
                 }
             ],
             "date": 1746891704042,

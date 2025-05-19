@@ -3,20 +3,25 @@ import { prisma } from '@/lib/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 
-export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   return [];
 }
 
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: Props
 ) {
   try {
     const product = await prisma.product.findUnique({
-      where: { id: params.id },
+      where: { id: props.params.id },
       include: {
         category: true,
         images: true,
@@ -47,14 +52,14 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: Props
 ) {
   try {
     const body = await request.json();
     const { name, description, price, categoryId, images, variants } = body;
 
     const product = await prisma.product.update({
-      where: { id: params.id },
+      where: { id: props.params.id },
       data: {
         name,
         description,
@@ -100,11 +105,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  props: Props
 ) {
   try {
     await prisma.product.delete({
-      where: { id: params.id },
+      where: { id: props.params.id },
     });
 
     return NextResponse.json({ message: 'Product deleted successfully' });
