@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 import { revalidatePath } from "next/cache";
@@ -7,7 +7,7 @@ const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:3000";
 
 // GET product by id
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
@@ -35,7 +35,7 @@ export async function GET(
 
 // UPDATE product by id
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
@@ -67,7 +67,7 @@ export async function PUT(
 
 // DELETE product by id
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
