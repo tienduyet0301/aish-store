@@ -35,7 +35,6 @@ interface Errors {
   date?: string;
   receiveUpdates?: string;
   api?: string;
-  [key: string]: string | undefined;
 }
 
 interface Touched {
@@ -100,16 +99,6 @@ export default function RegisterForm({ initialEmail, initialName }: RegisterForm
       [name]: checked,
     }));
   }, []);
-
-  const validatePassword = (password: string) => {
-    return {
-      hasMinLength: password.length >= 8,
-      hasUpperCase: /[A-Z]/.test(password),
-      hasLowerCase: /[a-z]/.test(password),
-      hasNumber: /[0-9]/.test(password),
-      hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password)
-    };
-  };
 
   const validateForm = (formData: FormData): Errors => {
     const errors: Errors = {};

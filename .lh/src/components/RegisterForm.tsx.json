@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1747642426796,
@@ -12,6 +12,18 @@
                 {
                     "date": 1747643338993,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n \"use client\";\r\n \r\n-import { useState, useCallback } from \"react\";\r\n+import { useState, useCallback, useRef } from \"react\";\r\n import { useRouter } from \"next/navigation\";\r\n import { FcGoogle } from \"react-icons/fc\";\r\n import { FiEdit2 } from \"react-icons/fi\";\r\n import { motion } from \"framer-motion\";\r\n"
+                },
+                {
+                    "date": 1747646276168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n import { signIn } from \"next-auth/react\";\r\n import Head from \"next/head\";\r\n import { PasswordField } from \"./PasswordField\";\r\n import { DateOfBirthSection } from \"./DateOfBirthSection\";\r\n+import { validatePassword, validateEmail } from \"@/utils/validation\";\r\n \r\n interface RegisterFormProps {\r\n   initialEmail: string;\r\n   initialName: string;\r\n"
+                },
+                {
+                    "date": 1747646380465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,8 +34,9 @@\n   lastName?: string;\r\n   date?: string;\r\n   receiveUpdates?: string;\r\n   api?: string;\r\n+  [key: string]: string | undefined;\r\n }\r\n \r\n interface Touched {\r\n   [key: string]: boolean;\r\n"
+                },
+                {
+                    "date": 1747647390544,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -100,8 +100,18 @@\n       [name]: checked,\r\n     }));\r\n   }, []);\r\n \r\n+  const validatePassword = (password: string) => {\r\n+    return {\r\n+      hasMinLength: password.length >= 8,\r\n+      hasUpperCase: /[A-Z]/.test(password),\r\n+      hasLowerCase: /[a-z]/.test(password),\r\n+      hasNumber: /[0-9]/.test(password),\r\n+      hasSpecialChar: /[!@#$%^&*(),.?\":{}|<>]/.test(password)\r\n+    };\r\n+  };\r\n+\r\n   const validateForm = (formData: FormData): Errors => {\r\n     const errors: Errors = {};\r\n     const passwordValid = validatePassword(formData.password);\r\n \r\n"
                 }
             ],
             "date": 1747642426796,
