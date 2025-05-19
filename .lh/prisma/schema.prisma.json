@@ -1,0 +1,18 @@
+{
+    "sourceFile": "prisma/schema.prisma",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747635612771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747635612771,
+            "name": "Commit-0",
+            "content": "generator client {\r\n  provider = \"prisma-client-js\"\r\n}\r\n\r\ndatasource db {\r\n  provider = \"mongodb\"\r\n  url      = env(\"DATABASE_URL\")\r\n}\r\n\r\nmodel Product {\r\n  id          String     @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  name        String\r\n  description String\r\n  price       Float\r\n  category    Category   @relation(fields: [categoryId], references: [id])\r\n  categoryId  String     @db.ObjectId\r\n  images      Image[]\r\n  variants    Variant[]\r\n  createdAt   DateTime   @default(now())\r\n  updatedAt   DateTime   @updatedAt\r\n}\r\n\r\nmodel Category {\r\n  id        String    @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  name      String\r\n  products  Product[]\r\n  createdAt DateTime  @default(now())\r\n  updatedAt DateTime  @updatedAt\r\n}\r\n\r\nmodel Image {\r\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  url       String\r\n  product   Product  @relation(fields: [productId], references: [id])\r\n  productId String   @db.ObjectId\r\n  createdAt DateTime @default(now())\r\n  updatedAt DateTime @updatedAt\r\n}\r\n\r\nmodel Variant {\r\n  id        String    @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  name      String\r\n  product   Product   @relation(fields: [productId], references: [id])\r\n  productId String    @db.ObjectId\r\n  options   Option[]\r\n  createdAt DateTime  @default(now())\r\n  updatedAt DateTime  @updatedAt\r\n}\r\n\r\nmodel Option {\r\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n  name      String\r\n  price     Float\r\n  variant   Variant  @relation(fields: [variantId], references: [id])\r\n  variantId String   @db.ObjectId\r\n  createdAt DateTime @default(now())\r\n  updatedAt DateTime @updatedAt\r\n} "
+        }
+    ]
+}
