@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1747278608368,
@@ -16,6 +16,14 @@
                 {
                     "date": 1747278787518,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,15 @@\n- \n\\ No newline at end of file\n+import { Product } from \"@/types/product\";\r\n+\r\n+export async function getProduct(slug: string): Promise<Product> {\r\n+  try {\r\n+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${slug}`);\r\n+    if (!response.ok) {\r\n+      throw new Error('Failed to fetch product');\r\n+    }\r\n+    const data = await response.json();\r\n+    return data.product;\r\n+  } catch (error) {\r\n+    console.error('Error fetching product:', error);\r\n+    throw error;\r\n+  }\r\n+} \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1748663210662,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,21 @@\n import { Product } from \"@/types/product\";\r\n \r\n export async function getProduct(slug: string): Promise<Product> {\r\n   try {\r\n-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${slug}`);\r\n+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/by-slug/${slug}`, {\r\n+      cache: 'no-store'\r\n+    });\r\n+    \r\n     if (!response.ok) {\r\n       throw new Error('Failed to fetch product');\r\n     }\r\n+    \r\n     const data = await response.json();\r\n+    if (!data.ok) {\r\n+      throw new Error(data.error || 'Failed to fetch product');\r\n+    }\r\n+    \r\n     return data.product;\r\n   } catch (error) {\r\n     console.error('Error fetching product:', error);\r\n     throw error;\r\n"
+                },
+                {
+                    "date": 1748663279093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,21 +1,13 @@\n import { Product } from \"@/types/product\";\r\n \r\n export async function getProduct(slug: string): Promise<Product> {\r\n   try {\r\n-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/by-slug/${slug}`, {\r\n-      cache: 'no-store'\r\n-    });\r\n-    \r\n+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${slug}`);\r\n     if (!response.ok) {\r\n       throw new Error('Failed to fetch product');\r\n     }\r\n-    \r\n     const data = await response.json();\r\n-    if (!data.ok) {\r\n-      throw new Error(data.error || 'Failed to fetch product');\r\n-    }\r\n-    \r\n     return data.product;\r\n   } catch (error) {\r\n     console.error('Error fetching product:', error);\r\n     throw error;\r\n"
                 }
             ],
             "date": 1747278608368,

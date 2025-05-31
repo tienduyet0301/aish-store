@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/notifications/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747892757865,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747892757865,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from 'next/server';\r\nimport { connectToDatabase } from '@/lib/mongodb';\r\n\r\nexport async function GET() {\r\n  try {\r\n    const { db } = await connectToDatabase();\r\n    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';\r\n\r\n    // Fetch notifications\r\n    const notifications = await db.collection('notifications').findOne({ type: 'announcement' });\r\n    console.log('Found notifications:', notifications);\r\n\r\n    // Fetch promo codes\r\n    const promoCodes = await db.collection('notifications')\r\n      .find({ type: 'promo', isActive: true })\r\n      .toArray();\r\n    console.log('Found promo codes:', promoCodes);\r\n\r\n    return NextResponse.json({\r\n      notifications,\r\n      promoCodes\r\n    });\r\n  } catch (error) {\r\n    console.error('Error fetching notifications:', error);\r\n    return NextResponse.json(\r\n      { error: 'Failed to fetch notifications' },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

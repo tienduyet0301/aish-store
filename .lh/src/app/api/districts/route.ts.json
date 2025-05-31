@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/districts/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747805109199,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747805109199,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from 'next/server';\r\n\r\n// Dữ liệu mẫu - trong thực tế bạn sẽ lấy từ database\r\nconst districts = {\r\n  '01': [ // Hà Nội\r\n    { code: '001', name: 'Ba Đình', province_code: '01' },\r\n    { code: '002', name: 'Hoàn Kiếm', province_code: '01' },\r\n    { code: '003', name: 'Tây Hồ', province_code: '01' },\r\n    { code: '004', name: 'Long Biên', province_code: '01' },\r\n    { code: '005', name: 'Cầu Giấy', province_code: '01' },\r\n  ],\r\n  '02': [ // Hồ Chí Minh\r\n    { code: '001', name: 'Quận 1', province_code: '02' },\r\n    { code: '002', name: 'Quận 2', province_code: '02' },\r\n    { code: '003', name: 'Quận 3', province_code: '02' },\r\n    { code: '004', name: 'Quận 4', province_code: '02' },\r\n    { code: '005', name: 'Quận 5', province_code: '02' },\r\n  ],\r\n  // Thêm các quận/huyện khác\r\n};\r\n\r\nexport async function GET(request: Request) {\r\n  try {\r\n    const { searchParams } = new URL(request.url);\r\n    const provinceCode = searchParams.get('province_code');\r\n\r\n    if (!provinceCode) {\r\n      return NextResponse.json(\r\n        { error: 'Province code is required' },\r\n        { status: 400 }\r\n      );\r\n    }\r\n\r\n    const provinceDistricts = districts[provinceCode as keyof typeof districts] || [];\r\n    return NextResponse.json(provinceDistricts);\r\n  } catch (error) {\r\n    console.error('Error fetching districts:', error);\r\n    return NextResponse.json(\r\n      { error: 'Failed to fetch districts' },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

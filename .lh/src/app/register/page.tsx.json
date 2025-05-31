@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 50,
+            "activePatchIndex": 51,
             "patches": [
                 {
                     "date": 1746959655096,
@@ -208,6 +208,10 @@
                 {
                     "date": 1747642635996,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -222,15 +222,17 @@\n     </>\r\n   );\r\n };\r\n \r\n-// Main Register Page Component\r\n-const RegisterPage = () => {\r\n-  const router = useRouter();\r\n+function RegisterContent() {\r\n   const searchParams = useSearchParams();\r\n-  const email = searchParams.get('email') || '';\r\n-  const name = searchParams.get('name') || '';\r\n+  const email = searchParams.get(\"email\") || \"\";\r\n+  const name = searchParams.get(\"name\") || \"\";\r\n \r\n+  return <RegisterForm initialEmail={email} initialName={name} />;\r\n+}\r\n+\r\n+export default function RegisterPage() {\r\n   return (\r\n     <>\r\n       <Head>\r\n         <title>Register | My AISH</title>\r\n@@ -242,13 +244,11 @@\n               Create your account\r\n             </h2>\r\n           </div>\r\n           <Suspense fallback={<div>Loading...</div>}>\r\n-            <RegisterForm initialEmail={email} initialName={name} />\r\n+            <RegisterContent />\r\n           </Suspense>\r\n         </div>\r\n       </div>\r\n     </>\r\n   );\r\n-};\r\n-\r\n\\ No newline at end of file\n-export default RegisterPage; \n+} \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1748661253922,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -237,9 +237,9 @@\n       <Head>\r\n         <title>Register | My AISH</title>\r\n       </Head>\r\n       <div className=\"min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8\">\r\n-        <div className=\"max-w-md w-full space-y-8\">\r\n+        <div className=\"max-w-md w-full space-y-8 mt-10\">\r\n           <div>\r\n             <h2 className=\"mt-6 text-center text-3xl font-extrabold text-gray-900\">\r\n               Create your account\r\n             </h2>\r\n"
                 }
             ],
             "date": 1746959655096,

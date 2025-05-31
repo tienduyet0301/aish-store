@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/api/orders/by-code/[orderCode]/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747803691719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747803866880,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,14 @@\n     const orderCode = params.orderCode;\r\n \r\n     console.log(\"Fetching order with code:\", orderCode);\r\n \r\n+    // Log tất cả các đơn hàng trong database\r\n+    const allOrders = await db.collection(\"orders\").find({}).toArray();\r\n+    console.log(\"All orders in database:\", allOrders);\r\n+\r\n     const order = await db.collection(\"orders\").findOne({ orderNumber: orderCode });\r\n+    console.log(\"Query result:\", order);\r\n \r\n     if (!order) {\r\n       console.log(\"Order not found for code:\", orderCode);\r\n       return NextResponse.json(\r\n"
+                }
+            ],
+            "date": 1747803691719,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from \"@/lib/mongodb\";\r\nimport { ObjectId } from \"mongodb\";\r\n\r\nexport async function GET(\r\n  request: Request,\r\n  { params }: { params: { orderCode: string } }\r\n) {\r\n  try {\r\n    const { db } = await connectToDatabase();\r\n    const orderCode = params.orderCode;\r\n\r\n    console.log(\"Fetching order with code:\", orderCode);\r\n\r\n    const order = await db.collection(\"orders\").findOne({ orderNumber: orderCode });\r\n\r\n    if (!order) {\r\n      console.log(\"Order not found for code:\", orderCode);\r\n      return NextResponse.json(\r\n        { ok: false, error: \"Order not found\" },\r\n        { status: 404 }\r\n      );\r\n    }\r\n\r\n    console.log(\"Found order:\", order);\r\n\r\n    return NextResponse.json({ ok: true, order });\r\n  } catch (error) {\r\n    console.error(\"Error fetching order:\", error);\r\n    return NextResponse.json(\r\n      { ok: false, error: \"Failed to fetch order\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

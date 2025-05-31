@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1746893166191,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1748657845596,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,12 +35,18 @@\n       const data = await response.json();\r\n       console.log(\"API Response:\", data);\r\n       \r\n       if (data.ok) {\r\n-        console.log(\"Setting announcement:\", data.announcement);\r\n-        console.log(\"Setting isActive:\", data.isAnnouncementActive);\r\n-        setAnnouncement(data.announcement);\r\n-        setIsActive(data.isAnnouncementActive);\r\n+        const announcementNotif = data.notifications.find((notif: any) => notif.type === 'announcement');\r\n+        if (announcementNotif) {\r\n+          console.log(\"Setting announcement:\", announcementNotif.content);\r\n+          console.log(\"Setting isActive:\", announcementNotif.isActive);\r\n+          setAnnouncement(announcementNotif.content || '');\r\n+          setIsActive(announcementNotif.isActive || false);\r\n+        } else {\r\n+          setAnnouncement('');\r\n+          setIsActive(false);\r\n+        }\r\n       }\r\n     } catch (error) {\r\n       console.error(\"Error fetching announcement:\", error);\r\n     }\r\n"
                 }
             ],
             "date": 1746891704042,

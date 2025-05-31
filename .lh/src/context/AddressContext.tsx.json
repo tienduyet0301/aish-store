@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/context/AddressContext.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747890973209,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747891078066,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,42 +1,1 @@\n-import { createContext, useContext, useState, ReactNode } from 'react';\r\n-\r\n-interface Address {\r\n-  fullName: string;\r\n-  phone: string;\r\n-  province: string;\r\n-  district: string;\r\n-  ward: string;\r\n-  detail: string;\r\n-}\r\n-\r\n-interface AddressContextType {\r\n-  address: Address;\r\n-  setAddress: (address: Address) => void;\r\n-}\r\n-\r\n-const AddressContext = createContext<AddressContextType | undefined>(undefined);\r\n-\r\n-export function AddressProvider({ children }: { children: ReactNode }) {\r\n-  const [address, setAddress] = useState<Address>({\r\n-    fullName: '',\r\n-    phone: '',\r\n-    province: '',\r\n-    district: '',\r\n-    ward: '',\r\n-    detail: '',\r\n-  });\r\n-\r\n-  return (\r\n-    <AddressContext.Provider value={{ address, setAddress }}>\r\n-      {children}\r\n-    </AddressContext.Provider>\r\n-  );\r\n-}\r\n-\r\n-export function useAddress() {\r\n-  const context = useContext(AddressContext);\r\n-  if (context === undefined) {\r\n-    throw new Error('useAddress must be used within an AddressProvider');\r\n-  }\r\n-  return context;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747890973209,
+            "name": "Commit-0",
+            "content": "import { createContext, useContext, useState, ReactNode } from 'react';\r\n\r\ninterface Address {\r\n  fullName: string;\r\n  phone: string;\r\n  province: string;\r\n  district: string;\r\n  ward: string;\r\n  detail: string;\r\n}\r\n\r\ninterface AddressContextType {\r\n  address: Address;\r\n  setAddress: (address: Address) => void;\r\n}\r\n\r\nconst AddressContext = createContext<AddressContextType | undefined>(undefined);\r\n\r\nexport function AddressProvider({ children }: { children: ReactNode }) {\r\n  const [address, setAddress] = useState<Address>({\r\n    fullName: '',\r\n    phone: '',\r\n    province: '',\r\n    district: '',\r\n    ward: '',\r\n    detail: '',\r\n  });\r\n\r\n  return (\r\n    <AddressContext.Provider value={{ address, setAddress }}>\r\n      {children}\r\n    </AddressContext.Provider>\r\n  );\r\n}\r\n\r\nexport function useAddress() {\r\n  const context = useContext(AddressContext);\r\n  if (context === undefined) {\r\n    throw new Error('useAddress must be used within an AddressProvider');\r\n  }\r\n  return context;\r\n} "
+        }
+    ]
+}

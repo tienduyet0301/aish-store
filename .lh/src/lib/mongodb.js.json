@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1747059133796,
@@ -20,6 +20,14 @@
                 {
                     "date": 1747112885647,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,35 +1,1 @@\n-import { MongoClient } from 'mongodb';\r\n-\r\n-const MONGODB_URI = process.env.MONGODB_URI;\r\n-\r\n-if (!MONGODB_URI) {\r\n-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');\r\n-}\r\n-\r\n-let cached = global.mongo;\r\n-\r\n-if (!cached) {\r\n-  cached = global.mongo = { conn: null, promise: null };\r\n-}\r\n-\r\n-export async function connectToDatabase() {\r\n-  if (cached.conn) {\r\n-    return cached.conn;\r\n-  }\r\n-\r\n-  if (!cached.promise) {\r\n-    const opts = {\r\n-      useNewUrlParser: true,\r\n-      useUnifiedTopology: true,\r\n-    };\r\n-\r\n-    cached.promise = MongoClient.connect(MONGODB_URI, opts).then((client) => {\r\n-      return {\r\n-        client,\r\n-        db: client.db(process.env.MONGODB_DB),\r\n-      };\r\n-    });\r\n-  }\r\n-  cached.conn = await cached.promise;\r\n-  return cached.conn;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1748318462258,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,33 @@\n- \n\\ No newline at end of file\n+import { MongoClient } from 'mongodb';\r\n+\r\n+if (!process.env.MONGODB_URI) {\r\n+  throw new Error('Please add your Mongo URI to .env.local');\r\n+}\r\n+\r\n+const uri = process.env.MONGODB_URI;\r\n+const options = {};\r\n+\r\n+let client;\r\n+let clientPromise;\r\n+\r\n+if (process.env.NODE_ENV === 'development') {\r\n+  // In development mode, use a global variable so that the value\r\n+  // is preserved across module reloads caused by HMR (Hot Module Replacement).\r\n+  if (!global._mongoClientPromise) {\r\n+    client = new MongoClient(uri, options);\r\n+    global._mongoClientPromise = client.connect();\r\n+  }\r\n+  clientPromise = global._mongoClientPromise;\r\n+} else {\r\n+  // In production mode, it's best to not use a global variable.\r\n+  client = new MongoClient(uri, options);\r\n+  clientPromise = client.connect();\r\n+}\r\n+\r\n+export async function connectToDatabase() {\r\n+  const client = await clientPromise;\r\n+  const db = client.db(process.env.MONGODB_DB);\r\n+  return { client, db };\r\n+}\r\n+\r\n+export default clientPromise; \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1748319263326,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,33 +1,1 @@\n-import { MongoClient } from 'mongodb';\r\n-\r\n-if (!process.env.MONGODB_URI) {\r\n-  throw new Error('Please add your Mongo URI to .env.local');\r\n-}\r\n-\r\n-const uri = process.env.MONGODB_URI;\r\n-const options = {};\r\n-\r\n-let client;\r\n-let clientPromise;\r\n-\r\n-if (process.env.NODE_ENV === 'development') {\r\n-  // In development mode, use a global variable so that the value\r\n-  // is preserved across module reloads caused by HMR (Hot Module Replacement).\r\n-  if (!global._mongoClientPromise) {\r\n-    client = new MongoClient(uri, options);\r\n-    global._mongoClientPromise = client.connect();\r\n-  }\r\n-  clientPromise = global._mongoClientPromise;\r\n-} else {\r\n-  // In production mode, it's best to not use a global variable.\r\n-  client = new MongoClient(uri, options);\r\n-  clientPromise = client.connect();\r\n-}\r\n-\r\n-export async function connectToDatabase() {\r\n-  const client = await clientPromise;\r\n-  const db = client.db(process.env.MONGODB_DB);\r\n-  return { client, db };\r\n-}\r\n-\r\n-export default clientPromise; \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747059133796,

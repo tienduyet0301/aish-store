@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 12,
             "patches": [
                 {
                     "date": 1746892149430,
@@ -52,6 +52,10 @@
                 {
                     "date": 1747375542281,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,14 +19,8 @@\n   children: React.ReactNode;\r\n }>) {\r\n   return (\r\n     <html lang=\"en\">\r\n-      <head>\r\n-        <link\r\n-          href=\"https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap\"\r\n-          rel=\"stylesheet\"\r\n-        />\r\n-      </head>\r\n       <body className={inter.className}>\r\n         <div className=\"flex flex-col min-h-screen\">\r\n           <Providers>\r\n             <Navbar />\r\n"
+                },
+                {
+                    "date": 1747891080779,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,14 +4,18 @@\n import Navbar from \"@/components/Navbar\";\r\n import Footer from \"@/components/Footer\";\r\n import Providers from \"@/components/Providers\";\r\n import AnnouncementBanner from \"@/components/AnnouncementBanner\";\r\n+import { CartProvider } from \"@/context/CartContext\";\r\n+import { SessionProvider } from \"next-auth/react\";\r\n+import { AddressProvider } from \"@/context/AddressContext\";\r\n+import { CheckoutProvider } from \"@/context/CheckoutContext\";\r\n \r\n const inter = Inter({ subsets: [\"latin\"] });\r\n \r\n export const metadata: Metadata = {\r\n   title: \"AISH\",\r\n-  description: \"AISH - Your Fashion Destination\",\r\n+  description: \"AISH - Thời trang nam\",\r\n };\r\n \r\n export default function RootLayout({\r\n   children,\r\n@@ -20,16 +24,24 @@\n }>) {\r\n   return (\r\n     <html lang=\"en\">\r\n       <body className={inter.className}>\r\n-        <div className=\"flex flex-col min-h-screen\">\r\n-          <Providers>\r\n-            <Navbar />\r\n-            <AnnouncementBanner />\r\n-            <main className=\"flex-grow\">{children}</main>\r\n-            <Footer />\r\n-          </Providers>\r\n-        </div>\r\n+        <SessionProvider>\r\n+          <CartProvider>\r\n+            <AddressProvider>\r\n+              <CheckoutProvider>\r\n+                <div className=\"flex flex-col min-h-screen\">\r\n+                  <Providers>\r\n+                    <Navbar />\r\n+                    <AnnouncementBanner />\r\n+                    <main className=\"flex-grow\">{children}</main>\r\n+                    <Footer />\r\n+                  </Providers>\r\n+                </div>\r\n+              </CheckoutProvider>\r\n+            </AddressProvider>\r\n+          </CartProvider>\r\n+        </SessionProvider>\r\n       </body>\r\n     </html>\r\n   );\r\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1746892149430,

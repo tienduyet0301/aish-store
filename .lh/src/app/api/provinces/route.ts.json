@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/api/provinces/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1747805098682,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747805107317,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,23 +1,1 @@\n-import { NextResponse } from 'next/server';\r\n-\r\n-// Dữ liệu mẫu - trong thực tế bạn sẽ lấy từ database\r\n-const provinces = [\r\n-  { code: '01', name: 'Hà Nội' },\r\n-  { code: '02', name: 'Hồ Chí Minh' },\r\n-  { code: '03', name: 'Đà Nẵng' },\r\n-  { code: '04', name: 'Cần Thơ' },\r\n-  { code: '05', name: 'Hải Phòng' },\r\n-  // Thêm các tỉnh/thành phố khác\r\n-];\r\n-\r\n-export async function GET() {\r\n-  try {\r\n-    return NextResponse.json(provinces);\r\n-  } catch (error) {\r\n-    console.error('Error fetching provinces:', error);\r\n-    return NextResponse.json(\r\n-      { error: 'Failed to fetch provinces' },\r\n-      { status: 500 }\r\n-    );\r\n-  }\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1747805098681,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from 'next/server';\r\n\r\n// Dữ liệu mẫu - trong thực tế bạn sẽ lấy từ database\r\nconst provinces = [\r\n  { code: '01', name: 'Hà Nội' },\r\n  { code: '02', name: 'Hồ Chí Minh' },\r\n  { code: '03', name: 'Đà Nẵng' },\r\n  { code: '04', name: 'Cần Thơ' },\r\n  { code: '05', name: 'Hải Phòng' },\r\n  // Thêm các tỉnh/thành phố khác\r\n];\r\n\r\nexport async function GET() {\r\n  try {\r\n    return NextResponse.json(provinces);\r\n  } catch (error) {\r\n    console.error('Error fetching provinces:', error);\r\n    return NextResponse.json(\r\n      { error: 'Failed to fetch provinces' },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

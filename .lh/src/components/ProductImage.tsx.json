@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1747280550613,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747723357644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import Image from 'next/image';\r\n+import CloudinaryImage from './CloudinaryImage';\r\n \r\n interface ProductImageProps {\r\n   src: string;\r\n   alt: string;\r\n@@ -10,15 +10,14 @@\n \r\n export default function ProductImage({ src, alt, width, height, className }: ProductImageProps) {\r\n   return (\r\n     <div className={`relative ${className}`}>\r\n-      <Image\r\n+      <CloudinaryImage\r\n         src={src}\r\n         alt={alt}\r\n         width={width || 300}\r\n         height={height || 400}\r\n         className=\"object-cover\"\r\n-        loading=\"lazy\"\r\n       />\r\n     </div>\r\n   );\r\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747280550613,

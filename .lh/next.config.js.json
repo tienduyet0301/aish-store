@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1746891749081,
@@ -28,6 +28,14 @@
                 {
                     "date": 1747320694323,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -76,5 +76,5 @@\n     ];\n   },\n };\n \n-module.exports = nextConfig;\n+module.exports = nextConfig;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747723351118,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,11 +2,16 @@\n const nextConfig = {\n   reactStrictMode: true,\n   swcMinify: true,\n   images: {\n-    domains: ['localhost'],\n+    domains: ['localhost', 'res.cloudinary.com'],\n     remotePatterns: [\n       {\n+        protocol: 'https',\n+        hostname: 'res.cloudinary.com',\n+        pathname: '/**',\n+      },\n+      {\n         protocol: 'http',\n         hostname: 'localhost',\n         port: '3000',\n         pathname: '/uploads/**',\n"
+                },
+                {
+                    "date": 1747723698518,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,26 +2,14 @@\n const nextConfig = {\n   reactStrictMode: true,\n   swcMinify: true,\n   images: {\n-    domains: ['localhost', 'res.cloudinary.com'],\n+    domains: ['res.cloudinary.com'],\n     remotePatterns: [\n       {\n         protocol: 'https',\n         hostname: 'res.cloudinary.com',\n         pathname: '/**',\n-      },\n-      {\n-        protocol: 'http',\n-        hostname: 'localhost',\n-        port: '3000',\n-        pathname: '/uploads/**',\n-      },\n-      {\n-        protocol: 'http',\n-        hostname: 'localhost',\n-        port: '3000',\n-        pathname: '/images/**',\n       }\n     ],\n     unoptimized: false\n   },\n@@ -51,26 +39,8 @@\n   // Add this to ensure static files are served correctly\n   async headers() {\n     return [\n       {\n-        source: '/uploads/:path*',\n-        headers: [\n-          {\n-            key: 'Cache-Control',\n-            value: 'public, max-age=31536000, immutable',\n-          },\n-        ],\n-      },\n-      {\n-        source: '/images/:path*',\n-        headers: [\n-          {\n-            key: 'Cache-Control',\n-            value: 'public, max-age=31536000, immutable',\n-          },\n-        ],\n-      },\n-      {\n         source: '/:path*',\n         headers: [\n           {\n             key: 'Strict-Transport-Security',\n"
                 }
             ],
             "date": 1746891704042,

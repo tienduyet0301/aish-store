@@ -3,11 +3,23 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1747059967422,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1748596753332,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,21 @@\n import { NextResponse } from \"next/server\";\r\n import { connectToDatabase } from \"../../../../lib/mongodb\";\r\n+import { getServerSession } from \"next-auth\";\r\n+import { authOptions } from \"@/lib/auth\";\r\n \r\n export async function GET() {\r\n   try {\r\n+    const session = await getServerSession(authOptions);\r\n+    \r\n+    // Check if user is admin\r\n+    if (!session || session.user?.role !== 'ADMIN') {\r\n+      return NextResponse.json(\r\n+        { ok: false, message: \"Unauthorized\" },\r\n+        { status: 401 }\r\n+      );\r\n+    }\r\n+\r\n     const { db } = await connectToDatabase();\r\n     \r\n     // Lấy tất cả đơn hàng và sắp xếp theo thời gian tạo mới nhất\r\n     const orders = await db.collection(\"orders\")\r\n"
+                },
+                {
+                    "date": 1748596877753,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,21 +1,9 @@\n import { NextResponse } from \"next/server\";\r\n import { connectToDatabase } from \"../../../../lib/mongodb\";\r\n-import { getServerSession } from \"next-auth\";\r\n-import { authOptions } from \"@/lib/auth\";\r\n \r\n export async function GET() {\r\n   try {\r\n-    const session = await getServerSession(authOptions);\r\n-    \r\n-    // Check if user is admin\r\n-    if (!session || session.user?.role !== 'ADMIN') {\r\n-      return NextResponse.json(\r\n-        { ok: false, message: \"Unauthorized\" },\r\n-        { status: 401 }\r\n-      );\r\n-    }\r\n-\r\n     const { db } = await connectToDatabase();\r\n     \r\n     // Lấy tất cả đơn hàng và sắp xếp theo thời gian tạo mới nhất\r\n     const orders = await db.collection(\"orders\")\r\n"
+                },
+                {
+                    "date": 1748598320241,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,10 @@\n+export const dynamic = 'force-dynamic';\r\n+\r\n import { NextResponse } from \"next/server\";\r\n import { connectToDatabase } from \"../../../../lib/mongodb\";\r\n+import { getServerSession } from \"next-auth\";\r\n+import { authOptions } from \"@/lib/auth\";\r\n \r\n export async function GET() {\r\n   try {\r\n     const { db } = await connectToDatabase();\r\n"
                 }
             ],
             "date": 1747059967422,

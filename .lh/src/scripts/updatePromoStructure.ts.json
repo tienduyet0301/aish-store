@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/scripts/updatePromoStructure.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1748619167030,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1748619167030,
+            "name": "Commit-0",
+            "content": "import { connectToDatabase } from '@/lib/mongodb';\r\nimport { ObjectId } from 'mongodb';\r\n\r\nasync function updatePromoStructure() {\r\n  try {\r\n    const { db } = await connectToDatabase();\r\n    console.log('Connected to database');\r\n\r\n    // Lấy tất cả các mã giảm giá hiện tại\r\n    const promoCodes = await db.collection('notifications')\r\n      .find({ type: 'promo' })\r\n      .toArray();\r\n\r\n    console.log(`Found ${promoCodes.length} promo codes to update`);\r\n\r\n    for (const promo of promoCodes) {\r\n      // Chuyển đổi cấu trúc cũ sang cấu trúc mới\r\n      const updateData = {\r\n        promoType: 'fixed', // Mặc định là fixed cho các mã cũ\r\n        value: promo.amount || 0, // Chuyển amount cũ thành value\r\n        maxAmount: null, // Thêm trường mới\r\n        isLoginRequired: false, // Thêm trường mới\r\n        perUserLimit: 0, // Thêm trường mới\r\n        usedByUsers: [], // Thêm trường mới\r\n        usedCount: 0, // Thêm trường mới\r\n        expiryDate: null, // Thêm trường mới\r\n        updatedAt: new Date().toISOString()\r\n      };\r\n\r\n      // Cập nhật document\r\n      await db.collection('notifications').updateOne(\r\n        { _id: new ObjectId(promo._id) },\r\n        { $set: updateData }\r\n      );\r\n\r\n      console.log(`Updated promo code: ${promo.code}`);\r\n    }\r\n\r\n    console.log('Successfully updated all promo codes');\r\n  } catch (error) {\r\n    console.error('Error updating promo structure:', error);\r\n  } finally {\r\n    process.exit(0);\r\n  }\r\n}\r\n\r\nupdatePromoStructure(); "
+        }
+    ]
+}

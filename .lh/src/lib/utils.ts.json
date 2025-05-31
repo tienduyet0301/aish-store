@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1746893166927,
@@ -12,6 +12,10 @@
                 {
                     "date": 1747126641508,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,5 +2,17 @@\n import { twMerge } from \"tailwind-merge\";\r\n \r\n export function cn(...inputs: ClassValue[]) {\r\n   return twMerge(clsx(inputs));\r\n+}\r\n+\r\n+export function createSlug(name: string): string {\r\n+  return name\r\n+    .toLowerCase()\r\n+    .normalize('NFD')\r\n+    .replace(/[\\u0300-\\u036f]/g, '')\r\n+    .replace(/[đĐ]/g, 'd')\r\n+    .replace(/([^0-9a-z-\\s])/g, '')\r\n+    .replace(/(\\s+)/g, '-')\r\n+    .replace(/-+/g, '-')\r\n+    .replace(/^-+|-+$/g, '');\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747904642035,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,5 +14,17 @@\n     .replace(/([^0-9a-z-\\s])/g, '')\r\n     .replace(/(\\s+)/g, '-')\r\n     .replace(/-+/g, '-')\r\n     .replace(/^-+|-+$/g, '');\r\n+}\r\n+\r\n+export function generateOrderCode() {\r\n+  const date = new Date();\r\n+  const year = date.getFullYear();\r\n+  const month = String(date.getMonth() + 1).padStart(2, '0');\r\n+  const day = String(date.getDate()).padStart(2, '0');\r\n+  const hours = String(date.getHours()).padStart(2, '0');\r\n+  const minutes = String(date.getMinutes()).padStart(2, '0');\r\n+  const seconds = String(date.getSeconds()).padStart(2, '0');\r\n+  \r\n+  return `AISH${year}${month}${day}${hours}${minutes}${seconds}`;\r\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1746891704042,

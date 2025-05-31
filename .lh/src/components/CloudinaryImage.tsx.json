@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/CloudinaryImage.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747722833304,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747722833304,
+            "name": "Commit-0",
+            "content": "import { CldImage } from 'next-cloudinary';\r\n\r\ninterface CloudinaryImageProps {\r\n  src: string;\r\n  alt: string;\r\n  width?: number;\r\n  height?: number;\r\n  className?: string;\r\n  priority?: boolean;\r\n}\r\n\r\nexport default function CloudinaryImage({\r\n  src,\r\n  alt,\r\n  width = 800,\r\n  height = 600,\r\n  className = '',\r\n  priority = false,\r\n}: CloudinaryImageProps) {\r\n  // Extract public_id from Cloudinary URL\r\n  const publicId = src.split('/').slice(-1)[0].split('.')[0];\r\n\r\n  return (\r\n    <CldImage\r\n      src={publicId}\r\n      alt={alt}\r\n      width={width}\r\n      height={height}\r\n      className={className}\r\n      priority={priority}\r\n      sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw\"\r\n    />\r\n  );\r\n} "
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/promo/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1748618218000,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1748618218000,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from 'next/server';\r\nimport { connectToDatabase } from '@/lib/mongodb';\r\nimport { getServerSession } from 'next-auth';\r\nimport { authOptions } from '@/lib/auth';\r\n\r\nexport async function POST(req: Request) {\r\n  try {\r\n    const { code, subtotal } = await req.json();\r\n    const session = await getServerSession(authOptions);\r\n    const userEmail = session?.user?.email || null; // Lấy email người dùng nếu đăng nhập\r\n\r\n    if (!code || subtotal === undefined) {\r\n      return NextResponse.json(\r\n        { ok: false, message: 'Promo code and subtotal are required' },\r\n        { status: 400 }\r\n      );\r\n    }\r\n\r\n    const { db } = await connectToDatabase();\r\n    \r\n    // Tìm mã giảm giá trong collection promoCodes (hoặc tên collection của bạn)\r\n    const promoCodeDoc = await db.collection('promoCodes').findOne({ code: code.toUpperCase() });\r\n\r\n    if (!promoCodeDoc || !promoCodeDoc.isActive) {\r\n      return NextResponse.json(\r\n        { ok: false, message: 'Invalid or expired promo code' },\r\n        { status: 400 }\r\n      );\r\n    }\r\n\r\n    // Kiểm tra yêu cầu đăng nhập\r\n    if (promoCodeDoc.isLoginRequired && !userEmail) {\r\n       return NextResponse.json(\r\n           { ok: false, message: 'Vui lòng đăng nhập để sử dụng mã này' },\r\n           { status: 401 }\r\n       );\r\n    }\r\n\r\n    // Kiểm tra giới hạn sử dụng trên mỗi người dùng\r\n    if (promoCodeDoc.perUserLimit > 0 && userEmail) {\r\n        const usedByUsers = promoCodeDoc.usedByUsers || [];\r\n        const userUsageCount = usedByUsers.filter((email: string) => email === userEmail).length;\r\n\r\n        if (userUsageCount >= promoCodeDoc.perUserLimit) {\r\n            return NextResponse.json(\r\n                { ok: false, message: 'Bạn đã sử dụng mã này' },\r\n                { status: 400 }\r\n            );\r\n        }\r\n    }\r\n    \r\n    // TODO: Thêm kiểm tra ngày hết hạn (expiryDate) và tổng số lần sử dụng (totalUsageLimit) nếu có\r\n\r\n    // Tính toán số tiền giảm giá thực tế\r\n    let calculatedAmount = 0;\r\n\r\n    if (promoCodeDoc.type === 'fixed') {\r\n      calculatedAmount = promoCodeDoc.value;\r\n    } else if (promoCodeDoc.type === 'percentage') {\r\n      calculatedAmount = subtotal * (promoCodeDoc.value / 100);\r\n      // Áp dụng giới hạn tối đa nếu có\r\n      if (promoCodeDoc.maxAmount !== undefined && promoCodeDoc.maxAmount !== null && calculatedAmount > promoCodeDoc.maxAmount) {\r\n        calculatedAmount = promoCodeDoc.maxAmount;\r\n      }\r\n    }\r\n\r\n    // Đảm bảo số tiền giảm giá không âm\r\n    calculatedAmount = Math.max(0, calculatedAmount);\r\n\r\n    return NextResponse.json({ \r\n      ok: true, \r\n      message: `Mã giảm giá ${calculatedAmount.toLocaleString('vi-VN')} VND đã được áp dụng!`, \r\n      promoCode: promoCodeDoc.code,\r\n      promoAmount: calculatedAmount\r\n    });\r\n\r\n  } catch (error) {\r\n    console.error('Error applying promo code:', error);\r\n    return NextResponse.json(\r\n      { ok: false, message: 'An error occurred while applying the promo code' },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

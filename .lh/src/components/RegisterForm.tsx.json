@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1747642426796,
@@ -24,6 +24,10 @@
                 {
                     "date": 1747647390544,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -100,8 +100,18 @@\n       [name]: checked,\r\n     }));\r\n   }, []);\r\n \r\n+  const validatePassword = (password: string) => {\r\n+    return {\r\n+      hasMinLength: password.length >= 8,\r\n+      hasUpperCase: /[A-Z]/.test(password),\r\n+      hasLowerCase: /[a-z]/.test(password),\r\n+      hasNumber: /[0-9]/.test(password),\r\n+      hasSpecialChar: /[!@#$%^&*(),.?\":{}|<>]/.test(password)\r\n+    };\r\n+  };\r\n+\r\n   const validateForm = (formData: FormData): Errors => {\r\n     const errors: Errors = {};\r\n     const passwordValid = validatePassword(formData.password);\r\n \r\n"
+                },
+                {
+                    "date": 1748661302720,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -191,9 +191,9 @@\n       <Head>\r\n         <title>Register | My AISH</title>\r\n       </Head>\r\n       <div className=\"min-h-screen bg-white flex flex-col items-center pt-12 md:pt-20\">\r\n-        <h1 className=\"text-3xl md:text-5xl font-bold text-black text-center my-4 md:my-8 tracking-wide\">\r\n+        <h1 className=\"text-3xl md:text-5xl font-bold text-black text-center my-4 md:my-8 tracking-wide whitespace-nowrap\">\r\n           MY AISH ACCOUNT\r\n         </h1>\r\n         <div className=\"w-full max-w-[280px] md:max-w-[350px] flex flex-col gap-4\">\r\n           <button \r\n"
                 }
             ],
             "date": 1747642426796,

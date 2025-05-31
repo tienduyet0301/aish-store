@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/admin/customers/route.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1748657516933,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1748657516933,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from \"@/lib/mongodb\";\r\n\r\nexport async function GET() {\r\n  try {\r\n    const { db } = await connectToDatabase();\r\n    const users = await db.collection(\"users\").find({}).toArray();\r\n    \r\n    return NextResponse.json(users);\r\n  } catch (error) {\r\n    console.error(\"Error fetching users:\", error);\r\n    return NextResponse.json(\r\n      { message: \"Có lỗi xảy ra khi lấy danh sách người dùng\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

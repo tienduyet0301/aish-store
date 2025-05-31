@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/context/CheckoutContext.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747890984800,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747890984800,
+            "name": "Commit-0",
+            "content": "import { createContext, useContext, useState, ReactNode } from 'react';\r\n\r\ninterface ShippingInfo {\r\n  email: string;\r\n  fullName: string;\r\n  phone: string;\r\n  province: string;\r\n  district: string;\r\n  ward: string;\r\n  detail: string;\r\n}\r\n\r\ninterface CheckoutContextType {\r\n  shippingInfo: ShippingInfo | null;\r\n  setShippingInfo: (info: ShippingInfo) => void;\r\n}\r\n\r\nconst CheckoutContext = createContext<CheckoutContextType | undefined>(undefined);\r\n\r\nexport function CheckoutProvider({ children }: { children: ReactNode }) {\r\n  const [shippingInfo, setShippingInfo] = useState<ShippingInfo | null>(null);\r\n\r\n  return (\r\n    <CheckoutContext.Provider value={{ shippingInfo, setShippingInfo }}>\r\n      {children}\r\n    </CheckoutContext.Provider>\r\n  );\r\n}\r\n\r\nexport function useCheckout() {\r\n  const context = useContext(CheckoutContext);\r\n  if (context === undefined) {\r\n    throw new Error('useCheckout must be used within a CheckoutProvider');\r\n  }\r\n  return context;\r\n} "
+        }
+    ]
+}

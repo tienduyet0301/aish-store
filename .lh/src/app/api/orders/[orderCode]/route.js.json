@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1747066488901,
@@ -12,6 +12,18 @@
                 {
                     "date": 1747066528662,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,26 +1,1 @@\n-import { NextResponse } from 'next/server';\r\n-import { connectToDatabase } from '@/lib/mongodb';\r\n-\r\n-export async function GET(request, { params }) {\r\n-  try {\r\n-    const { orderCode } = params;\r\n-    const { db } = await connectToDatabase();\r\n-    \r\n-    const order = await db.collection('orders').findOne({ orderCode });\r\n-    \r\n-    if (!order) {\r\n-      return NextResponse.json(\r\n-        { error: 'Order not found' },\r\n-        { status: 404 }\r\n-      );\r\n-    }\r\n-\r\n-    return NextResponse.json(order);\r\n-  } catch (error) {\r\n-    console.error('Error fetching order:', error);\r\n-    return NextResponse.json(\r\n-      { error: 'Internal server error' },\r\n-      { status: 500 }\r\n-    );\r\n-  }\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747804173635,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,37 @@\n- \n\\ No newline at end of file\n+import { NextResponse } from \"next/server\";\r\n+import { connectToDatabase } from \"@/lib/mongodb\";\r\n+import { ObjectId } from \"mongodb\";\r\n+\r\n+export async function GET(request, { params }) {\r\n+  try {\r\n+    const { db } = await connectToDatabase();\r\n+    const orderCode = params.orderCode;\r\n+\r\n+    console.log(\"Fetching order with code:\", orderCode);\r\n+\r\n+    // Log tất cả các đơn hàng trong database\r\n+    const allOrders = await db.collection(\"orders\").find({}).toArray();\r\n+    console.log(\"All orders in database:\", allOrders);\r\n+\r\n+    const order = await db.collection(\"orders\").findOne({ orderNumber: orderCode });\r\n+    console.log(\"Query result:\", order);\r\n+\r\n+    if (!order) {\r\n+      console.log(\"Order not found for code:\", orderCode);\r\n+      return NextResponse.json(\r\n+        { ok: false, error: \"Order not found\" },\r\n+        { status: 404 }\r\n+      );\r\n+    }\r\n+\r\n+    console.log(\"Found order:\", order);\r\n+\r\n+    return NextResponse.json({ ok: true, order });\r\n+  } catch (error) {\r\n+    console.error(\"Error fetching order:\", error);\r\n+    return NextResponse.json(\r\n+      { ok: false, error: \"Failed to fetch order\" },\r\n+      { status: 500 }\r\n+    );\r\n+  }\r\n+} \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1747886808924,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n     // Log tất cả các đơn hàng trong database\r\n     const allOrders = await db.collection(\"orders\").find({}).toArray();\r\n     console.log(\"All orders in database:\", allOrders);\r\n \r\n-    const order = await db.collection(\"orders\").findOne({ orderNumber: orderCode });\r\n+    const order = await db.collection(\"orders\").findOne({ orderCode: orderCode });\r\n     console.log(\"Query result:\", order);\r\n \r\n     if (!order) {\r\n       console.log(\"Order not found for code:\", orderCode);\r\n"
+                },
+                {
+                    "date": 1747890349792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,37 +1,1 @@\n-import { NextResponse } from \"next/server\";\r\n-import { connectToDatabase } from \"@/lib/mongodb\";\r\n-import { ObjectId } from \"mongodb\";\r\n-\r\n-export async function GET(request, { params }) {\r\n-  try {\r\n-    const { db } = await connectToDatabase();\r\n-    const orderCode = params.orderCode;\r\n-\r\n-    console.log(\"Fetching order with code:\", orderCode);\r\n-\r\n-    // Log tất cả các đơn hàng trong database\r\n-    const allOrders = await db.collection(\"orders\").find({}).toArray();\r\n-    console.log(\"All orders in database:\", allOrders);\r\n-\r\n-    const order = await db.collection(\"orders\").findOne({ orderCode: orderCode });\r\n-    console.log(\"Query result:\", order);\r\n-\r\n-    if (!order) {\r\n-      console.log(\"Order not found for code:\", orderCode);\r\n-      return NextResponse.json(\r\n-        { ok: false, error: \"Order not found\" },\r\n-        { status: 404 }\r\n-      );\r\n-    }\r\n-\r\n-    console.log(\"Found order:\", order);\r\n-\r\n-    return NextResponse.json({ ok: true, order });\r\n-  } catch (error) {\r\n-    console.error(\"Error fetching order:\", error);\r\n-    return NextResponse.json(\r\n-      { ok: false, error: \"Failed to fetch order\" },\r\n-      { status: 500 }\r\n-    );\r\n-  }\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747066488901,

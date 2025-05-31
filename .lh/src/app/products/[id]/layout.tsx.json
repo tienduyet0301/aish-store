@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/products/[id]/layout.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1748662976274,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1748663140343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,44 +1,1 @@\n-import { Metadata } from 'next';\r\n-\r\n-async function getProduct(id: string) {\r\n-  try {\r\n-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${id}`, { cache: 'no-store' });\r\n-    const data = await res.json();\r\n-    if (data.ok) {\r\n-      return data.product;\r\n-    }\r\n-    return null;\r\n-  } catch (error) {\r\n-    console.error('Error fetching product:', error);\r\n-    return null;\r\n-  }\r\n-}\r\n-\r\n-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\r\n-  const product = await getProduct(params.id);\r\n-\r\n-  if (!product) {\r\n-    return {\r\n-      title: 'Product Not Found',\r\n-      description: 'The requested product could not be found.',\r\n-    };\r\n-  }\r\n-\r\n-  return {\r\n-    title: product.name,\r\n-    description: product.description || `Shop ${product.name} at AISHH`,\r\n-    openGraph: {\r\n-      title: product.name,\r\n-      description: product.description || `Shop ${product.name} at AISHH`,\r\n-      images: product.images ? [product.images[0]] : [],\r\n-    },\r\n-  };\r\n-}\r\n-\r\n-export default function ProductLayout({\r\n-  children,\r\n-}: {\r\n-  children: React.ReactNode;\r\n-}) {\r\n-  return children;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1748662976274,
+            "name": "Commit-0",
+            "content": "import { Metadata } from 'next';\r\n\r\nasync function getProduct(id: string) {\r\n  try {\r\n    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${id}`, { cache: 'no-store' });\r\n    const data = await res.json();\r\n    if (data.ok) {\r\n      return data.product;\r\n    }\r\n    return null;\r\n  } catch (error) {\r\n    console.error('Error fetching product:', error);\r\n    return null;\r\n  }\r\n}\r\n\r\nexport async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {\r\n  const product = await getProduct(params.id);\r\n\r\n  if (!product) {\r\n    return {\r\n      title: 'Product Not Found',\r\n      description: 'The requested product could not be found.',\r\n    };\r\n  }\r\n\r\n  return {\r\n    title: product.name,\r\n    description: product.description || `Shop ${product.name} at AISHH`,\r\n    openGraph: {\r\n      title: product.name,\r\n      description: product.description || `Shop ${product.name} at AISHH`,\r\n      images: product.images ? [product.images[0]] : [],\r\n    },\r\n  };\r\n}\r\n\r\nexport default function ProductLayout({\r\n  children,\r\n}: {\r\n  children: React.ReactNode;\r\n}) {\r\n  return children;\r\n} "
+        }
+    ]
+}

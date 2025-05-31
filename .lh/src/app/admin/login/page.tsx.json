@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1746893158710,
@@ -24,6 +24,14 @@
                 {
                     "date": 1747287038566,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         } else {\r\n           setError(\"Tên đăng nhập hoặc mật khẩu không đúng\");\r\n         }\r\n       } else {\r\n-        router.push(\"/admin/dashboard\");\r\n+        router.push(\"/admin/products\");\r\n       }\r\n     } catch (error) {\r\n       setError(\"Có lỗi xảy ra. Vui lòng thử lại.\");\r\n     } finally {\r\n"
+                },
+                {
+                    "date": 1747721194026,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n import { useRouter } from \"next/navigation\";\r\n import { motion } from \"framer-motion\";\r\n \r\n export default function LoginPage() {\r\n-  const [username, setUsername] = useState(\"\");\r\n+  const [email, setEmail] = useState(\"\");\r\n   const [password, setPassword] = useState(\"\");\r\n   const [error, setError] = useState(\"\");\r\n   const [isLoading, setIsLoading] = useState(false);\r\n   const router = useRouter();\r\n@@ -18,18 +18,18 @@\n     setError(\"\");\r\n \r\n     try {\r\n       const result = await signIn(\"credentials\", {\r\n-        email: username,\r\n+        email,\r\n         password,\r\n         redirect: false,\r\n       });\r\n \r\n       if (result?.error) {\r\n         if (result.error.includes(\"Too many login attempts\")) {\r\n           setError(\"Quá nhiều lần đăng nhập sai. Vui lòng thử lại sau.\");\r\n         } else {\r\n-          setError(\"Tên đăng nhập hoặc mật khẩu không đúng\");\r\n+          setError(\"Email hoặc mật khẩu không đúng\");\r\n         }\r\n       } else {\r\n         router.push(\"/admin/products\");\r\n       }\r\n@@ -54,20 +54,20 @@\n         </div>\r\n         <form className=\"mt-8 space-y-6\" onSubmit={handleSubmit}>\r\n           <div className=\"rounded-md shadow-sm -space-y-px\">\r\n             <div>\r\n-              <label htmlFor=\"username\" className=\"sr-only\">\r\n-                Tên đăng nhập\r\n+              <label htmlFor=\"email\" className=\"sr-only\">\r\n+                Email\r\n               </label>\r\n               <input\r\n-                id=\"username\"\r\n-                name=\"username\"\r\n-                type=\"text\"\r\n+                id=\"email\"\r\n+                name=\"email\"\r\n+                type=\"email\"\r\n                 required\r\n                 className=\"appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm\"\r\n-                placeholder=\"Tên đăng nhập\"\r\n-                value={username}\r\n-                onChange={(e) => setUsername(e.target.value)}\r\n+                placeholder=\"Email\"\r\n+                value={email}\r\n+                onChange={(e) => setEmail(e.target.value)}\r\n               />\r\n             </div>\r\n             <div>\r\n               <label htmlFor=\"password\" className=\"sr-only\">\r\n"
+                },
+                {
+                    "date": 1747722058334,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -55,17 +55,17 @@\n         <form className=\"mt-8 space-y-6\" onSubmit={handleSubmit}>\r\n           <div className=\"rounded-md shadow-sm -space-y-px\">\r\n             <div>\r\n               <label htmlFor=\"email\" className=\"sr-only\">\r\n-                Email\r\n+                Username\r\n               </label>\r\n               <input\r\n                 id=\"email\"\r\n                 name=\"email\"\r\n-                type=\"email\"\r\n+                type=\"text\"\r\n                 required\r\n                 className=\"appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm\"\r\n-                placeholder=\"Email\"\r\n+                placeholder=\"Username\"\r\n                 value={email}\r\n                 onChange={(e) => setEmail(e.target.value)}\r\n               />\r\n             </div>\r\n"
                 }
             ],
             "date": 1746891704042,

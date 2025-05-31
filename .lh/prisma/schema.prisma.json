@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1747635612771,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1747726809055,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,18 +7,27 @@\n   url      = env(\"DATABASE_URL\")\r\n }\r\n \r\n model Product {\r\n-  id          String     @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n-  name        String\r\n-  description String\r\n-  price       Float\r\n-  category    Category   @relation(fields: [categoryId], references: [id])\r\n-  categoryId  String     @db.ObjectId\r\n-  images      Image[]\r\n-  variants    Variant[]\r\n-  createdAt   DateTime   @default(now())\r\n-  updatedAt   DateTime   @updatedAt\r\n+  id            String     @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n+  name          String\r\n+  description   String\r\n+  price         Float\r\n+  category      Category   @relation(fields: [categoryId], references: [id])\r\n+  categoryId    String     @db.ObjectId\r\n+  images        Image[]\r\n+  variants      Variant[]\r\n+  collection    String?\r\n+  productCode   String?\r\n+  details       String?\r\n+  quantityM     Int        @default(0)\r\n+  quantityL     Int        @default(0)\r\n+  quantityXL    Int        @default(0)\r\n+  quantityHat   Int        @default(0)\r\n+  sizeGuideImage String?\r\n+  colors        String[]\r\n+  createdAt     DateTime   @default(now())\r\n+  updatedAt     DateTime   @updatedAt\r\n }\r\n \r\n model Category {\r\n   id        String    @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n"
                 }
             ],
             "date": 1747635612771,

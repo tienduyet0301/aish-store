@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/app/api/admin/customers/[id]/route.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1748657284510,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1748657284510,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from \"@/lib/mongodb\";\r\nimport { ObjectId } from \"mongodb\";\r\n\r\nexport async function DELETE(request, { params }) {\r\n  try {\r\n    const { id } = params;\r\n    const { db } = await connectToDatabase();\r\n\r\n    // Kiểm tra xem người dùng có tồn tại không\r\n    const user = await db.collection(\"users\").findOne({ _id: new ObjectId(id) });\r\n    if (!user) {\r\n      return NextResponse.json(\r\n        { message: \"Không tìm thấy người dùng\" },\r\n        { status: 404 }\r\n      );\r\n    }\r\n\r\n    // Xóa người dùng\r\n    await db.collection(\"users\").deleteOne({ _id: new ObjectId(id) });\r\n\r\n    return NextResponse.json(\r\n      { message: \"Xóa người dùng thành công\" },\r\n      { status: 200 }\r\n    );\r\n  } catch (error) {\r\n    console.error(\"Error deleting user:\", error);\r\n    return NextResponse.json(\r\n      { message: \"Có lỗi xảy ra khi xóa người dùng\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

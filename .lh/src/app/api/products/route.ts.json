@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1746893160074,
@@ -16,6 +16,14 @@
                 {
                     "date": 1747126686513,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,9 +50,9 @@\n     const sizeGuideImage = formData.get(\"sizeGuideImage\") as string;\n     const colors = JSON.parse(formData.get(\"colors\") as string || \"[]\");\n \n     const { db } = await connectToDatabase();\n-    const slug = createSlug(name);\n+    let slug = createSlug(name);\n     \n     // Kiểm tra xem slug đã tồn tại chưa\n     const existingProduct = await db.collection(\"products\").findOne({ slug });\n     if (existingProduct) {\n"
+                },
+                {
+                    "date": 1747729599069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,10 @@\n     console.log(\"Fetching products...\");\n     const products = await db.collection(\"products\").find({}).toArray();\n     console.log(`Found ${products.length} products`);\n \n+    console.log('Products from DB:', products); // Log products data\n+\n     return NextResponse.json({ ok: true, products });\n   } catch (error: any) {\n     console.error(\"Error details:\", {\n       message: error?.message || 'Unknown error',\n"
+                },
+                {
+                    "date": 1747796671386,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,11 +15,10 @@\n \n     console.log(\"Fetching products...\");\n     const products = await db.collection(\"products\").find({}).toArray();\n     console.log(`Found ${products.length} products`);\n+    console.log('Products from DB:', JSON.stringify(products, null, 2));\n \n-    console.log('Products from DB:', products); // Log products data\n-\n     return NextResponse.json({ ok: true, products });\n   } catch (error: any) {\n     console.error(\"Error details:\", {\n       message: error?.message || 'Unknown error',\n"
                 }
             ],
             "date": 1746891704042,
