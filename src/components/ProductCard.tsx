@@ -46,7 +46,9 @@ export default function ProductCard({
   }, []);
 
   // Check if all sizes are out of stock
-  const isOutOfStock = product.quantityM <= 0 && product.quantityL <= 0 && product.quantityXL <= 0;
+  const isOutOfStock = product.category === "CAP" 
+    ? product.quantityHat <= 0
+    : product.quantityM <= 0 && product.quantityL <= 0 && product.quantityXL <= 0;
 
   // Ensure we have valid images
   const defaultImage = "/images/placeholder.jpg"; // Add a placeholder image to your public folder

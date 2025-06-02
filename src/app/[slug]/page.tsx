@@ -83,20 +83,31 @@ export default function ProductDetailPage() {
   }
 
   const handleAddToCart = () => {
-    if (!selectedSize) {
+    if (isClothing && !selectedSize) {
       setShowSelectSizeModal(true);
       return;
     }
 
-    const sizeQuantity = product[`quantity${selectedSize}`];
-    if (sizeQuantity === 0) {
-      toast.error(`Size ${selectedSize} đã hết hàng`);
-      return;
-    }
+    if (isClothing) {
+      const sizeQuantity = product[`quantity${selectedSize}`];
+      if (sizeQuantity === 0) {
+        toast.error(`Size ${selectedSize} đã hết hàng`);
+        return;
+      }
 
-    if (quantity > sizeQuantity) {
-      toast.error(`Chỉ còn ${sizeQuantity} sản phẩm cho size ${selectedSize}`);
-      return;
+      if (quantity > sizeQuantity) {
+        toast.error(`Chỉ còn ${sizeQuantity} sản phẩm cho size ${selectedSize}`);
+        return;
+      }
+    } else if (product.category === "CAP") {
+      if (product.quantityHat === 0) {
+        toast.error("Sản phẩm đã hết hàng");
+        return;
+      }
+      if (quantity > product.quantityHat) {
+        toast.error(`Chỉ còn ${product.quantityHat} sản phẩm`);
+        return;
+      }
     }
 
     addToCart({
@@ -104,25 +115,32 @@ export default function ProductDetailPage() {
       name: product.name,
       price: product.price,
       image: product.images[0],
-      size: selectedSize,
+      size: isClothing ? selectedSize : "ONE SIZE",
       quantity: quantity,
       color: product.colors && product.colors.length > 0 ? product.colors[0] : "Không xác định",
-      currentStock: sizeQuantity
+      currentStock: isClothing ? product[`quantity${selectedSize}`] : product.quantityHat
     });
 
     toast.success("Đã thêm vào giỏ hàng");
   };
 
   const handleQuantityChange = (value: number) => {
-    if (!product || !selectedSize) {
+    if (isClothing && !selectedSize) {
       setShowSelectSizeModal(true);
       return;
     }
     
-    const sizeQuantity = product[`quantity${selectedSize}` as keyof Product] as number;
-    if (value > sizeQuantity) {
-      toast.error(`Chỉ còn ${sizeQuantity} sản phẩm size ${selectedSize}`);
-      return;
+    if (isClothing) {
+      const sizeQuantity = product[`quantity${selectedSize}` as keyof Product] as number;
+      if (value > sizeQuantity) {
+        toast.error(`Chỉ còn ${sizeQuantity} sản phẩm size ${selectedSize}`);
+        return;
+      }
+    } else if (product.category === "CAP") {
+      if (value > product.quantityHat) {
+        toast.error(`Chỉ còn ${product.quantityHat} sản phẩm`);
+        return;
+      }
     }
     
     setQuantity(value);
@@ -288,11 +306,15 @@ export default function ProductDetailPage() {
             <button
               className="w-full bg-black text-white py-3 font-medium uppercase hover:bg-gray-900 transition mb-2"
               onClick={handleAddToCart}
-              disabled={!!selectedSize && product[`quantity${selectedSize}`] === 0}
+              disabled={isClothing ? (!selectedSize || product[`quantity${selectedSize}`] === 0) : product.quantityHat === 0}
             >
-              {selectedSize && product[`quantity${selectedSize}`] === 0
-                ? "OUT OF STOCK"
-                : "ADD TO CART"}
+              {isClothing 
+                ? (selectedSize && product[`quantity${selectedSize}`] === 0
+                  ? "OUT OF STOCK"
+                  : "ADD TO CART")
+                : (product.quantityHat === 0
+                  ? "OUT OF STOCK"
+                  : "ADD TO CART")}
             </button>
 
             {isClothing && (
