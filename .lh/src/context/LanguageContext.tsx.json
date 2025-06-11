@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 48,
+            "activePatchIndex": 51,
             "patches": [
                 {
                     "date": 1747291606024,
@@ -200,6 +200,18 @@
                 {
                     "date": 1749610720295,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -386,8 +386,9 @@\n     'navbar.chillCalmDown': 'CHILL, CALM DOWN',\n     'navbar.aboutUs': 'ABOUT US',\n     'navbar.thankYou': 'Thank you for choosing AISH. We truly appreciate it.',\n     'navbar.thankYouMobile': 'We truly appreciate it.',\n+    'navbar.jacket': 'JACKET',\n     // Home\n     'home.hero.title': 'DISCOVER YOUR STYLE',\n     'home.hero.subtitle': 'Explore our latest collection',\n     'home.hero.cta': 'SHOP NOW',\n"
+                },
+                {
+                    "date": 1749615444612,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,8 +62,9 @@\n   | 'products.filter.colorBlack'\n   | 'products.filter.colorWhite'\n   | 'products.filter.colorBlue'\n   | 'products.filter.colorGrey'\n+  | 'products.filter.colorBeige'\n   | 'products.filter.sizeM'\n   | 'products.filter.sizeL'\n   | 'products.filter.sizeXL'\n   | 'products.filter.colorLabel'\n"
+                },
+                {
+                    "date": 1749615452664,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,8 @@\n   | 'products.filter.colorBlack'\n   | 'products.filter.colorWhite'\n   | 'products.filter.colorBlue'\n   | 'products.filter.colorGrey'\n-  | 'products.filter.colorBeige'\n   | 'products.filter.sizeM'\n   | 'products.filter.sizeL'\n   | 'products.filter.sizeXL'\n   | 'products.filter.colorLabel'\n"
+                },
+                {
+                    "date": 1749615848275,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,8 +62,9 @@\n   | 'products.filter.colorBlack'\n   | 'products.filter.colorWhite'\n   | 'products.filter.colorBlue'\n   | 'products.filter.colorGrey'\n+  | 'products.filter.colorBeige'\n   | 'products.filter.sizeM'\n   | 'products.filter.sizeL'\n   | 'products.filter.sizeXL'\n   | 'products.filter.colorLabel'\n@@ -343,8 +344,9 @@\n     'products.filter.colorBlack': 'Black',\n     'products.filter.colorWhite': 'White',\n     'products.filter.colorBlue': 'Blue',\n     'products.filter.colorGrey': 'Grey',\n+    'products.filter.colorBeige': 'Beige',\n     'products.filter.sizeM': 'M',\n     'products.filter.sizeL': 'L',\n     'products.filter.sizeXL': 'XL',\n     'products.filter.colorLabel': 'Colour',\n@@ -610,8 +612,9 @@\n     'products.filter.colorBlack': 'Đen',\n     'products.filter.colorWhite': 'Trắng',\n     'products.filter.colorBlue': 'Xanh',\n     'products.filter.colorGrey': 'Xám',\n+    'products.filter.colorBeige': 'Be',\n     'products.filter.sizeM': 'M',\n     'products.filter.sizeL': 'L',\n     'products.filter.sizeXL': 'XL',\n     'products.filter.colorLabel': 'Màu sắc',\n"
                 }
             ],
             "date": 1747291606024,

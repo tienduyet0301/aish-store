@@ -3,11 +3,19 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1746893156909,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1749615952739,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,9 @@\n \r\n   const { selectedColors, setSelectedColors, selectedSizes, setSelectedSizes, sortOption, setSortOption, sortedProducts } =\r\n     useProductFilters(products);\r\n \r\n-  const colors = [\"black\", \"white\", \"blue\", \"grey\"];\r\n+  const colors = [\"black\", \"white\", \"blue\", \"grey\", \"beige\"];\r\n   const sizes = [\"M\", \"L\", \"XL\"];\r\n \r\n   const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);\r\n \r\n@@ -190,8 +190,16 @@\n     setCurrentPage(pageNumber);\r\n     window.scrollTo({ top: 0, behavior: \"smooth\" });\r\n   };\r\n \r\n+  const colorLabels = [\r\n+    { value: \"black\", label: t('products.filter.colorBlack') },\r\n+    { value: \"white\", label: t('products.filter.colorWhite') },\r\n+    { value: \"blue\", label: t('products.filter.colorBlue') },\r\n+    { value: \"grey\", label: t('products.filter.colorGrey') },\r\n+    { value: \"beige\", label: t('products.filter.colorBeige') },\r\n+  ];\r\n+\r\n   if (isLoading) {\r\n     return (\r\n       <div className=\"flex justify-center items-center min-h-screen\">\r\n         <div className=\"animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900\"></div>\r\n@@ -303,8 +311,9 @@\n             colors={colors}\r\n             sizes={sizes}\r\n             capitalizeFirstLetter={capitalizeFirstLetter}\r\n             groupedColors={groupColorsByFirstLetter()}\r\n+            colorLabels={colorLabels}\r\n           />\r\n         )}\r\n       </div>\r\n \r\n"
+                },
+                {
+                    "date": 1749616093857,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,12 +6,14 @@\n import ProductGrid from \"../../../components/ProductGrid\";\r\n import FilterSection from \"../../../components/FilterSection\";\r\n import SortSection from \"../../../components/SortSection\";\r\n import NoProductsMessage from \"../../../components/NoProductsMessage\";\r\n+import { useLanguage } from '@/context/LanguageContext';\r\n \r\n const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || \"http://localhost:3000\";\r\n \r\n export default function BeltPage() {\r\n+  const { t } = useLanguage();\r\n   const [hoveredProduct, setHoveredProduct] = useState(null);\r\n   const [productImageIndex, setProductImageIndex] = useState({});\r\n   const [isAutoSliding, setIsAutoSliding] = useState({});\r\n   const [isScrolled, setIsScrolled] = useState(false);\r\n"
                 }
             ],
             "date": 1746891704042,

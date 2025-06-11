@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1746893165605,
@@ -24,6 +24,14 @@
                 {
                     "date": 1747302736316,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -192,8 +192,20 @@\n     setCurrentPage(pageNumber);\r\n     window.scrollTo({ top: 0, behavior: \"smooth\" });\r\n   };\r\n \r\n+  const colorLabels = [\r\n+    { value: \"black\", label: t('products.filter.colorBlack') },\r\n+    { value: \"white\", label: t('products.filter.colorWhite') },\r\n+    { value: \"blue\", label: t('products.filter.colorBlue') },\r\n+    { value: \"grey\", label: t('products.filter.colorGrey') },\r\n+  ];\r\n+  const sizeLabels = [\r\n+    { value: \"M\", label: t('products.filter.sizeM') },\r\n+    { value: \"L\", label: t('products.filter.sizeL') },\r\n+    { value: \"XL\", label: t('products.filter.sizeXL') },\r\n+  ];\r\n+\r\n   if (isLoading) {\r\n     return (\r\n       <div className=\"flex justify-center items-center min-h-screen\">\r\n         <div className=\"animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900\"></div>\r\n@@ -353,19 +365,23 @@\n             handleColorChange={handleColorChange}\r\n             handleSizeChange={handleSizeChange}\r\n             handleCloseFilter={() => setIsFilterOpen(false)}\r\n             handleApplyFilter={() => setIsFilterOpen(false)}\r\n-            colors={colors}\r\n-            sizes={sizes}\r\n+            colors={colorLabels.map(c => c.value)}\r\n+            sizes={sizeLabels.map(s => s.value)}\r\n             capitalizeFirstLetter={capitalizeFirstLetter}\r\n-            groupedColors={groupColorsByFirstLetter()}\r\n-            title={t('products.filter.title')}\r\n-            colorLabel={t('products.filter.color')}\r\n-            sizeLabel={t('products.filter.size')}\r\n+            groupedColors={colorLabels.map(c => c.value)}\r\n+            title={t('products.filter.colorLabel')}\r\n+            colorLabel={t('products.filter.colorLabel')}\r\n+            sizeLabel={t('products.filter.sizeLabel')}\r\n             applyLabel={t('products.filter.apply')}\r\n             resetLabel={t('products.filter.reset')}\r\n             allColorsLabel={t('products.filter.allColors')}\r\n             allSizesLabel={t('products.filter.allSizes')}\r\n+            selectHint={t('products.filter.selectHint')}\r\n+            closeLabel={t('products.filter.close')}\r\n+            colorLabels={colorLabels}\r\n+            sizeLabels={sizeLabels}\r\n           />\r\n         )}\r\n       </div>\r\n \r\n"
+                },
+                {
+                    "date": 1749615944024,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -197,8 +197,9 @@\n     { value: \"black\", label: t('products.filter.colorBlack') },\r\n     { value: \"white\", label: t('products.filter.colorWhite') },\r\n     { value: \"blue\", label: t('products.filter.colorBlue') },\r\n     { value: \"grey\", label: t('products.filter.colorGrey') },\r\n+    { value: \"beige\", label: t('products.filter.colorBeige') },\r\n   ];\r\n   const sizeLabels = [\r\n     { value: \"M\", label: t('products.filter.sizeM') },\r\n     { value: \"L\", label: t('products.filter.sizeL') },\r\n"
+                },
+                {
+                    "date": 1749616552776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n \r\n   const { selectedColors, setSelectedColors, selectedSizes, setSelectedSizes, sortOption, setSortOption, sortedProducts } =\r\n     useProductFilters(products);\r\n \r\n-  const colors = [\"black\", \"white\", \"blue\", \"grey\"];\r\n+  const colors = [\"black\", \"white\", \"blue\", \"grey\", \"beige\"];\r\n   const sizes = [\"M\", \"L\", \"XL\"];\r\n \r\n   const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);\r\n \r\n"
                 }
             ],
             "date": 1746891704042,

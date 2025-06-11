@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1746893158867,
@@ -36,6 +36,18 @@
                 {
                     "date": 1749612189792,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -333,8 +333,9 @@\n                     <option value=\"SHIRT\">SHIRT</option>\r\n                     <option value=\"POLO\">POLO</option>\r\n                     <option value=\"SWEATER\">SWEATER</option>\r\n                     <option value=\"HOODIE\">HOODIE</option>\r\n+                    <option value=\"JACKET\">JACKET</option>\r\n                     <option value=\"PANTS\">PANTS</option>\r\n                     <option value=\"SHORT\">SHORT</option>\r\n                     <option value=\"SKIRT\">SKIRT</option>\r\n                     <option value=\"CAP\">CAP</option>\r\n"
+                },
+                {
+                    "date": 1749615240422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -254,9 +254,9 @@\n                   <label className=\"block text-base font-medium text-gray-700 mb-2\">\r\n                     Màu sắc\r\n                   </label>\r\n                   <div className=\"flex flex-wrap gap-4\">\r\n-                    {[\"black\", \"white\", \"blue\", \"grey\"].map((color) => (\r\n+                    {[\"black\", \"white\", \"blue\", \"grey\", \"beige\"].map((color) => (\r\n                       <label key={color} className=\"flex items-center space-x-2\">\r\n                         <input\r\n                           type=\"checkbox\"\r\n                           checked={selectedProduct.colors?.includes(color) || false}\r\n"
+                },
+                {
+                    "date": 1749615565652,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -254,9 +254,9 @@\n                   <label className=\"block text-base font-medium text-gray-700 mb-2\">\r\n                     Màu sắc\r\n                   </label>\r\n                   <div className=\"flex flex-wrap gap-4\">\r\n-                    {[\"black\", \"white\", \"blue\", \"grey\", \"beige\"].map((color) => (\r\n+                    {[\"black\", \"white\", \"blue\", \"grey\"].map((color) => (\r\n                       <label key={color} className=\"flex items-center space-x-2\">\r\n                         <input\r\n                           type=\"checkbox\"\r\n                           checked={selectedProduct.colors?.includes(color) || false}\r\n"
+                },
+                {
+                    "date": 1749615814451,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -254,9 +254,9 @@\n                   <label className=\"block text-base font-medium text-gray-700 mb-2\">\r\n                     Màu sắc\r\n                   </label>\r\n                   <div className=\"flex flex-wrap gap-4\">\r\n-                    {[\"black\", \"white\", \"blue\", \"grey\"].map((color) => (\r\n+                    {[\"black\", \"white\", \"blue\", \"grey\", \"beige\"].map((color) => (\r\n                       <label key={color} className=\"flex items-center space-x-2\">\r\n                         <input\r\n                           type=\"checkbox\"\r\n                           checked={selectedProduct.colors?.includes(color) || false}\r\n"
                 }
             ],
             "date": 1746891704042,

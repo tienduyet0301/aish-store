@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 24,
+            "activePatchIndex": 25,
             "patches": [
                 {
                     "date": 1746893163116,
@@ -104,6 +104,10 @@
                 {
                     "date": 1747639389207,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -382,18 +382,9 @@\n       <div className=\"px-0 sm:px-0 md:px-0 lg:px-0 mt-4 sm:mt-8\">\n         <div className=\"w-full\">\n           <main className=\"max-w-full mx-auto\">\n             {sortedProducts.length === 0 ? (\n-              <NoProductsMessage \n-                resetFilters={() => { \n-                  setSelectedColors([]); \n-                  setSelectedSizes([]); \n-                  setSortOption(\"newest\");\n-                }}\n-                noProductsText={t('products.filter.noProducts')}\n-                tryAgainText={t('products.filter.tryAgain')}\n-                resetFiltersText={t('products.filter.resetFilters')}\n-              />\n+              <NoProductsMessage />\n             ) : (\n               <>\n                 <ProductGrid products={currentProducts} />\n                 {totalPages > 1 && (\n"
+                },
+                {
+                    "date": 1749616486536,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -90,9 +90,9 @@\n \n   const { selectedColors, setSelectedColors, selectedSizes, setSelectedSizes, sortOption, setSortOption, sortedProducts } =\n     useProductFilters(products);\n \n-  const colors = [\"black\", \"white\", \"blue\", \"grey\"];\n+  const colors = [\"black\", \"white\", \"blue\", \"grey\", \"beige\"];\n \n   const sizes = [\"m\", \"l\", \"xl\"];\n \n   const handlePrevImage = (e: React.MouseEvent, productId: string) => {\n@@ -186,8 +186,9 @@\n     { value: \"black\", label: t('products.filter.colorBlack') },\n     { value: \"white\", label: t('products.filter.colorWhite') },\n     { value: \"blue\", label: t('products.filter.colorBlue') },\n     { value: \"grey\", label: t('products.filter.colorGrey') },\n+    { value: \"beige\", label: t('products.filter.colorBeige') },\n   ];\n   const sizeLabels = [\n     { value: \"M\", label: t('products.filter.sizeM') },\n     { value: \"L\", label: t('products.filter.sizeL') },\n"
                 }
             ],
             "date": 1746891704042,

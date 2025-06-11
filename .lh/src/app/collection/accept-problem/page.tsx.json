@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1747300184666,
@@ -52,6 +52,18 @@
                 {
                     "date": 1747639253240,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -261,11 +261,11 @@\n       {products.length > 0 ? (\r\n         <ProductGrid products={products} />\r\n       ) : (\r\n         <div className=\"text-center py-12\">\r\n-          <p className=\"text-gray-600 mb-4\">{t('products.noProductsMessage')}</p>\r\n+          <p className=\"text-gray-600 mb-4\">{t('products.filter.noProductsSimple')}</p>\r\n           <Link href=\"/collection\" className=\"text-blue-600 hover:text-blue-800\">\r\n-            {t('products.backToCollection')}\r\n+            {t('common.back')}\r\n           </Link>\r\n         </div>\r\n       )}\r\n     </div>\r\n"
+                },
+                {
+                    "date": 1749615246359,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,8 +48,9 @@\n     { value: \"black\", label: t('products.filter.colorBlack') },\r\n     { value: \"white\", label: t('products.filter.colorWhite') },\r\n     { value: \"blue\", label: t('products.filter.colorBlue') },\r\n     { value: \"grey\", label: t('products.filter.colorGrey') },\r\n+    { value: \"beige\", label: t('products.filter.colorBeige') },\r\n   ];\r\n   const sizeLabels = [\r\n     { value: \"M\", label: t('products.filter.sizeM') },\r\n     { value: \"L\", label: t('products.filter.sizeL') },\r\n"
+                },
+                {
+                    "date": 1749615574716,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,9 +48,8 @@\n     { value: \"black\", label: t('products.filter.colorBlack') },\r\n     { value: \"white\", label: t('products.filter.colorWhite') },\r\n     { value: \"blue\", label: t('products.filter.colorBlue') },\r\n     { value: \"grey\", label: t('products.filter.colorGrey') },\r\n-    { value: \"beige\", label: t('products.filter.colorBeige') },\r\n   ];\r\n   const sizeLabels = [\r\n     { value: \"M\", label: t('products.filter.sizeM') },\r\n     { value: \"L\", label: t('products.filter.sizeL') },\r\n"
+                },
+                {
+                    "date": 1749615838174,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -48,8 +48,9 @@\n     { value: \"black\", label: t('products.filter.colorBlack') },\r\n     { value: \"white\", label: t('products.filter.colorWhite') },\r\n     { value: \"blue\", label: t('products.filter.colorBlue') },\r\n     { value: \"grey\", label: t('products.filter.colorGrey') },\r\n+    { value: \"beige\", label: t('products.filter.colorBeige') },\r\n   ];\r\n   const sizeLabels = [\r\n     { value: \"M\", label: t('products.filter.sizeM') },\r\n     { value: \"L\", label: t('products.filter.sizeL') },\r\n"
                 }
             ],
             "date": 1747300184666,
