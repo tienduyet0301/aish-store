@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 46,
+            "activePatchIndex": 48,
             "patches": [
                 {
                     "date": 1747291606024,
@@ -192,6 +192,14 @@
                 {
                     "date": 1747379877558,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -821,15 +821,29 @@\n \n const LanguageContext = createContext<LanguageContextType | undefined>(undefined);\n \n export function LanguageProvider({ children }: { children: React.ReactNode }) {\n-  const [language, setLanguage] = useState<Language>('en');\n+  const [language, setLanguage] = useState<Language>(\"en\");\n   const router = useRouter();\n \n+  useEffect(() => {\n+    if (typeof window !== 'undefined') {\n+      const savedLanguage = localStorage.getItem(\"language\") as Language;\n+      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'vi')) {\n+        setLanguage(savedLanguage);\n+      }\n+    }\n+  }, []);\n+\n   const handleLanguageChange = (newLanguage: string) => {\n-    const lang = newLanguage as Language;\n-    setLanguage(lang);\n-    router.refresh();\n+    const lang = newLanguage.toLowerCase() as Language;\n+    if (lang === 'en' || lang === 'vi') {\n+      setLanguage(lang);\n+      if (typeof window !== 'undefined') {\n+        localStorage.setItem(\"language\", lang);\n+      }\n+      router.refresh();\n+    }\n   };\n \n   const t = (key: TranslationKey): string => {\n     return translations[language][key] || key;\n"
+                },
+                {
+                    "date": 1749610709953,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,8 +105,9 @@\n   | 'navbar.chillCalmDown'\n   | 'navbar.aboutUs'\n   | 'navbar.thankYou'\n   | 'navbar.thankYouMobile'\n+  | 'navbar.jacket'\n   // Home\n   | 'home.hero.title'\n   | 'home.hero.subtitle'\n   | 'home.hero.cta'\n@@ -636,8 +637,9 @@\n     'navbar.shirt': 'ÁO SƠ MI',\n     'navbar.polo': 'ÁO POLO',\n     'navbar.sweater': 'ÁO LEN',\n     'navbar.hoodie': 'ÁO NỈ',\n+    'navbar.jacket': 'ÁO KHOÁC',\n     'navbar.bottoms': 'QUẦN',\n     'navbar.pants': 'QUẦN DÀI',\n     'navbar.short': 'QUẦN SHORT',\n     'navbar.skirt': 'VÁY',\n"
+                },
+                {
+                    "date": 1749610720295,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -386,8 +386,9 @@\n     'navbar.chillCalmDown': 'CHILL, CALM DOWN',\n     'navbar.aboutUs': 'ABOUT US',\n     'navbar.thankYou': 'Thank you for choosing AISH. We truly appreciate it.',\n     'navbar.thankYouMobile': 'We truly appreciate it.',\n+    'navbar.jacket': 'JACKET',\n     // Home\n     'home.hero.title': 'DISCOVER YOUR STYLE',\n     'home.hero.subtitle': 'Explore our latest collection',\n     'home.hero.cta': 'SHOP NOW',\n"
                 }
             ],
             "date": 1747291606024,

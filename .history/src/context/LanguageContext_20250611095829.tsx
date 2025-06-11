@@ -387,7 +387,6 @@ const translations: Translations = {
     'navbar.aboutUs': 'ABOUT US',
     'navbar.thankYou': 'Thank you for choosing AISH. We truly appreciate it.',
     'navbar.thankYouMobile': 'We truly appreciate it.',
-    'navbar.jacket': 'JACKET',
     // Home
     'home.hero.title': 'DISCOVER YOUR STYLE',
     'home.hero.subtitle': 'Explore our latest collection',

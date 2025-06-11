@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1746893158867,
@@ -32,6 +32,10 @@
                 {
                     "date": 1749558025568,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,9 @@\n   collection: string;\r\n   createdAt: string;\r\n   sizeGuideImage?: string;\r\n   colors: string[];\r\n+  discountPercent?: number;\r\n }\r\n \r\n interface EditModalProps {\r\n   product: Product | null;\r\n@@ -135,9 +136,10 @@\n         category: selectedProduct.category,\r\n         collection: selectedProduct.collection,\r\n         colors: selectedProduct.colors || [],\r\n         sizeGuideImage: selectedProduct.sizeGuideImage || \"\",\r\n-        createdAt: selectedProduct.createdAt\r\n+        createdAt: selectedProduct.createdAt,\r\n+        discountPercent: selectedProduct.discountPercent,\r\n       };\r\n \r\n       onSave(updatedProduct);\r\n     } catch (error) {\r\n@@ -294,8 +296,27 @@\n                 </div>\r\n \r\n                 <div>\r\n                   <label className=\"block text-base font-medium text-gray-700 mb-2\">\r\n+                    Giảm giá (%)\r\n+                  </label>\r\n+                  <input\r\n+                    type=\"number\"\r\n+                    min={0}\r\n+                    max={100}\r\n+                    value={selectedProduct.discountPercent ?? 0}\r\n+                    onChange={(e) => {\r\n+                      setSelectedProduct({\r\n+                        ...selectedProduct,\r\n+                        discountPercent: Number(e.target.value),\r\n+                      });\r\n+                    }}\r\n+                    className=\"mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-black focus:ring-black text-base text-black py-3 px-4\"\r\n+                  />\r\n+                </div>\r\n+\r\n+                <div>\r\n+                  <label className=\"block text-base font-medium text-gray-700 mb-2\">\r\n                     Phân loại\r\n                   </label>\r\n                   <select\r\n                     value={selectedProduct.category}\r\n"
+                },
+                {
+                    "date": 1749612189792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -333,8 +333,9 @@\n                     <option value=\"SHIRT\">SHIRT</option>\r\n                     <option value=\"POLO\">POLO</option>\r\n                     <option value=\"SWEATER\">SWEATER</option>\r\n                     <option value=\"HOODIE\">HOODIE</option>\r\n+                    <option value=\"JACKET\">JACKET</option>\r\n                     <option value=\"PANTS\">PANTS</option>\r\n                     <option value=\"SHORT\">SHORT</option>\r\n                     <option value=\"SKIRT\">SKIRT</option>\r\n                     <option value=\"CAP\">CAP</option>\r\n"
                 }
             ],
             "date": 1746891704042,

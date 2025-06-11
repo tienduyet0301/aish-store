@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1746893158977,
@@ -24,6 +24,10 @@
                 {
                     "date": 1747723846796,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,14 @@\n   sizeGuideImage: string;\r\n   colors: string[];\r\n }\r\n \r\n-const initialFormState: ProductFormData = {\r\n+interface ProductFormState extends Omit<ProductFormData, 'images' | 'sizeGuideImage'> {\r\n+  images: File[];\r\n+  sizeGuideImage: File | null;\r\n+}\r\n+\r\n+const initialFormState: ProductFormState = {\r\n   name: \"\",\r\n   price: \"\",\r\n   description: \"\",\r\n   images: [],\r\n@@ -33,9 +38,9 @@\n   productCode: \"\",\r\n   details: \"\",\r\n   category: \"\",\r\n   collection: \"\",\r\n-  sizeGuideImage: \"\",\r\n+  sizeGuideImage: null,\r\n   colors: [],\r\n };\r\n \r\n interface ProductFormProps {\r\n@@ -43,9 +48,9 @@\n   isAdding: boolean;\r\n }\r\n \r\n export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {\r\n-  const [newProduct, setNewProduct] = useState<ProductFormData>(initialFormState);\r\n+  const [newProduct, setNewProduct] = useState<ProductFormState>(initialFormState);\r\n   const [previewUrls, setPreviewUrls] = useState<string[]>([]);\r\n   const [sizeGuideImagePreview, setSizeGuideImagePreview] = useState<string>(\"\");\r\n   const fileInputRef = useRef<HTMLInputElement>(null);\r\n \r\n@@ -76,15 +81,15 @@\n     \r\n     // Create new preview URLs\r\n     const urls = files.map(file => URL.createObjectURL(file));\r\n     setPreviewUrls(urls);\r\n-    setNewProduct(prev => ({ ...prev, images: files.map(file => URL.createObjectURL(file)) }));\r\n+    setNewProduct(prev => ({ ...prev, images: files }));\r\n   };\r\n \r\n   const handleSizeGuideImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {\r\n     const file = e.target.files?.[0];\r\n     if (file) {\r\n-      setNewProduct(prev => ({ ...prev, sizeGuideImage: URL.createObjectURL(file) }));\r\n+      setNewProduct(prev => ({ ...prev, sizeGuideImage: file }));\r\n       const reader = new FileReader();\r\n       reader.onloadend = () => {\r\n         setSizeGuideImagePreview(reader.result as string);\r\n       };\r\n@@ -117,9 +122,9 @@\n       }\r\n \r\n       // Upload size guide image if exists\r\n       let sizeGuideImageUrl = \"\";\r\n-      if (newProduct.sizeGuideImage instanceof File) {\r\n+      if (newProduct.sizeGuideImage) {\r\n         const sizeGuideFormData = new FormData();\r\n         sizeGuideFormData.append(\"files\", newProduct.sizeGuideImage);\r\n         \r\n         const sizeGuideResponse = await fetch(\"/api/upload\", {\r\n"
+                },
+                {
+                    "date": 1749611875700,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -220,8 +220,9 @@\n               <option value=\"SHIRT\">SHIRT</option>\r\n               <option value=\"POLO\">POLO</option>\r\n               <option value=\"SWEATER\">SWEATER</option>\r\n               <option value=\"HOODIE\">HOODIE</option>\r\n+              <option value=\"JACKET\">JACKET</option>\r\n             </optgroup>\r\n             <optgroup label=\"BOTTOMS\">\r\n               <option value=\"PANTS\">PANTS</option>\r\n               <option value=\"SHORT\">SHORT</option>\r\n"
                 }
             ],
             "date": 1746891704042,

@@ -149,7 +149,6 @@ export default function Navbar() {
       'polo': '/tops/polo',
       'sweater': '/tops/sweater',
       'hoodie': '/tops/hoodie',
-      'jacket': '/tops/jacket',
       'pants': '/bottoms/pants',
       'short': '/bottoms/short',
       'skirt': '/bottoms/skirt',

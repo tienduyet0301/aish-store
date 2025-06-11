@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1747290447326,
@@ -12,6 +12,10 @@
                 {
                     "date": 1747320694325,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,5 +44,6 @@\n   \"updates\": {\r\n     \"title\": \"Tôi muốn nhận cập nhật\",\r\n     \"description\": \"Tôi muốn nhận cập nhật (bao gồm qua email, SMS, MMS, mạng xã hội, điện thoại...) về các hoạt động mới của AISH, sản phẩm độc quyền, dịch vụ được cá nhân hóa và có trải nghiệm khách hàng được cá nhân hóa dựa trên sở thích của tôi.\"\r\n   }\r\n-} \n\\ No newline at end of file\n+} \r\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1749610413389,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,49 +1,10 @@\n {\r\n-  \"common\": {\r\n-    \"login\": \"ĐĂNG NHẬP\",\r\n-    \"register\": \"ĐĂNG KÝ\",\r\n-    \"continue\": \"TIẾP TỤC\",\r\n-    \"back\": \"Quay lại\",\r\n-    \"email\": \"EMAIL*\",\r\n-    \"password\": \"MẬT KHẨU*\",\r\n-    \"firstName\": \"TÊN*\",\r\n-    \"lastName\": \"HỌ*\",\r\n-    \"dateOfBirth\": \"NGÀY SINH\",\r\n-    \"month\": \"THÁNG*\",\r\n-    \"day\": \"NGÀY*\",\r\n-    \"year\": \"NĂM*\",\r\n-    \"forgotPassword\": \"QUÊN MẬT KHẨU\",\r\n-    \"sendNewPassword\": \"Gửi mật khẩu mới\",\r\n-    \"sending\": \"Đang gửi...\",\r\n-    \"continueWithGoogle\": \"TIẾP TỤC VỚI GOOGLE\",\r\n-    \"continueWithEmail\": \"TIẾP TỤC VỚI ĐỊA CHỈ EMAIL\",\r\n-    \"signInWithEmail\": \"Đăng nhập bằng email và mật khẩu hoặc tạo hồ sơ mới nếu bạn là người dùng mới\",\r\n-    \"or\": \"HOẶC\",\r\n-    \"joinMyAish\": \"THAM GIA MY AISH\",\r\n-    \"myAishAccount\": \"TÀI KHOẢN MY AISH\",\r\n-    \"forgotPasswordText\": \"Đừng lo lắng! Điều này thường xảy ra. Vui lòng nhập địa chỉ email của bạn và chúng tôi sẽ gửi cho bạn mật khẩu mới.\",\r\n-    \"backToLogin\": \"Quay lại đăng nhập\",\r\n-    \"language\": \"Ngôn ngữ\",\r\n-    \"english\": \"Tiếng Anh\",\r\n-    \"vietnamese\": \"Tiếng Việt\"\r\n-  },\r\n-  \"validation\": {\r\n-    \"requiredEmail\": \"Vui lòng nhập địa chỉ email hợp lệ\",\r\n-    \"requiredPassword\": \"Vui lòng nhập mật khẩu hợp lệ\",\r\n-    \"requiredFirstName\": \"Vui lòng nhập tên của bạn\",\r\n-    \"requiredLastName\": \"Vui lòng nhập họ của bạn\",\r\n-    \"requiredDate\": \"Vui lòng nhập đầy đủ ngày sinh\",\r\n-    \"requiredUpdates\": \"Bạn phải đồng ý nhận cập nhật\",\r\n-    \"invalidEmail\": \"Định dạng email không hợp lệ\",\r\n-    \"passwordRequirements\": {\r\n-      \"length\": \"Vui lòng nhập ít nhất 8 ký tự\",\r\n-      \"number\": \"Vui lòng nhập ít nhất một số\",\r\n-      \"special\": \"Vui lòng nhập một ký tự đặc biệt (!@#$%^&*(),.?\\\":{}|<>)\"\r\n-    }\r\n-  },\r\n-  \"updates\": {\r\n-    \"title\": \"Tôi muốn nhận cập nhật\",\r\n-    \"description\": \"Tôi muốn nhận cập nhật (bao gồm qua email, SMS, MMS, mạng xã hội, điện thoại...) về các hoạt động mới của AISH, sản phẩm độc quyền, dịch vụ được cá nhân hóa và có trải nghiệm khách hàng được cá nhân hóa dựa trên sở thích của tôi.\"\r\n+  \"navbar\": {\r\n+    \"tshirt\": \"ÁO THUN\",\r\n+    \"shirt\": \"ÁO SƠ MI\",\r\n\\ No newline at end of file\n+    \"polo\": \"ÁO POLO\",\r\n+    \"sweater\": \"ÁO LEN\",\r\n+    \"hoodie\": \"ÁO NỈ\",\r\n+    \"jacket\": \"ÁO KHOÁC\"\r\n   }\r\n-} \r\n- \n+} \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747290447326,
