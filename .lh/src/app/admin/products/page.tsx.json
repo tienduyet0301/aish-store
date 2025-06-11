@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 28,
+            "activePatchIndex": 29,
             "patches": [
                 {
                     "date": 1746893159154,
@@ -120,6 +120,10 @@
                 {
                     "date": 1748601005442,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -156,9 +156,8 @@\n     } catch (error) {\n       console.error(\"Error updating product:\", error);\n       toast.error(\"Không thể cập nhật sản phẩm\");\n     } finally {\n-      setIsEditing(false);\n       fetchProducts();\n     }\n   };\n \n@@ -178,8 +177,9 @@\n \n       if (data.ok) {\n         toast.success(\"Xóa sản phẩm thành công\");\n       } else {\n+        console.error(\"Server error during delete:\", data.error);\n         toast.error(data.error || \"Không thể xóa sản phẩm. Vui lòng thử lại.\");\n       }\n     } catch (error) {\n       console.error(\"Error deleting product:\", error);\n"
+                },
+                {
+                    "date": 1749563856999,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -126,8 +126,9 @@\n         category: product.category,\n         collection: product.collection,\n         colors: product.colors || [],\n         sizeGuideImage: product.sizeGuideImage || \"\",\n+        discountPercent: product.discountPercent ?? 0,\n       };\n \n       console.log('Sending update data:', updatedProduct);\n \n"
                 }
             ],
             "date": 1746891704042,

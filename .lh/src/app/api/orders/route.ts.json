@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 84,
+            "activePatchIndex": 85,
             "patches": [
                 {
                     "date": 1747807963741,
@@ -344,6 +344,10 @@
                 {
                     "date": 1748628756778,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -157,14 +157,19 @@\n         note: orderData.note || null,\n         shippingMethod: orderData.shippingMethod || 'standard',\n         // Promo code information - only save necessary fields\n         promoCode: promoCodeObject ? {\n+          id: promoCodeObject.id,\n           code: promoCodeObject.code,\n           type: promoCodeObject.type,\n           value: promoCodeObject.value,\n-          maxAmount: promoCodeObject.maxAmount || null\n+          maxAmount: promoCodeObject.maxAmount || null,\n+          isLoginRequired: Boolean(promoCodeObject.isLoginRequired),\n+          perUserLimit: Number(promoCodeObject.perUserLimit) || 0,\n+          expiryDate: promoCodeObject.expiryDate ? new Date(promoCodeObject.expiryDate).toISOString() : null\n         } : null,\n-        promoAmount: orderData.promoAmount || 0\n+        promoAmount: orderData.promoAmount || 0,\n+        subtotal: orderData.subtotal || orderData.total\n       };\n \n       console.log('Creating order with data:', order);\n \n"
+                },
+                {
+                    "date": 1749537506699,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,10 +74,10 @@\n           const promoId = new ObjectId(promoCodeObject.id);\n           const userEmail = session?.user?.email || orderData.email;\n \n           // Fetch the latest promo code document within the transaction\n-          const promoCodeDoc = await db.collection('notifications').findOne(\n-              { _id: promoId, type: 'promo' },\n+          const promoCodeDoc = await db.collection('promoCodes').findOne(\n+              { _id: promoId },\n               { session: dbSession }\n           );\n \n           if (!promoCodeDoc || !promoCodeDoc.isActive) {\n@@ -124,9 +124,9 @@\n           if (userEmail) {\n               updateFields.$push = { usedByUsers: userEmail };\n           }\n \n-          await db.collection('notifications').updateOne(\n+          await db.collection('promoCodes').updateOne(\n               { _id: promoId },\n               updateFields,\n               { session: dbSession }\n           );\n"
                 }
             ],
             "date": 1747807963740,

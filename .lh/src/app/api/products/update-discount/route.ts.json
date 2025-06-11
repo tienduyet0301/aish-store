@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/api/products/update-discount/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1749563467371,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1749563474588,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n \r\n export async function POST() {\r\n   try {\r\n     const client = await connectToDatabase();\r\n-    const db = client.db(\"aishh\");\r\n+    const db = client.db;\r\n \r\n     // Cập nhật tất cả sản phẩm, thêm trường discountPercent với giá trị mặc định là 0\r\n     const result = await db.collection(\"products\").updateMany(\r\n       { discountPercent: { $exists: false } },\r\n"
+                }
+            ],
+            "date": 1749563467371,
+            "name": "Commit-0",
+            "content": "import { NextResponse } from \"next/server\";\r\nimport { connectToDatabase } from '@/lib/mongodb';\r\nimport { revalidatePath } from 'next/cache';\r\n\r\nexport const dynamic = 'force-dynamic';\r\n\r\nexport async function POST() {\r\n  try {\r\n    const client = await connectToDatabase();\r\n    const db = client.db(\"aishh\");\r\n\r\n    // Cập nhật tất cả sản phẩm, thêm trường discountPercent với giá trị mặc định là 0\r\n    const result = await db.collection(\"products\").updateMany(\r\n      { discountPercent: { $exists: false } },\r\n      { $set: { discountPercent: 0 } }\r\n    );\r\n\r\n    revalidatePath(\"/products\");\r\n    revalidatePath(\"/admin/products\");\r\n\r\n    return NextResponse.json({\r\n      ok: true,\r\n      message: `Updated ${result.modifiedCount} products with discountPercent field`\r\n    });\r\n  } catch (error) {\r\n    console.error(\"Error updating products:\", error);\r\n    return NextResponse.json(\r\n      { ok: false, error: \"Failed to update products\" },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

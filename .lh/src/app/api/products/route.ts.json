@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1746893160074,
@@ -24,6 +24,30 @@
                 {
                     "date": 1747796671386,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,11 +15,10 @@\n \n     console.log(\"Fetching products...\");\n     const products = await db.collection(\"products\").find({}).toArray();\n     console.log(`Found ${products.length} products`);\n+    console.log('Products from DB:', JSON.stringify(products, null, 2));\n \n-    console.log('Products from DB:', products); // Log products data\n-\n     return NextResponse.json({ ok: true, products });\n   } catch (error: any) {\n     console.error(\"Error details:\", {\n       message: error?.message || 'Unknown error',\n"
+                },
+                {
+                    "date": 1748682631883,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,22 @@\n \n // POST /api/products - Thêm sản phẩm mới\n export async function POST(request: Request) {\n   try {\n+    console.log(\"Received POST request to /api/products\");\n     const formData = await request.formData();\n+    \n+    // Log received form data (excluding files for brevity)\n+    const logData: { [key: string]: any } = {};\n+    for (const [key, value] of formData.entries()) {\n+      if (typeof value === 'string') {\n+        logData[key] = value;\n+      } else {\n+        logData[key] = `[File: ${value.name}, Type: ${value.type}, Size: ${value.size} bytes]`;\n+      }\n+    }\n+    console.log(\"Received form data:\", logData);\n+\n     const name = formData.get(\"name\") as string;\n     const description = formData.get(\"description\") as string;\n     const details = formData.get(\"details\") as string;\n     const price = Number(formData.get(\"price\"));\n"
+                },
+                {
+                    "date": 1748682644622,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,9 @@\n     const formData = await request.formData();\n     \n     // Log received form data (excluding files for brevity)\n     const logData: { [key: string]: any } = {};\n-    for (const [key, value] of formData.entries()) {\n+    for (const [key, value] of Array.from(formData.entries())) {\n       if (typeof value === 'string') {\n         logData[key] = value;\n       } else {\n         logData[key] = `[File: ${value.name}, Type: ${value.type}, Size: ${value.size} bytes]`;\n"
+                },
+                {
+                    "date": 1748682669967,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,22 +34,9 @@\n \n // POST /api/products - Thêm sản phẩm mới\n export async function POST(request: Request) {\n   try {\n-    console.log(\"Received POST request to /api/products\");\n     const formData = await request.formData();\n-    \n-    // Log received form data (excluding files for brevity)\n-    const logData: { [key: string]: any } = {};\n-    for (const [key, value] of Array.from(formData.entries())) {\n-      if (typeof value === 'string') {\n-        logData[key] = value;\n-      } else {\n-        logData[key] = `[File: ${value.name}, Type: ${value.type}, Size: ${value.size} bytes]`;\n-      }\n-    }\n-    console.log(\"Received form data:\", logData);\n-\n     const name = formData.get(\"name\") as string;\n     const description = formData.get(\"description\") as string;\n     const details = formData.get(\"details\") as string;\n     const price = Number(formData.get(\"price\"));\n"
+                },
+                {
+                    "date": 1748684034610,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,16 @@\n import { connectToDatabase } from \"@/lib/mongodb\";\n import { ObjectId } from \"mongodb\";\n import { createSlug } from \"@/lib/utils\";\n \n+// Configure the maximum file size (e.g., 10MB)\n+export const config = {\n+  api: {\n+    bodyParser: false,\n+    responseLimit: '10mb',\n+  },\n+};\n+\n const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || \"http://localhost:3000\";\n \n // GET /api/products - Lấy danh sách sản phẩm\n export async function GET() {\n"
+                },
+                {
+                    "date": 1748687278564,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,16 +3,8 @@\n import { connectToDatabase } from \"@/lib/mongodb\";\n import { ObjectId } from \"mongodb\";\n import { createSlug } from \"@/lib/utils\";\n \n-// Configure the maximum file size (e.g., 10MB)\n-export const config = {\n-  api: {\n-    bodyParser: false,\n-    responseLimit: '10mb',\n-  },\n-};\n-\n const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN || \"http://localhost:3000\";\n \n // GET /api/products - Lấy danh sách sản phẩm\n export async function GET() {\n"
+                },
+                {
+                    "date": 1749560165506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -49,8 +49,9 @@\n     const quantityHat = Number(formData.get(\"quantityHat\"));\n     const images = JSON.parse(formData.get(\"images\") as string);\n     const sizeGuideImage = formData.get(\"sizeGuideImage\") as string;\n     const colors = JSON.parse(formData.get(\"colors\") as string || \"[]\");\n+    const discountPercent = Number(formData.get(\"discountPercent\") || 0);\n \n     const { db } = await connectToDatabase();\n     let slug = createSlug(name);\n     \n@@ -76,8 +77,9 @@\n       quantityL,\n       quantityXL,\n       quantityHat,\n       colors,\n+      discountPercent,\n       slug,\n       createdAt: new Date().toISOString(),\n       updatedAt: new Date().toISOString(),\n     };\n"
                 }
             ],
             "date": 1746891704042,

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/types/index.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1749534359547,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1749534365155,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,24 +1,1 @@\n-export interface Product {\r\n-  _id: string;\r\n-  name: string;\r\n-  description: string;\r\n-  price: number;\r\n-  images: string[];\r\n-  category: string;\r\n-  colors?: string[];\r\n-  quantityM: number;\r\n-  quantityL: number;\r\n-  quantityXL: number;\r\n-  quantityHat: number;\r\n-  productDiscount?: {\r\n-    code: string;\r\n-    type: 'fixed' | 'percentage';\r\n-    value: number;\r\n-    maxAmount?: number;\r\n-    isActive: boolean;\r\n-    expiryDate?: string;\r\n-    usedCount: number;\r\n-  };\r\n-  createdAt: string;\r\n-  updatedAt: string;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1749534359547,
+            "name": "Commit-0",
+            "content": "export interface Product {\r\n  _id: string;\r\n  name: string;\r\n  description: string;\r\n  price: number;\r\n  images: string[];\r\n  category: string;\r\n  colors?: string[];\r\n  quantityM: number;\r\n  quantityL: number;\r\n  quantityXL: number;\r\n  quantityHat: number;\r\n  productDiscount?: {\r\n    code: string;\r\n    type: 'fixed' | 'percentage';\r\n    value: number;\r\n    maxAmount?: number;\r\n    isActive: boolean;\r\n    expiryDate?: string;\r\n    usedCount: number;\r\n  };\r\n  createdAt: string;\r\n  updatedAt: string;\r\n} "
+        }
+    ]
+}

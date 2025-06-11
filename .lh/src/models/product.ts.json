@@ -1,9 +1,9 @@
 {
-    "sourceFile": "src/models/product.ts",
+    "sourceFile": "src/models/Product.ts",
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1747115299796,
@@ -12,6 +12,22 @@
                 {
                     "date": 1747115308839,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,1 @@\n-export interface Product {\r\n-  id: string;\r\n-  name: string;\r\n-  description: string;\r\n-  price: number;\r\n-  image: string;\r\n-  category: string;\r\n-  isSaved?: boolean;\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1749534230821,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,21 @@\n- \n\\ No newline at end of file\n+import mongoose from 'mongoose';\r\n+\r\n+const productSchema = new mongoose.Schema({\r\n+  name: { type: String, required: true },\r\n+  description: { type: String, required: true },\r\n+  price: { type: Number, required: true },\r\n+  images: [{ type: String, required: true }],\r\n+  category: { type: String, required: true },\r\n+  colors: [{ type: String }],\r\n+  quantityM: { type: Number, default: 0 },\r\n+  quantityL: { type: Number, default: 0 },\r\n+  quantityXL: { type: Number, default: 0 },\r\n+  quantityHat: { type: Number, default: 0 },\r\n+  discountCode: { type: String },\r\n+  discountPercentage: { type: Number, default: 0 },\r\n+  discountExpiry: { type: Date },\r\n+  createdAt: { type: Date, default: Date.now },\r\n+  updatedAt: { type: Date, default: Date.now }\r\n+});\r\n+\r\n+// ... existing code ... \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1749534247603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,5 +17,7 @@\n   createdAt: { type: Date, default: Date.now },\r\n   updatedAt: { type: Date, default: Date.now }\r\n });\r\n \r\n-// ... existing code ... \n\\ No newline at end of file\n+const Product = mongoose.models.Product || mongoose.model('Product', productSchema);\r\n+\r\n+export default Product; \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1749534310833,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,11 +10,17 @@\n   quantityM: { type: Number, default: 0 },\r\n   quantityL: { type: Number, default: 0 },\r\n   quantityXL: { type: Number, default: 0 },\r\n   quantityHat: { type: Number, default: 0 },\r\n-  discountCode: { type: String },\r\n-  discountPercentage: { type: Number, default: 0 },\r\n-  discountExpiry: { type: Date },\r\n+  productDiscount: {\r\n+    code: { type: String },\r\n+    type: { type: String, enum: ['fixed', 'percentage'], default: 'fixed' },\r\n+    value: { type: Number, default: 0 },\r\n+    maxAmount: { type: Number },\r\n+    isActive: { type: Boolean, default: false },\r\n+    expiryDate: { type: Date },\r\n+    usedCount: { type: Number, default: 0 }\r\n+  },\r\n   createdAt: { type: Date, default: Date.now },\r\n   updatedAt: { type: Date, default: Date.now }\r\n });\r\n \r\n"
+                },
+                {
+                    "date": 1749534382782,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,29 +1,1 @@\n-import mongoose from 'mongoose';\r\n-\r\n-const productSchema = new mongoose.Schema({\r\n-  name: { type: String, required: true },\r\n-  description: { type: String, required: true },\r\n-  price: { type: Number, required: true },\r\n-  images: [{ type: String, required: true }],\r\n-  category: { type: String, required: true },\r\n-  colors: [{ type: String }],\r\n-  quantityM: { type: Number, default: 0 },\r\n-  quantityL: { type: Number, default: 0 },\r\n-  quantityXL: { type: Number, default: 0 },\r\n-  quantityHat: { type: Number, default: 0 },\r\n-  productDiscount: {\r\n-    code: { type: String },\r\n-    type: { type: String, enum: ['fixed', 'percentage'], default: 'fixed' },\r\n-    value: { type: Number, default: 0 },\r\n-    maxAmount: { type: Number },\r\n-    isActive: { type: Boolean, default: false },\r\n-    expiryDate: { type: Date },\r\n-    usedCount: { type: Number, default: 0 }\r\n-  },\r\n-  createdAt: { type: Date, default: Date.now },\r\n-  updatedAt: { type: Date, default: Date.now }\r\n-});\r\n-\r\n-const Product = mongoose.models.Product || mongoose.model('Product', productSchema);\r\n-\r\n-export default Product; \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747115299796,

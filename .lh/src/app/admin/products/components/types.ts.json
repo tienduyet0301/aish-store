@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1746893159110,
@@ -20,6 +20,10 @@
                 {
                     "date": 1747727886535,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,9 @@\n   details: string;\r\n   category: string;\r\n   collection: string;\r\n   createdAt: string;\r\n+  sizeGuideImage?: string;\r\n   colors: string[];\r\n }\r\n \r\n export interface ProductForm {\r\n"
+                },
+                {
+                    "date": 1749563878877,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n   collection: string;\r\n   createdAt: string;\r\n   sizeGuideImage?: string;\r\n   colors: string[];\r\n+  discountPercent?: number;\r\n }\r\n \r\n export interface ProductForm {\r\n   name: string;\r\n"
                 }
             ],
             "date": 1746891704042,

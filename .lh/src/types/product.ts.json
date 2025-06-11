@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1746893167059,
@@ -32,6 +32,10 @@
                 {
                     "date": 1747278658920,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,10 @@\n export interface Product {\n-  id: string;\n+  _id: string;\n   name: string;\n+  price: number;\n   description: string;\n-  price: number;\n   images: string[];\n-  category: string;\n-  sizes: string[];\n-  colors: string[];\n-  inStock: boolean;\n-  _id: string;\n   sizeGuideImage?: string;\n   quantityM: number;\n   quantityL: number;\n   quantityXL: number;\n@@ -20,13 +15,16 @@\n   outOfStockHat: boolean;\n   outOfStock: boolean;\n   productCode: string;\n   details: string;\n+  category: string;\n   collection: string;\n   selectedSize?: string;\n   quantity: number;\n   createdAt: string;\n   updatedAt: string;\n+  colors: string[];\n+  sizes: string[];\n   slug: string;\n   [key: `quantity${string}`]: number;\n   [key: `outOfStock${string}`]: boolean;\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1749557977456,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,5 +26,6 @@\n   sizes: string[];\n   slug: string;\n   [key: `quantity${string}`]: number;\n   [key: `outOfStock${string}`]: boolean;\n+  discountPercent?: number;\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1746891704042,
