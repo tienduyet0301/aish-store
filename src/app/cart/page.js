@@ -196,7 +196,8 @@ export default function Cart() {
         transition={{ duration: 0.5 }}
         className="relative w-full h-[300px] sm:h-[400px] bg-cover bg-center text-white flex justify-center items-center"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`,
+          backgroundImage: `url('https://i.postimg.cc/YqJ07fYf/BANNER0-1-compressed.jpg')`,
+          backgroundPosition: 'center top',
         }}
       >
         <h1 className="text-5xl sm:text-6xl font-bold uppercase text-center md:text-left">SHOPPING BAG</h1>

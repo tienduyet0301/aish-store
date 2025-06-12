@@ -106,7 +106,7 @@ export default function ProductCard({
                 {...(currentImageIndex === 0 ? { priority: true } : { loading: "lazy" })}
               />
               {/* Badge giảm giá */}
-              {product.discountPercent && product.discountPercent > 0 && (
+              {product.discountPercent !== undefined && product.discountPercent > 0 && (
                 <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10 shadow">
                   -{product.discountPercent}%
                 </div>
