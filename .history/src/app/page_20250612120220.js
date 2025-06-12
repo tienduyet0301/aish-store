@@ -9,8 +9,6 @@ import Head from 'next/head';
 
 const DEFAULT_BANNER_IMAGE = "/images/image1.jpg";
 const SCROLL_ANIMATION_DURATION = 700;
-const CACHE_KEY = 'banner_cache';
-const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
 
 function easeInOutCubic(t) {
   return t < 0.5
@@ -75,64 +73,8 @@ export default function Home() {
   const [currentImage, setCurrentImage] = useState(0);
   const [banners, setBanners] = useState([]);
   const [isScrolling, setIsScrolling] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-
-  // Load banners from cache or API
-  useEffect(() => {
-    let ignore = false;
-
-    const loadBanners = async () => {
-      try {
-        // Try to load from cache first
-        const cachedData = localStorage.getItem(CACHE_KEY);
-        if (cachedData) {
-          const { data, timestamp } = JSON.parse(cachedData);
-          if (Date.now() - timestamp < CACHE_EXPIRY) {
-            if (!ignore) {
-              setBanners(data);
-            }
-          }
-        }
-
-        // Fetch fresh data from API
-        const response = await fetch("/api/banners");
-        const data = await response.json();
-        
-        if (!ignore && Array.isArray(data)) {
-          const activeBanners = data.filter(b => b && b.imageUrl && b.isActive);
-          
-          // Process banners
-          const processedBanners = await Promise.all(activeBanners.map(async (banner) => {
-            const isMobile = await new Promise((resolve) => {
-              const img = new window.Image();
-              img.onload = () => {
-                resolve(img.height > img.width);
-              };
-              img.src = banner.imageUrl;
-            });
-            return { ...banner, isMobile };
-          }));
-
-          // Update state and cache
-          setBanners(processedBanners);
-          localStorage.setItem(CACHE_KEY, JSON.stringify({
-            data: processedBanners,
-            timestamp: Date.now()
-          }));
-        }
-      } catch (error) {
-        console.error('Error loading banners:', error);
-        if (!ignore) {
-          setBanners([]);
-        }
-      }
-    };
-
-    loadBanners();
-    return () => {
-      ignore = true;
-    };
-  }, []);
 
   // Preload images
   useEffect(() => {
@@ -148,10 +90,65 @@ export default function Home() {
       await Promise.all(promises);
     };
 
-    if (banners.length > 0) {
-      preloadImages(banners.map(b => b.imageUrl));
+    const preloadBannerImages = async () => {
+      try {
+        const response = await fetch("/api/banners");
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          const activeBanners = data.filter(b => b && b.imageUrl && b.isActive);
+          if (activeBanners.length > 0) {
+            await preloadImages(activeBanners.map(b => b.imageUrl));
+          }
+        }
+      } catch (error) {
+        console.error('Error preloading images:', error);
+      }
+    };
+
+    preloadBannerImages();
+  }, []);
+
+  // Fetch banners only once
+  useEffect(() => {
+    let ignore = false;
+    async function fetchBanners() {
+      try {
+        setIsLoading(true);
+        const response = await fetch("/api/banners");
+        const data = await response.json();
+        if (!ignore) {
+          // Lọc banner active và phân loại desktop/mobile
+          const activeBanners = Array.isArray(data)
+            ? data.filter(b => b && b.imageUrl && b.isActive)
+            : [];
+
+          // Phân loại banner dựa vào kích thước ảnh
+          const processedBanners = await Promise.all(activeBanners.map(async (banner) => {
+            const isMobile = await new Promise((resolve) => {
+              const img = new window.Image();
+              img.onload = () => {
+                resolve(img.height > img.width);
+              };
+              img.src = banner.imageUrl;
+            });
+            return { ...banner, isMobile };
+          }));
+
+          setBanners(processedBanners);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (!ignore) {
+          setBanners([]);
+          setIsLoading(false);
+        }
+      }
     }
-  }, [banners]);
+    fetchBanners();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   // Kiểm tra thiết bị
   const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -217,6 +214,16 @@ export default function Home() {
       />
     ));
   }, [filteredBanners]);
+
+  // Render loading skeleton if loading
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
+
+  // Render fallback if no banners
+  if (!filteredBanners.length) {
+    return <LoadingSkeleton />;
+  }
 
   return (
     <>
