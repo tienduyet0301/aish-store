@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 12,
             "patches": [
                 {
                     "date": 1747235864844,
@@ -32,6 +32,30 @@
                 {
                     "date": 1747278296119,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,3 @@\n export const metadata = {\r\n   title: 'AISH Official Site',\r\n-  description: 'Khám phá bộ sưu tập thời trang cao cấp của AISH. Chất liệu cao cấp, thiết kế độc đáo, phong cách hiện đại.',\r\n }; \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1749703188121,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,16 @@\n-export const metadata = {\r\n-  title: 'AISH Official Site',\r\n-}; \n\\ No newline at end of file\n+import useSWR from 'swr';\r\n+\r\n+const fetcher = (url: string) => fetch(url).then((res) => res.json());\r\n+\r\n+export default function Home() {\r\n+  const { data: products, error } = useSWR('/api/products', fetcher, {\r\n+    revalidateOnFocus: false,\r\n+    revalidateOnReconnect: false,\r\n+    dedupingInterval: 60000 // Cache trong 1 phút\r\n+  });\r\n+\r\n+  if (error) return <div>Failed to load</div>;\r\n+  if (!products) return <div>Loading...</div>;\r\n+\r\n+  // ... existing code ...\r\n+} \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1749703195505,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n import useSWR from 'swr';\r\n+import Image from 'next/image';\r\n \r\n const fetcher = (url: string) => fetch(url).then((res) => res.json());\r\n \r\n export default function Home() {\r\n@@ -12,5 +13,29 @@\n   if (error) return <div>Failed to load</div>;\r\n   if (!products) return <div>Loading...</div>;\r\n \r\n   // ... existing code ...\r\n+\r\n+  return (\r\n+    <div>\r\n+      {products.map((product) => (\r\n+        <div key={product.id}>\r\n+          <Image\r\n+            src={product.image}\r\n+            alt={product.name}\r\n+            width={800}\r\n+            height={600}\r\n+            loading=\"lazy\"\r\n+            placeholder=\"blur\"\r\n+            blurDataURL=\"data:image/jpeg;base64,...\"\r\n+            sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw\"\r\n+            style={{\r\n+              width: '100%',\r\n+              height: 'auto',\r\n+              objectFit: 'cover'\r\n+            }}\r\n+          />\r\n+        </div>\r\n+      ))}\r\n+    </div>\r\n+  );\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1749703205427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,17 +2,31 @@\n import Image from 'next/image';\r\n \r\n const fetcher = (url: string) => fetch(url).then((res) => res.json());\r\n \r\n+const LoadingSkeleton = () => (\r\n+  <div className=\"animate-pulse\">\r\n+    <div className=\"h-48 bg-gray-200 rounded-lg mb-4\"></div>\r\n+    <div className=\"h-4 bg-gray-200 rounded w-3/4 mb-2\"></div>\r\n+    <div className=\"h-4 bg-gray-200 rounded w-1/2\"></div>\r\n+  </div>\r\n+);\r\n+\r\n export default function Home() {\r\n   const { data: products, error } = useSWR('/api/products', fetcher, {\r\n     revalidateOnFocus: false,\r\n     revalidateOnReconnect: false,\r\n     dedupingInterval: 60000 // Cache trong 1 phút\r\n   });\r\n \r\n   if (error) return <div>Failed to load</div>;\r\n-  if (!products) return <div>Loading...</div>;\r\n+  if (!products) return (\r\n+    <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\">\r\n+      {[...Array(6)].map((_, i) => (\r\n+        <LoadingSkeleton key={i} />\r\n+      ))}\r\n+    </div>\r\n+  );\r\n \r\n   // ... existing code ...\r\n \r\n   return (\r\n"
+                },
+                {
+                    "date": 1749703311453,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,14 @@\n import useSWR from 'swr';\r\n import Image from 'next/image';\r\n \r\n+interface Product {\r\n+  id: string;\r\n+  name: string;\r\n+  image: string;\r\n+  // Add other product properties as needed\r\n+}\r\n+\r\n const fetcher = (url: string) => fetch(url).then((res) => res.json());\r\n \r\n const LoadingSkeleton = () => (\r\n   <div className=\"animate-pulse\">\r\n@@ -11,9 +18,9 @@\n   </div>\r\n );\r\n \r\n export default function Home() {\r\n-  const { data: products, error } = useSWR('/api/products', fetcher, {\r\n+  const { data: products, error } = useSWR<Product[]>('/api/products', fetcher, {\r\n     revalidateOnFocus: false,\r\n     revalidateOnReconnect: false,\r\n     dedupingInterval: 60000 // Cache trong 1 phút\r\n   });\r\n@@ -26,12 +33,10 @@\n       ))}\r\n     </div>\r\n   );\r\n \r\n-  // ... existing code ...\r\n-\r\n   return (\r\n-    <div>\r\n+    <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\">\r\n       {products.map((product) => (\r\n         <div key={product.id}>\r\n           <Image\r\n             src={product.image}\r\n"
+                },
+                {
+                    "date": 1749703522846,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import useSWR from 'swr';\r\n+import { useSWR } from 'swr';\r\n import Image from 'next/image';\r\n \r\n interface Product {\r\n   id: string;\r\n"
+                },
+                {
+                    "date": 1749703543643,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import { useSWR } from 'swr';\r\n+import useSWR from 'swr';\r\n import Image from 'next/image';\r\n \r\n interface Product {\r\n   id: string;\r\n@@ -35,9 +35,9 @@\n   );\r\n \r\n   return (\r\n     <div className=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4\">\r\n-      {products.map((product) => (\r\n+      {products.map((product: Product) => (\r\n         <div key={product.id}>\r\n           <Image\r\n             src={product.image}\r\n             alt={product.name}\r\n"
                 }
             ],
             "date": 1747235864844,

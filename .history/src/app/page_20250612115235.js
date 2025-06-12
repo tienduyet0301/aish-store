@@ -35,7 +35,7 @@ const LoadingSkeleton = () => (
   </div>
 );
 
-const BannerItem = React.memo(({ banner, idx }) => (
+const BannerItem = React.memo(({ banner, idx, isFirst }) => (
   <div
     key={banner._id || idx}
     className="relative w-full h-screen flex items-center justify-center m-0 p-0 overflow-hidden"
@@ -46,10 +46,10 @@ const BannerItem = React.memo(({ banner, idx }) => (
         alt={banner.title || `Banner ${idx + 1}`}
         fill
         className="object-cover"
-        priority
+        priority={isFirst}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
-        quality={98}
-        loading="eager"
+        quality={isFirst ? 98 : 75}
+        loading={isFirst ? "eager" : "lazy"}
         placeholder="blur"
         blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSEkMjU1LS0yMi4qLjg0PjU4Ojo7OjU4Ojo7Ojo7Ojo7Ojo7Ojo7Ojv/2wBDAR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
         style={{
@@ -86,19 +86,37 @@ export default function Home() {
             ? data.filter(b => b && b.imageUrl && b.isActive)
             : [];
 
-          // Phân loại banner dựa vào kích thước ảnh
-          const processedBanners = await Promise.all(activeBanners.map(async (banner) => {
+          // Chỉ xử lý banner đầu tiên ngay lập tức
+          if (activeBanners.length > 0) {
+            const firstBanner = activeBanners[0];
             const isMobile = await new Promise((resolve) => {
               const img = new window.Image();
               img.onload = () => {
                 resolve(img.height > img.width);
               };
-              img.src = banner.imageUrl;
+              img.src = firstBanner.imageUrl;
             });
-            return { ...banner, isMobile };
-          }));
+            setBanners([{ ...firstBanner, isMobile }]);
 
-          setBanners(processedBanners);
+            // Xử lý các banner còn lại sau
+            if (activeBanners.length > 1) {
+              setTimeout(async () => {
+                const remainingBanners = await Promise.all(
+                  activeBanners.slice(1).map(async (banner) => {
+                    const isMobile = await new Promise((resolve) => {
+                      const img = new window.Image();
+                      img.onload = () => {
+                        resolve(img.height > img.width);
+                      };
+                      img.src = banner.imageUrl;
+                    });
+                    return { ...banner, isMobile };
+                  })
+                );
+                setBanners(prev => [...prev, ...remainingBanners]);
+              }, 1000);
+            }
+          }
         }
       } catch (error) {
         if (!ignore) setBanners([]);
@@ -126,9 +144,9 @@ export default function Home() {
     return banners.filter(banner => banner.isMobile === isMobileDevice);
   }, [banners, isMobileDevice]);
 
-  // Scroll handler
+  // Tối ưu scroll handler
   const handleScroll = useCallback(
-    (e) => {
+    debounce((e) => {
       if (filteredBanners.length < 2) return;
       const scrollY = window.scrollY;
       const winH = window.innerHeight;
@@ -144,18 +162,23 @@ export default function Home() {
       const start = scrollY;
       const end = newIdx * winH;
       const startTime = performance.now();
+
       function animateScroll(now) {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / SCROLL_ANIMATION_DURATION, 1);
-        window.scrollTo(0, start + (end - start) * easeInOutCubic(progress));
+        // Sử dụng transform thay vì scrollTo
+        const translateY = start + (end - start) * easeInOutCubic(progress);
+        document.body.style.transform = `translateY(-${translateY}px)`;
         if (progress < 1) {
           requestAnimationFrame(animateScroll);
         } else {
           setIsScrolling(false);
+          document.body.style.transform = '';
+          window.scrollTo(0, end);
         }
       }
       requestAnimationFrame(animateScroll);
-    },
+    }, 16), // 60fps
     [filteredBanners.length, currentImage, isScrolling]
   );
 
@@ -167,11 +190,33 @@ export default function Home() {
   // Memoize banner items to prevent unnecessary re-renders
   const bannerItems = useMemo(() => {
     return filteredBanners.map((banner, idx) => (
-      <BannerItem
+      <div
         key={banner._id || idx}
-        banner={banner}
-        idx={idx}
-      />
+        className="relative w-full h-screen flex items-center justify-center m-0 p-0 overflow-hidden"
+      >
+        <div className="relative w-full h-full flex items-center justify-center bg-black m-0 p-0">
+          <Image
+            src={banner.imageUrl}
+            alt={banner.title || `Banner ${idx + 1}`}
+            fill
+            className="object-cover"
+            priority={idx === 0}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
+            quality={idx === 0 ? 98 : 75}
+            loading={idx === 0 ? "eager" : "lazy"}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQtJSEkMjU1LS0yMi4qLjg0PjU4Ojo7OjU4Ojo7Ojo7Ojo7Ojo7Ojo7Ojv/2wBDAR4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+            style={{
+              objectFit: 'cover',
+              objectPosition: 'center',
+              willChange: 'transform',
+            }}
+            onError={(e) => {
+              e.target.src = DEFAULT_BANNER_IMAGE;
+            }}
+          />
+        </div>
+      </div>
     ));
   }, [filteredBanners]);
 
