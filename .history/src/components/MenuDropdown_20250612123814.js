@@ -185,7 +185,7 @@ export default function MenuDropdown({
                         <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-gray-500 transition-all duration-300 group-hover:w-full"></span>
                       </span>
                       {sub.subItems.length > 0 && (
-                        <span className="text-[8px] absolute right-2 text-gray-500">&gt;</span>
+                        <span className="text-[8px] absolute right-2 text-gray-500">></span>
                       )}
                     </div>
                   ))}
