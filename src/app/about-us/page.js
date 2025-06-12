@@ -18,7 +18,7 @@ export default function AboutUs() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-semibold text-center text-black"
+            className="text-4xl md:text-5xl font-light text-center text-black"
           >
             {t('about.title')}
           </motion.h1>
@@ -33,12 +33,11 @@ export default function AboutUs() {
         transition={{ duration: 1.2, delay: 0.4 }}
       >
         <Image
-          src="https://i.postimg.cc/PxB9Jx4c/banner-3-compressed-compressed.jpg"
-          alt="AISH Brand"
+          src="/images/image7.jpg"
+          alt={t('about.imageAlt')}
           fill
           className="object-cover"
           priority
-          quality={100}
         />
       </motion.section>
 
