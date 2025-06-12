@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 19,
+            "activePatchIndex": 20,
             "patches": [
                 {
                     "date": 1746893166411,
@@ -84,6 +84,10 @@
                 {
                     "date": 1749706701758,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -184,9 +184,9 @@\n                         {sub.title}\r\n                         <span className=\"absolute bottom-0 left-0 w-0 h-[1px] bg-gray-500 transition-all duration-300 group-hover:w-full\"></span>\r\n                       </span>\r\n                       {sub.subItems.length > 0 && (\r\n-                        <span className=\"text-[8px] absolute right-2 text-gray-500\">></span>\r\n+                        <span className=\"text-[8px] absolute right-2 text-gray-500\">&gt;</span>\r\n                       )}\r\n                     </div>\r\n                   ))}\r\n                 </div>\r\n"
+                },
+                {
+                    "date": 1749707087781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -184,9 +184,9 @@\n                         {sub.title}\r\n                         <span className=\"absolute bottom-0 left-0 w-0 h-[1px] bg-gray-500 transition-all duration-300 group-hover:w-full\"></span>\r\n                       </span>\r\n                       {sub.subItems.length > 0 && (\r\n-                        <span className=\"text-[8px] absolute right-2 text-gray-500\">&gt;</span>\r\n+                        <span className=\"text-[8px] absolute right-2 text-black\">&gt;</span>\r\n                       )}\r\n                     </div>\r\n                   ))}\r\n                 </div>\r\n"
                 }
             ],
             "date": 1746891704042,
