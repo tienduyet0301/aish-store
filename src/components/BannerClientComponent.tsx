@@ -25,13 +25,20 @@ interface BannerClientComponentProps {
 }
 
 const DEFAULT_BANNER_IMAGE = "/images/image1.jpg";
-const SCROLL_ANIMATION_DURATION = 800;
+const SCROLL_ANIMATION_DURATION = 850; // Tăng thời gian animation
 const SCROLL_THRESHOLD = 50;
 
 function easeInOutCubic(t: number) {
   return t < 0.5
     ? 4 * t * t * t
     : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+}
+
+// Thêm easing function mượt hơn
+function easeInOutQuart(t: number) {
+  return t < 0.5
+    ? 8 * t * t * t * t
+    : 1 - 8 * (--t) * t * t * t;
 }
 
 // Debounce function
@@ -43,6 +50,21 @@ function debounce<T extends (...args: any[]) => any>(
   return (...args: Parameters<T>) => {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
+// Throttle function để xử lý scroll mạnh
+function throttle<T extends (...args: any[]) => any>(
+  func: T,
+  limit: number
+): (...args: Parameters<T>) => void {
+  let inThrottle: boolean;
+  return (...args: Parameters<T>) => {
+    if (!inThrottle) {
+      func(...args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
   };
 }
 
@@ -82,6 +104,9 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const router = useRouter();
   const lastScrollTimeRef = useRef(0);
+  const animationRef = useRef<number | undefined>(undefined);
+  const scrollQueueRef = useRef<number[]>([]); // Queue để lưu các scroll event
+  const isAnimatingRef = useRef(false); // Ref để track animation state
 
   // Process banners to determine mobile/desktop
   useEffect(() => {
@@ -119,19 +144,73 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Scroll to top when component mounts
+  useEffect(() => {
+    // Scroll về đầu trang khi vào website
+    window.scrollTo(0, 0);
+  }, []);
+
   // Filter banners by device type
   const filteredBanners = useMemo(() => {
     return banners.filter(banner => banner.isMobile === isMobileDevice);
   }, [banners, isMobileDevice]);
 
-  // Improved scroll handler with better smoothness
+  // Function để xử lý scroll animation
+  const performScrollAnimation = useCallback((targetIndex: number) => {
+    if (isAnimatingRef.current) return; // Nếu đang animate, không làm gì
+    
+    const currentScrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const targetScrollY = targetIndex * windowHeight;
+    
+    // Nếu đã ở vị trí đích, không cần animate
+    if (Math.abs(currentScrollY - targetScrollY) < 10) {
+      return;
+    }
+    
+    isAnimatingRef.current = true;
+    setIsScrolling(true);
+    setCurrentImage(targetIndex);
+    
+    const startTime = performance.now();
+    
+    function animateScroll(now: number) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / SCROLL_ANIMATION_DURATION, 1);
+      
+      const newScrollY = currentScrollY + (targetScrollY - currentScrollY) * easeInOutQuart(progress);
+      window.scrollTo(0, newScrollY);
+      
+      if (progress < 1) {
+        animationRef.current = requestAnimationFrame(animateScroll);
+      } else {
+        // Animation hoàn thành
+        isAnimatingRef.current = false;
+        setIsScrolling(false);
+        animationRef.current = undefined;
+        
+        // Xử lý queue nếu có
+        if (scrollQueueRef.current.length > 0) {
+          const nextTarget = scrollQueueRef.current.shift();
+          if (nextTarget !== undefined) {
+            setTimeout(() => performScrollAnimation(nextTarget), 50);
+          }
+        }
+      }
+    }
+    
+    // Dừng animation hiện tại nếu có
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+    
+    animationRef.current = requestAnimationFrame(animateScroll);
+  }, []);
+
+  // Improved scroll handler with queue system
   const handleScroll = useCallback(
     (e: WheelEvent) => {
       if (filteredBanners.length < 2) return;
-      
-      const now = Date.now();
-      if (now - lastScrollTimeRef.current < 150) return; // Prevent rapid scrolling
-      lastScrollTimeRef.current = now;
       
       const delta = Math.sign(e.deltaY);
       const currentScrollY = window.scrollY;
@@ -150,8 +229,6 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
       
       e.preventDefault();
       
-      if (isScrolling) return;
-      
       let newIndex = currentIndex + delta;
       
       // Ensure newIndex is within bounds
@@ -161,43 +238,38 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
       // Don't scroll if we're already at the target position
       if (newIndex === currentIndex) return;
       
-      setIsScrolling(true);
-      setCurrentImage(newIndex);
-      
-      const targetScrollY = newIndex * windowHeight;
-      const startTime = performance.now();
-      
-      function animateScroll(now: number) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / SCROLL_ANIMATION_DURATION, 1);
-        
-        const newScrollY = currentScrollY + (targetScrollY - currentScrollY) * easeInOutCubic(progress);
-        window.scrollTo(0, newScrollY);
-        
-        if (progress < 1) {
-          requestAnimationFrame(animateScroll);
-        } else {
-          // Add a small delay before allowing next scroll
-          setTimeout(() => {
-            setIsScrolling(false);
-          }, 200);
-        }
+      // Nếu đang animate, thêm vào queue
+      if (isAnimatingRef.current) {
+        // Chỉ giữ lại target cuối cùng trong queue để tránh queue quá dài
+        scrollQueueRef.current = [newIndex];
+        return;
       }
       
-      requestAnimationFrame(animateScroll);
+      // Thực hiện animation ngay lập tức
+      performScrollAnimation(newIndex);
     },
-    [filteredBanners.length, isScrolling]
+    [filteredBanners.length, performScrollAnimation]
   );
 
   // Add scroll listener with better performance
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
+      // Scroll ngay lập tức khi lăn chuột
       handleScroll(e);
     };
     
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
   }, [handleScroll]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, []);
 
   // Memoize banner items
   const bannerItems = useMemo(() => {
@@ -244,7 +316,7 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
         ))}
       </Head>
       <div className="relative w-full bg-black overflow-hidden">
-        <div className="flex flex-col">
+        <div className="flex flex-col" style={{ height: `${filteredBanners.length * 100}vh` }}>
           {bannerItems}
         </div>
 
