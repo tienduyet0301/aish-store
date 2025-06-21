@@ -1,0 +1,26 @@
+{
+    "sourceFile": "src/app/api/vouchers/route.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1750474498683,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1750474539093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,36 +1,1 @@\n-import { NextRequest, NextResponse } from 'next/server';\r\n-import { connectToDatabase } from '@/lib/mongodb';\r\n-\r\n-export const dynamic = 'force-dynamic';\r\n-\r\n-// GET - Lấy danh sách mã giảm giá đang hoạt động\r\n-export async function GET(request: NextRequest) {\r\n-  try {\r\n-    const { db } = await connectToDatabase();\r\n-    \r\n-    // Lấy các mã giảm giá đang hoạt động và chưa hết hạn (nếu có expiryDate)\r\n-    const now = new Date().toISOString();\r\n-    const promoCodes = await db.collection('promoCodes').find({\r\n-      isActive: true,\r\n-      $or: [\r\n-        { expiryDate: { $exists: false } },\r\n-        { expiryDate: null },\r\n-        { expiryDate: { $gte: now } }\r\n-      ]\r\n-    }).toArray();\r\n-\r\n-    return NextResponse.json({\r\n-      ok: true,\r\n-      promoCodes: promoCodes.map(code => ({\r\n-        ...code,\r\n-        _id: code._id.toString()\r\n-      }))\r\n-    });\r\n-  } catch (error) {\r\n-    console.error('Error in GET vouchers:', error);\r\n-    return NextResponse.json(\r\n-      { ok: false, message: 'Failed to fetch vouchers' },\r\n-      { status: 500 }\r\n-    );\r\n-  }\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1750474611443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,36 @@\n- \n\\ No newline at end of file\n+import { NextRequest, NextResponse } from 'next/server';\r\n+import { connectToDatabase } from '@/lib/mongodb';\r\n+\r\n+export const dynamic = 'force-dynamic';\r\n+\r\n+// GET - Lấy danh sách mã giảm giá đang hoạt động\r\n+export async function GET(request: NextRequest) {\r\n+  try {\r\n+    const { db } = await connectToDatabase();\r\n+    \r\n+    // Lấy các mã giảm giá đang hoạt động và chưa hết hạn (nếu có expiryDate)\r\n+    const now = new Date().toISOString();\r\n+    const promoCodes = await db.collection('promoCodes').find({\r\n+      isActive: true,\r\n+      $or: [\r\n+        { expiryDate: { $exists: false } },\r\n+        { expiryDate: null },\r\n+        { expiryDate: { $gte: now } }\r\n+      ]\r\n+    }).toArray();\r\n+\r\n+    return NextResponse.json({\r\n+      ok: true,\r\n+      promoCodes: promoCodes.map(code => ({\r\n+        ...code,\r\n+        _id: code._id.toString()\r\n+      }))\r\n+    });\r\n+  } catch (error) {\r\n+    console.error('Error in GET vouchers:', error);\r\n+    return NextResponse.json(\r\n+      { ok: false, message: 'Failed to fetch vouchers' },\r\n+      { status: 500 }\r\n+    );\r\n+  }\r\n+} \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1750474498683,
+            "name": "Commit-0",
+            "content": "import { NextRequest, NextResponse } from 'next/server';\r\nimport { connectToDatabase } from '@/lib/mongodb';\r\n\r\nexport const dynamic = 'force-dynamic';\r\n\r\n// GET - Lấy danh sách mã giảm giá đang hoạt động\r\nexport async function GET(request: NextRequest) {\r\n  try {\r\n    const { db } = await connectToDatabase();\r\n    \r\n    // Lấy các mã giảm giá đang hoạt động và chưa hết hạn (nếu có expiryDate)\r\n    const now = new Date().toISOString();\r\n    const promoCodes = await db.collection('promoCodes').find({\r\n      isActive: true,\r\n      $or: [\r\n        { expiryDate: { $exists: false } },\r\n        { expiryDate: null },\r\n        { expiryDate: { $gte: now } }\r\n      ]\r\n    }).toArray();\r\n\r\n    return NextResponse.json({\r\n      ok: true,\r\n      promoCodes: promoCodes.map(code => ({\r\n        ...code,\r\n        _id: code._id.toString()\r\n      }))\r\n    });\r\n  } catch (error) {\r\n    console.error('Error in GET vouchers:', error);\r\n    return NextResponse.json(\r\n      { ok: false, message: 'Failed to fetch vouchers' },\r\n      { status: 500 }\r\n    );\r\n  }\r\n} "
+        }
+    ]
+}

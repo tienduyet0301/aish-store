@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 85,
+            "activePatchIndex": 86,
             "patches": [
                 {
                     "date": 1747807963741,
@@ -348,6 +348,10 @@
                 {
                     "date": 1749537506699,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,10 +74,10 @@\n           const promoId = new ObjectId(promoCodeObject.id);\n           const userEmail = session?.user?.email || orderData.email;\n \n           // Fetch the latest promo code document within the transaction\n-          const promoCodeDoc = await db.collection('notifications').findOne(\n-              { _id: promoId, type: 'promo' },\n+          const promoCodeDoc = await db.collection('promoCodes').findOne(\n+              { _id: promoId },\n               { session: dbSession }\n           );\n \n           if (!promoCodeDoc || !promoCodeDoc.isActive) {\n@@ -124,9 +124,9 @@\n           if (userEmail) {\n               updateFields.$push = { usedByUsers: userEmail };\n           }\n \n-          await db.collection('notifications').updateOne(\n+          await db.collection('promoCodes').updateOne(\n               { _id: promoId },\n               updateFields,\n               { session: dbSession }\n           );\n"
+                },
+                {
+                    "date": 1750472276517,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -155,8 +155,9 @@\n         province: orderData.province,\n         // Additional information\n         note: orderData.note || null,\n         shippingMethod: orderData.shippingMethod || 'standard',\n+        shippingFee: orderData.shippingFee || 'Free (Express)',\n         // Promo code information - only save necessary fields\n         promoCode: promoCodeObject ? {\n           id: promoCodeObject.id,\n           code: promoCodeObject.code,\n"
                 }
             ],
             "date": 1747807963740,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1747278155933,
@@ -28,6 +28,10 @@
                 {
                     "date": 1747889697629,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -204,9 +204,9 @@\n     },\r\n     productImage: {\r\n       width: isMobile ? '60px' : '80px',\r\n       height: isMobile ? '60px' : '80px',\r\n-      objectFit: 'cover',\r\n+      objectFit: 'cover' as const,\r\n       borderRadius: '4px',\r\n     }\r\n   });\r\n \r\n"
+                },
+                {
+                    "date": 1750472297072,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,8 +29,9 @@\n   ward?: string;\r\n   district?: string;\r\n   province?: string;\r\n   paymentMethod?: string;\r\n+  shippingFee?: number;\r\n }\r\n \r\n export default function MyOrders() {\r\n   const { data: session } = useSession();\r\n@@ -325,8 +326,14 @@\n                             <div style={getMobileStyle().detailRow}>\r\n                               <span>Tổng tiền:</span>\r\n                               <span style={styles.totalPrice}>{formatPrice(order.total)}</span>\r\n                             </div>\r\n+                            {order.shippingFee && (\r\n+                              <div style={getMobileStyle().detailRow}>\r\n+                                <span>Phí vận chuyển:</span>\r\n+                                <span>{order.shippingFee}</span>\r\n+                              </div>\r\n+                            )}\r\n                             <div style={getMobileStyle().detailRow}>\r\n                               <span>Phương thức thanh toán:</span>\r\n                               <span>{order.paymentMethod === 'cod' ? 'COD' : 'Chuyển khoản'}</span>\r\n                             </div>\r\n"
                 }
             ],
             "date": 1747278155933,

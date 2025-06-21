@@ -1,0 +1,18 @@
+{
+    "sourceFile": "SHIPPING_FEE_README.md",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1750472369082,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1750472369082,
+            "name": "Commit-0",
+            "content": "# Hệ thống Phí Vận chuyển AISH\r\n\r\n## Tổng quan\r\n\r\nHệ thống phí vận chuyển đã được cập nhật để tính phí dựa trên địa chỉ giao hàng của khách hàng.\r\n\r\n## Quy tắc tính phí\r\n\r\n### Phí vận chuyển theo địa chỉ:\r\n\r\n1. **Thành phố Hồ Chí Minh**: 22.000 VND\r\n2. **Các tỉnh/thành phố khác**: 35.000 VND\r\n\r\n### Cách xác định địa chỉ:\r\n\r\n- Hệ thống sẽ kiểm tra trường **Province/City** trong form địa chỉ giao hàng\r\n- Nếu địa chỉ chứa các từ khóa sau sẽ được tính phí 22.000 VND:\r\n  - \"Thành phố Hồ Chí Minh\"\r\n  - \"TP. Hồ Chí Minh\" \r\n  - \"TP Hồ Chí Minh\"\r\n  - \"Hồ Chí Minh\"\r\n\r\n## Các file đã được cập nhật\r\n\r\n### 1. Utility Functions (`src/lib/utils.ts`)\r\n- `calculateShippingFee(provinceName)`: Tính phí shipping dựa trên tên tỉnh/thành phố\r\n- `formatShippingFee(fee)`: Format phí shipping để hiển thị\r\n\r\n### 2. Context (`src/context/CheckoutContext.tsx`)\r\n- Thêm quản lý state cho phí shipping\r\n- Cung cấp functions để tính và format phí shipping\r\n\r\n### 3. Shipping Page (`src/app/checkout/shipping/page.tsx`)\r\n- Hiển thị phí shipping real-time khi khách hàng chọn địa chỉ\r\n- Cập nhật tổng tiền bao gồm phí shipping\r\n- Hiển thị thông tin phí shipping trong payment section\r\n\r\n### 4. API Orders (`src/app/api/orders/route.ts`)\r\n- Lưu thông tin phí shipping vào database\r\n- Xử lý phí shipping trong quá trình tạo đơn hàng\r\n\r\n### 5. Components khác\r\n- **CartDropdown**: Hiển thị thông báo \"Shipping fee will be calculated at checkout\"\r\n- **OrderConfirmationModal**: Hiển thị phí shipping trong modal xác nhận\r\n- **My Orders**: Hiển thị phí shipping trong danh sách đơn hàng\r\n- **Cart Page**: Cập nhật hiển thị phí shipping\r\n- **Checkout Summary**: Cập nhật hiển thị phí shipping\r\n\r\n## Cách hoạt động\r\n\r\n1. **Trong Cart**: Hiển thị \"Shipping fee will be calculated at checkout\"\r\n2. **Trong Checkout**: \r\n   - Khi khách hàng chọn Province/City, phí shipping sẽ được tính tự động\r\n   - Hiển thị phí shipping trong payment section\r\n   - Tổng tiền được cập nhật bao gồm phí shipping\r\n3. **Trong Order Confirmation**: Hiển thị phí shipping đã tính\r\n4. **Trong My Orders**: Hiển thị phí shipping của từng đơn hàng\r\n\r\n## Database Schema\r\n\r\nTrường `shippingFee` trong collection `orders` sẽ lưu:\r\n- String format: \"22.000 VND\" hoặc \"35.000 VND\"\r\n- Hoặc \"Free (Express)\" cho trường hợp đặc biệt\r\n\r\n## Testing\r\n\r\nĐể test hệ thống:\r\n1. Thêm sản phẩm vào giỏ hàng\r\n2. Vào checkout\r\n3. Chọn địa chỉ khác nhau để xem phí shipping thay đổi\r\n4. Kiểm tra hiển thị trong các bước khác nhau\r\n\r\n## Lưu ý\r\n\r\n- Phí shipping được tính dựa trên Province/City, không phụ thuộc vào District/Ward\r\n- Hệ thống sử dụng case-insensitive matching để xác định HCMC\r\n- Phí shipping được tính real-time và cập nhật tổng tiền ngay lập tức "
+        }
+    ]
+}

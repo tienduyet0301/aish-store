@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1746893166591,
@@ -16,6 +16,10 @@
                 {
                     "date": 1747292824706,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,20 +1,23 @@\n-\"use client\";\r\n-\r\n-import { SessionProvider } from \"next-auth/react\";\r\n-import { CartProvider } from '../context/CartContext';\r\n-import { OrderProvider } from '../context/OrderContext';\r\n-import { WishlistProvider } from '../context/WishlistContext';\r\n-\r\n-export default function Providers({ children }) {\r\n-  return (\r\n-    <SessionProvider refetchInterval={0}>\r\n-      <OrderProvider>\r\n-        <CartProvider>\r\n-          <WishlistProvider>\r\n-            {children}\r\n-          </WishlistProvider>\r\n-        </CartProvider>\r\n-      </OrderProvider>\r\n-    </SessionProvider>\r\n-  );\r\n+\"use client\";\n+\n+import { SessionProvider } from \"next-auth/react\";\n+import { CartProvider } from '../context/CartContext';\n+import { OrderProvider } from '../context/OrderContext';\n+import { WishlistProvider } from '../context/WishlistContext';\n+import { LanguageProvider } from \"@/context/LanguageContext\";\n+\n+export default function Providers({ children }) {\n+  return (\n+    <SessionProvider refetchInterval={0}>\n+      <OrderProvider>\n+        <CartProvider>\n+          <WishlistProvider>\n+            <LanguageProvider>\n+              {children}\n+            </LanguageProvider>\n+          </WishlistProvider>\n+        </CartProvider>\n+      </OrderProvider>\n+    </SessionProvider>\n+  );\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1750472325874,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,17 +4,20 @@\n import { CartProvider } from '../context/CartContext';\n import { OrderProvider } from '../context/OrderContext';\n import { WishlistProvider } from '../context/WishlistContext';\n import { LanguageProvider } from \"@/context/LanguageContext\";\n+import { CheckoutProvider } from \"@/context/CheckoutContext\";\n \n export default function Providers({ children }) {\n   return (\n     <SessionProvider refetchInterval={0}>\n       <OrderProvider>\n         <CartProvider>\n           <WishlistProvider>\n             <LanguageProvider>\n-              {children}\n+              <CheckoutProvider>\n+                {children}\n+              </CheckoutProvider>\n             </LanguageProvider>\n           </WishlistProvider>\n         </CartProvider>\n       </OrderProvider>\n"
                 }
             ],
             "date": 1746891704042,

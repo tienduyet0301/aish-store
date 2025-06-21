@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1746893155145,
@@ -36,6 +36,14 @@
                 {
                     "date": 1749711186752,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n           <motion.h1 \n             initial={{ opacity: 0, y: 20 }}\n             animate={{ opacity: 1, y: 0 }}\n             transition={{ duration: 0.8 }}\n-            className=\"text-4xl md:text-5xl font-bold text-center text-black\"\n+            className=\"text-4xl md:text-5xl font-semibold text-center text-black\"\n           >\n             {t('about.title')}\n           </motion.h1>\n         </div>\n@@ -32,13 +32,14 @@\n         animate={{ opacity: 1 }}\n         transition={{ duration: 1.2, delay: 0.4 }}\n       >\n         <Image\n-          src=\"https://i.postimg.cc/MZ1fGLZ3/banner-3-2.jpg\"\n+          src=\"https://i.postimg.cc/PxB9Jx4c/banner-3-compressed-compressed.jpg\"\n           alt=\"AISH Brand\"\n           fill\n           className=\"object-cover\"\n           priority\n+          quality={100}\n         />\n       </motion.section>\n \n       {/* Content Section */}\n"
+                },
+                {
+                    "date": 1749711667140,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n           <motion.h1 \n             initial={{ opacity: 0, y: 20 }}\n             animate={{ opacity: 1, y: 0 }}\n             transition={{ duration: 0.8 }}\n-            className=\"text-4xl md:text-5xl font-semibold text-center text-black\"\n+            className=\"text-4xl md:text-5xl font-light text-center text-black\"\n           >\n             {t('about.title')}\n           </motion.h1>\n         </div>\n@@ -32,14 +32,13 @@\n         animate={{ opacity: 1 }}\n         transition={{ duration: 1.2, delay: 0.4 }}\n       >\n         <Image\n-          src=\"https://i.postimg.cc/PxB9Jx4c/banner-3-compressed-compressed.jpg\"\n-          alt=\"AISH Brand\"\n+          src=\"/images/image7.jpg\"\n+          alt={t('about.imageAlt')}\n           fill\n           className=\"object-cover\"\n           priority\n-          quality={100}\n         />\n       </motion.section>\n \n       {/* Content Section */}\n"
+                },
+                {
+                    "date": 1749711709258,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,8 +37,10 @@\n           alt={t('about.imageAlt')}\n           fill\n           className=\"object-cover\"\n           priority\n+          quality={100}\n+          sizes=\"(max-width: 768px) 100vw, 1200px\"\n         />\n       </motion.section>\n \n       {/* Content Section */}\n"
                 }
             ],
             "date": 1746891704042,

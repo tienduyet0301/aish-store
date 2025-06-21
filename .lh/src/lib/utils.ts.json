@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1746893166927,
@@ -16,6 +16,10 @@
                 {
                     "date": 1747904642035,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,5 +14,17 @@\n     .replace(/([^0-9a-z-\\s])/g, '')\r\n     .replace(/(\\s+)/g, '-')\r\n     .replace(/-+/g, '-')\r\n     .replace(/^-+|-+$/g, '');\r\n+}\r\n+\r\n+export function generateOrderCode() {\r\n+  const date = new Date();\r\n+  const year = date.getFullYear();\r\n+  const month = String(date.getMonth() + 1).padStart(2, '0');\r\n+  const day = String(date.getDate()).padStart(2, '0');\r\n+  const hours = String(date.getHours()).padStart(2, '0');\r\n+  const minutes = String(date.getMinutes()).padStart(2, '0');\r\n+  const seconds = String(date.getSeconds()).padStart(2, '0');\r\n+  \r\n+  return `AISH${year}${month}${day}${hours}${minutes}${seconds}`;\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1750472173195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,5 +26,30 @@\n   const minutes = String(date.getMinutes()).padStart(2, '0');\r\n   const seconds = String(date.getSeconds()).padStart(2, '0');\r\n   \r\n   return `AISH${year}${month}${day}${hours}${minutes}${seconds}`;\r\n-} \n\\ No newline at end of file\n+}\r\n+\r\n+// Calculate shipping fee based on province\r\n+export const calculateShippingFee = (provinceName: string): number => {\r\n+  if (!provinceName) return 0;\r\n+  \r\n+  // Thành phố Hồ Chí Minh\r\n+  const hcmProvinces = [\r\n+    'Thành phố Hồ Chí Minh',\r\n+    'TP. Hồ Chí Minh',\r\n+    'TP Hồ Chí Minh',\r\n+    'Hồ Chí Minh'\r\n+  ];\r\n+  \r\n+  const isHCM = hcmProvinces.some(name => \r\n+    provinceName.toLowerCase().includes(name.toLowerCase())\r\n+  );\r\n+  \r\n+  return isHCM ? 22000 : 35000;\r\n+};\r\n+\r\n+// Format shipping fee for display\r\n+export const formatShippingFee = (fee: number): string => {\r\n+  if (fee === 0) return 'Free (Express)';\r\n+  return `${fee.toLocaleString('vi-VN')} VND`;\r\n+}; \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1746891704042,

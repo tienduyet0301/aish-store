@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1746893166267,
@@ -28,6 +28,14 @@
                 {
                     "date": 1747294542012,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n export default function CartDropdown({ navigateWithLoader }) {\r\n   const { cartItems, isCartOpen, setIsCartOpen } = useCart();\r\n   const { t, language } = useLanguage();\r\n   const cartRef = useRef(null);\r\n-  const [exchangeRate, setExchangeRate] = useState(24500); // Default fallback rate\r\n+  const [exchangeRate, setExchangeRate] = useState(26000); // Default fallback rate\r\n \r\n   useEffect(() => {\r\n     const fetchExchangeRate = async () => {\r\n       try {\r\n"
+                },
+                {
+                    "date": 1750472351187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -130,14 +130,17 @@\n         )}\r\n       </div>\r\n       {cartItems.length > 0 && (\r\n         <div className=\"border-t border-gray-200 px-4 sm:px-6 py-3 sticky bottom-0 bg-white z-10 space-y-2\">\r\n-          <div className=\"flex justify-between items-center mb-3\">\r\n+          <div className=\"flex justify-between items-center mb-2\">\r\n             <span className=\"text-sm font-medium text-gray-900\">{t('cart.total')}:</span>\r\n             <span className=\"text-sm font-semibold text-gray-900\">\r\n               {formatPrice(total)}\r\n             </span>\r\n           </div>\r\n+          <div className=\"text-xs text-gray-500 mb-3 text-center\">\r\n+            Shipping fee will be calculated at checkout\r\n+          </div>\r\n           <button\r\n             className=\"w-full bg-black text-white text-sm font-semibold py-2 px-4 hover:bg-gray-800 transition-colors\"\r\n             onClick={() => navigateWithLoader(\"/checkout\")}\r\n           >\r\n"
+                },
+                {
+                    "date": 1750473668009,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -136,11 +136,8 @@\n             <span className=\"text-sm font-semibold text-gray-900\">\r\n               {formatPrice(total)}\r\n             </span>\r\n           </div>\r\n-          <div className=\"text-xs text-gray-500 mb-3 text-center\">\r\n-            Shipping fee will be calculated at checkout\r\n-          </div>\r\n           <button\r\n             className=\"w-full bg-black text-white text-sm font-semibold py-2 px-4 hover:bg-gray-800 transition-colors\"\r\n             onClick={() => navigateWithLoader(\"/checkout\")}\r\n           >\r\n"
                 }
             ],
             "date": 1746891704042,

@@ -3,11 +3,19 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1747890984800,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1750472314844,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n import { createContext, useContext, useState, ReactNode } from 'react';\r\n+import { calculateShippingFee, formatShippingFee } from '@/lib/utils';\r\n \r\n interface ShippingInfo {\r\n   email: string;\r\n   fullName: string;\r\n@@ -11,18 +12,40 @@\n }\r\n \r\n interface CheckoutContextType {\r\n   shippingInfo: ShippingInfo | null;\r\n-  setShippingInfo: (info: ShippingInfo) => void;\r\n+  setShippingInfo: (info: ShippingInfo | null) => void;\r\n+  shippingFee: number;\r\n+  setShippingFee: (fee: number) => void;\r\n+  calculateShippingFee: (provinceName: string) => number;\r\n+  formatShippingFee: (fee: number) => string;\r\n }\r\n \r\n const CheckoutContext = createContext<CheckoutContextType | undefined>(undefined);\r\n \r\n export function CheckoutProvider({ children }: { children: ReactNode }) {\r\n   const [shippingInfo, setShippingInfo] = useState<ShippingInfo | null>(null);\r\n+  const [shippingFee, setShippingFee] = useState<number>(0);\r\n \r\n+  const calculateShipping = (provinceName: string): number => {\r\n+    return calculateShippingFee(provinceName);\r\n+  };\r\n+\r\n+  const formatShipping = (fee: number): string => {\r\n+    return formatShippingFee(fee);\r\n+  };\r\n+\r\n   return (\r\n-    <CheckoutContext.Provider value={{ shippingInfo, setShippingInfo }}>\r\n+    <CheckoutContext.Provider\r\n+      value={{\r\n+        shippingInfo,\r\n+        setShippingInfo,\r\n+        shippingFee,\r\n+        setShippingFee,\r\n+        calculateShippingFee: calculateShipping,\r\n+        formatShippingFee: formatShipping,\r\n+      }}\r\n+    >\r\n       {children}\r\n     </CheckoutContext.Provider>\r\n   );\r\n }\r\n"
+                },
+                {
+                    "date": 1750472997486,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,10 @@\n   shippingInfo: ShippingInfo | null;\r\n   setShippingInfo: (info: ShippingInfo | null) => void;\r\n   shippingFee: number;\r\n   setShippingFee: (fee: number) => void;\r\n+  provinceName: string;\r\n+  setProvinceName: (name: string) => void;\r\n   calculateShippingFee: (provinceName: string) => number;\r\n   formatShippingFee: (fee: number) => string;\r\n }\r\n \r\n@@ -24,8 +26,9 @@\n \r\n export function CheckoutProvider({ children }: { children: ReactNode }) {\r\n   const [shippingInfo, setShippingInfo] = useState<ShippingInfo | null>(null);\r\n   const [shippingFee, setShippingFee] = useState<number>(0);\r\n+  const [provinceName, setProvinceName] = useState<string>(\"\");\r\n \r\n   const calculateShipping = (provinceName: string): number => {\r\n     return calculateShippingFee(provinceName);\r\n   };\r\n@@ -40,8 +43,10 @@\n         shippingInfo,\r\n         setShippingInfo,\r\n         shippingFee,\r\n         setShippingFee,\r\n+        provinceName,\r\n+        setProvinceName,\r\n         calculateShippingFee: calculateShipping,\r\n         formatShippingFee: formatShipping,\r\n       }}\r\n     >\r\n"
                 }
             ],
             "date": 1747890984800,
