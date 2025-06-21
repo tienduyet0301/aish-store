@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -25,12 +25,25 @@ interface BannerClientComponentProps {
 }
 
 const DEFAULT_BANNER_IMAGE = "/images/image1.jpg";
-const SCROLL_ANIMATION_DURATION = 700;
+const SCROLL_ANIMATION_DURATION = 800;
+const SCROLL_THRESHOLD = 50;
 
 function easeInOutCubic(t: number) {
   return t < 0.5
     ? 4 * t * t * t
     : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
+}
+
+// Debounce function
+function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout | undefined;
+  return (...args: Parameters<T>) => {
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
 }
 
 const BannerItem = React.memo(({ banner, idx }: BannerItemProps) => (
@@ -68,6 +81,7 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
   const [isScrolling, setIsScrolling] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const router = useRouter();
+  const lastScrollTimeRef = useRef(0);
 
   // Process banners to determine mobile/desktop
   useEffect(() => {
@@ -110,10 +124,14 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
     return banners.filter(banner => banner.isMobile === isMobileDevice);
   }, [banners, isMobileDevice]);
 
-  // Simplified scroll handler
+  // Improved scroll handler with better smoothness
   const handleScroll = useCallback(
     (e: WheelEvent) => {
       if (filteredBanners.length < 2) return;
+      
+      const now = Date.now();
+      if (now - lastScrollTimeRef.current < 150) return; // Prevent rapid scrolling
+      lastScrollTimeRef.current = now;
       
       const delta = Math.sign(e.deltaY);
       const currentScrollY = window.scrollY;
@@ -159,7 +177,10 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
         if (progress < 1) {
           requestAnimationFrame(animateScroll);
         } else {
-          setIsScrolling(false);
+          // Add a small delay before allowing next scroll
+          setTimeout(() => {
+            setIsScrolling(false);
+          }, 200);
         }
       }
       
@@ -168,10 +189,14 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
     [filteredBanners.length, isScrolling]
   );
 
-  // Add scroll listener
+  // Add scroll listener with better performance
   useEffect(() => {
-    window.addEventListener("wheel", handleScroll as EventListener, { passive: false });
-    return () => window.removeEventListener("wheel", handleScroll as EventListener);
+    const handleWheel = (e: WheelEvent) => {
+      handleScroll(e);
+    };
+    
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
   }, [handleScroll]);
 
   // Memoize banner items
