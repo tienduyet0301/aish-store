@@ -115,14 +115,24 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
     (e: WheelEvent) => {
       if (filteredBanners.length < 2) return;
       
-      e.preventDefault();
-      
-      if (isScrolling) return;
-      
       const delta = Math.sign(e.deltaY);
       const currentScrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const currentIndex = Math.round(currentScrollY / windowHeight);
+      
+      // If scrolling down and we're at the last banner, allow normal scroll to footer
+      if (delta > 0 && currentIndex >= filteredBanners.length - 1) {
+        return; // Allow normal scroll behavior
+      }
+      
+      // If scrolling up and we're at the top, allow normal scroll
+      if (delta < 0 && currentIndex <= 0) {
+        return; // Allow normal scroll behavior
+      }
+      
+      e.preventDefault();
+      
+      if (isScrolling) return;
       
       let newIndex = currentIndex + delta;
       
