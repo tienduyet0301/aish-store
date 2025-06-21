@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1747892757865,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1750485076025,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,30 +1,29 @@\n-import { NextResponse } from 'next/server';\r\n+import { NextRequest, NextResponse } from 'next/server';\r\n import { connectToDatabase } from '@/lib/mongodb';\r\n \r\n-export async function GET() {\r\n+export const dynamic = 'force-dynamic';\r\n+\r\n+// GET - Lấy thông báo công khai (không cần đăng nhập)\r\n+export async function GET(request: NextRequest) {\r\n   try {\r\n     const { db } = await connectToDatabase();\r\n-    const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000';\r\n+    \r\n+    // Lấy thông báo announcement đang active\r\n+    const announcement = await db.collection('notifications').findOne({ \r\n+      type: 'announcement',\r\n+      isActive: true \r\n+    });\r\n \r\n-    // Fetch notifications\r\n-    const notifications = await db.collection('notifications').findOne({ type: 'announcement' });\r\n-    console.log('Found notifications:', notifications);\r\n-\r\n-    // Fetch promo codes\r\n-    const promoCodes = await db.collection('notifications')\r\n-      .find({ type: 'promo', isActive: true })\r\n-      .toArray();\r\n-    console.log('Found promo codes:', promoCodes);\r\n-\r\n     return NextResponse.json({\r\n-      notifications,\r\n-      promoCodes\r\n+      ok: true,\r\n+      announcement: announcement?.content || '',\r\n+      isActive: announcement?.isActive || false\r\n     });\r\n   } catch (error) {\r\n-    console.error('Error fetching notifications:', error);\r\n+    console.error('Error fetching public notifications:', error);\r\n     return NextResponse.json(\r\n-      { error: 'Failed to fetch notifications' },\r\n+      { ok: false, message: 'Failed to fetch notifications' },\r\n       { status: 500 }\r\n     );\r\n   }\r\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747892757865,
