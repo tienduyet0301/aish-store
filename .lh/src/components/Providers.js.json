@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1746893166591,
@@ -20,6 +20,10 @@
                 {
                     "date": 1750472325874,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,17 +4,20 @@\n import { CartProvider } from '../context/CartContext';\n import { OrderProvider } from '../context/OrderContext';\n import { WishlistProvider } from '../context/WishlistContext';\n import { LanguageProvider } from \"@/context/LanguageContext\";\n+import { CheckoutProvider } from \"@/context/CheckoutContext\";\n \n export default function Providers({ children }) {\n   return (\n     <SessionProvider refetchInterval={0}>\n       <OrderProvider>\n         <CartProvider>\n           <WishlistProvider>\n             <LanguageProvider>\n-              {children}\n+              <CheckoutProvider>\n+                {children}\n+              </CheckoutProvider>\n             </LanguageProvider>\n           </WishlistProvider>\n         </CartProvider>\n       </OrderProvider>\n"
+                },
+                {
+                    "date": 1750478788237,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n         <CartProvider>\n           <WishlistProvider>\n             <LanguageProvider>\n               <CheckoutProvider>\n-                {children}\n+              {children}\n               </CheckoutProvider>\n             </LanguageProvider>\n           </WishlistProvider>\n         </CartProvider>\n"
                 }
             ],
             "date": 1746891704042,
