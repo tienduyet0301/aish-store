@@ -63,16 +63,20 @@ export default function OrderSummary() {
 
   useEffect(() => {
     setIsMounted(true);
-    // Lấy order từ localStorage nếu có
+    
+    let initialOrder: Order;
     const orderData = localStorage.getItem("order");
+    
     if (orderData) {
-      setOrder(JSON.parse(orderData));
+      try {
+        initialOrder = JSON.parse(orderData);
+      } catch {
+        initialOrder = { items: cartItems };
+      }
     } else {
-      // Nếu không có order, tạo order từ cartItems
-      setOrder({ items: cartItems });
+      initialOrder = { items: cartItems };
     }
 
-    // Lấy mã giảm giá đã áp dụng từ localStorage
     const savedPromoCode = localStorage.getItem('appliedPromoCode');
     const savedPromoAmount = localStorage.getItem('promoAmount');
 
@@ -82,22 +86,19 @@ export default function OrderSummary() {
         setAppliedPromoCode(parsedPromoCode);
         setPromoAmount(parseFloat(savedPromoAmount));
         setPromoMessage(`Mã giảm giá ${parseFloat(savedPromoAmount).toLocaleString('vi-VN')} VND đã được áp dụng!`);
-        // Cập nhật order state nếu nó đã được load
-        if (order) {
-          setOrder(prevOrder => ({
-            ...prevOrder!,
-            promoCode: parsedPromoCode,
-            promoAmount: parseFloat(savedPromoAmount)
-          }));
-        }
+        
+        initialOrder.promoCode = parsedPromoCode;
+        initialOrder.promoAmount = parseFloat(savedPromoAmount);
+
       } catch (e) {
         console.error("Error parsing saved promo code:", e);
-        // Xóa dữ liệu không hợp lệ nếu parsing thất bại
         localStorage.removeItem('appliedPromoCode');
         localStorage.removeItem('promoAmount');
       }
     }
-  }, [cartItems, order]); // Thêm order vào dependency array
+    
+    setOrder(initialOrder);
+  }, [cartItems]);
 
   // Cleanup effect to remove promo code from localStorage when component unmounts
   useEffect(() => {
