@@ -11,7 +11,7 @@ interface Banner {
   _id: string;
   imageUrl: string;
   title?: string;
-  isMobile?: boolean; // isMobile is now optional as it's determined on the client
+  isMobile?: boolean;
   blurDataURL?: string;
 }
 
@@ -64,12 +64,12 @@ BannerItem.displayName = 'BannerItem';
 
 export default function BannerClientComponent({ initialBanners }: BannerClientComponentProps) {
   const [currentImage, setCurrentImage] = useState(0);
-  const [banners, setBanners] = useState<Banner[]>([]); // This will hold the processed banners
+  const [banners, setBanners] = useState<Banner[]>([]);
   const [isScrolling, setIsScrolling] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const router = useRouter();
 
-  // Re-implement the original logic to determine if a banner is for mobile
+  // Process banners to determine mobile/desktop
   useEffect(() => {
     let ignore = false;
     const processBanners = async () => {
@@ -77,7 +77,7 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
             const isMobile = await new Promise<boolean>((resolve) => {
               const img = new (window as any).Image();
               img.onload = () => resolve(img.height > img.width);
-              img.onerror = () => resolve(false); // Default to not mobile on error
+              img.onerror = () => resolve(false);
               img.src = banner.imageUrl;
             });
             return { ...banner, isMobile };
@@ -95,7 +95,7 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
     return () => { ignore = true; };
   }, [initialBanners]);
 
-  // Re-implement the original logic to check device type
+  // Check device type
   useEffect(() => {
     const checkMobile = () => {
       setIsMobileDevice(window.innerWidth < 768);
@@ -105,50 +105,66 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Re-implement the original logic to filter banners
+  // Filter banners by device type
   const filteredBanners = useMemo(() => {
     return banners.filter(banner => banner.isMobile === isMobileDevice);
   }, [banners, isMobileDevice]);
 
-  // Scroll handler - This logic is IDENTICAL to the original page.js
+  // Simplified scroll handler
   const handleScroll = useCallback(
     (e: WheelEvent) => {
       if (filteredBanners.length < 2) return;
-      const scrollY = window.scrollY;
-      const winH = window.innerHeight;
-      const imageIdx = Math.floor(scrollY / winH);
-      if (imageIdx === filteredBanners.length - 1 && e.deltaY > 0) return;
+      
       e.preventDefault();
+      
       if (isScrolling) return;
+      
       const delta = Math.sign(e.deltaY);
-      const newIdx = Math.max(0, Math.min(filteredBanners.length - 1, imageIdx + delta));
-      if (newIdx === currentImage) return;
+      const currentScrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const currentIndex = Math.round(currentScrollY / windowHeight);
+      
+      let newIndex = currentIndex + delta;
+      
+      // Ensure newIndex is within bounds
+      if (newIndex < 0) newIndex = 0;
+      if (newIndex >= filteredBanners.length) newIndex = filteredBanners.length - 1;
+      
+      // Don't scroll if we're already at the target position
+      if (newIndex === currentIndex) return;
+      
       setIsScrolling(true);
-      setCurrentImage(newIdx);
-      const start = scrollY;
-      const end = newIdx * winH;
+      setCurrentImage(newIndex);
+      
+      const targetScrollY = newIndex * windowHeight;
       const startTime = performance.now();
+      
       function animateScroll(now: number) {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / SCROLL_ANIMATION_DURATION, 1);
-        window.scrollTo(0, start + (end - start) * easeInOutCubic(progress));
+        
+        const newScrollY = currentScrollY + (targetScrollY - currentScrollY) * easeInOutCubic(progress);
+        window.scrollTo(0, newScrollY);
+        
         if (progress < 1) {
           requestAnimationFrame(animateScroll);
         } else {
           setIsScrolling(false);
         }
       }
+      
       requestAnimationFrame(animateScroll);
     },
-    [filteredBanners.length, currentImage, isScrolling]
+    [filteredBanners.length, isScrolling]
   );
 
+  // Add scroll listener
   useEffect(() => {
     window.addEventListener("wheel", handleScroll as EventListener, { passive: false });
     return () => window.removeEventListener("wheel", handleScroll as EventListener);
   }, [handleScroll]);
 
-  // Memoize banner items to prevent unnecessary re-renders
+  // Memoize banner items
   const bannerItems = useMemo(() => {
     return filteredBanners.map((banner, idx) => (
       <BannerItem
@@ -159,7 +175,7 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
     ));
   }, [filteredBanners]);
 
-  // Show a loading state while banners are being processed client-side
+  // Loading state
   if (banners.length === 0 && initialBanners.length > 0) {
     return (
         <div className="w-full h-screen bg-gradient-to-b from-gray-900 to-black flex items-center justify-center">
@@ -168,6 +184,7 @@ export default function BannerClientComponent({ initialBanners }: BannerClientCo
     );
   }
   
+  // No banners state
   if (bannerItems.length === 0) {
     return (
        <div className="relative w-full h-screen flex items-center justify-center m-0 p-0 overflow-hidden bg-black">
