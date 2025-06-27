@@ -91,7 +91,6 @@ export default function AdminProductsPage() {
 
       if (data.ok) {
         toast.success("Product added successfully");
-        setIsAdding(false);
         fetchProducts();
       } else {
         toast.error(data.error || "Failed to add product");
@@ -101,6 +100,7 @@ export default function AdminProductsPage() {
       toast.error(error instanceof Error ? error.message : "Failed to add product");
     } finally {
       setIsSubmitting(false);
+      setIsAdding(false);
     }
   };
 
@@ -150,6 +150,7 @@ export default function AdminProductsPage() {
           )
         );
         toast.success("Cập nhật sản phẩm thành công");
+        setIsEditing(false);
         setSelectedProduct(null);
       } else {
         toast.error(data.error || "Không thể cập nhật sản phẩm");
@@ -158,6 +159,7 @@ export default function AdminProductsPage() {
       console.error("Error updating product:", error);
       toast.error("Không thể cập nhật sản phẩm");
     } finally {
+      setIsEditing(false);
       fetchProducts();
     }
   };
@@ -253,10 +255,7 @@ export default function AdminProductsPage() {
           </div>
 
           {isAdding && (
-            <LazyProductForm
-              onSubmit={handleAddProduct}
-              isAdding={isSubmitting}
-            />
+            <ProductForm onSubmit={handleAddProduct} />
           )}
 
           <div className="mt-4">

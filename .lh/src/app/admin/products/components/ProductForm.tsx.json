@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1746893158977,
@@ -32,6 +32,10 @@
                 {
                     "date": 1749615821623,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -242,9 +242,9 @@\n           <label className=\"block text-sm font-semibold text-gray-700 mb-4 uppercase\">\r\n             Màu sắc\r\n           </label>\r\n           <div className=\"flex flex-wrap gap-4\">\r\n-            {[\"black\", \"white\", \"blue\", \"grey\"].map((color) => (\r\n+            {[\"black\", \"white\", \"blue\", \"grey\", \"beige\"].map((color) => (\r\n               <label key={color} className=\"flex items-center space-x-2\">\r\n                 <input\r\n                   type=\"checkbox\"\r\n                   checked={newProduct.colors?.includes(color) || false}\r\n"
+                },
+                {
+                    "date": 1751009078586,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,16 +43,16 @@\n   colors: [],\r\n };\r\n \r\n interface ProductFormProps {\r\n-  onSubmit: (productData: ProductFormData) => void;\r\n-  isAdding: boolean;\r\n+  onSubmit: (productData: ProductFormData) => Promise<void>;\r\n }\r\n \r\n-export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {\r\n+export const ProductForm = ({ onSubmit }: ProductFormProps) => {\r\n   const [newProduct, setNewProduct] = useState<ProductFormState>(initialFormState);\r\n   const [previewUrls, setPreviewUrls] = useState<string[]>([]);\r\n   const [sizeGuideImagePreview, setSizeGuideImagePreview] = useState<string>(\"\");\r\n+  const [isSubmitting, setIsSubmitting] = useState(false);\r\n   const fileInputRef = useRef<HTMLInputElement>(null);\r\n \r\n   const resetForm = () => {\r\n     // Clear old preview URLs\r\n@@ -98,9 +98,9 @@\n   };\r\n \r\n   const handleSubmit = async (e: React.FormEvent) => {\r\n     e.preventDefault();\r\n-    \r\n+    setIsSubmitting(true);\r\n     try {\r\n       // Upload images first\r\n       const formData = new FormData();\r\n       newProduct.images.forEach((image) => {\r\n@@ -154,8 +154,10 @@\n       resetForm();\r\n     } catch (error) {\r\n       console.error(\"Error submitting product:\", error);\r\n       toast.error(error instanceof Error ? error.message : \"Failed to submit product\");\r\n+    } finally {\r\n+      setIsSubmitting(false);\r\n     }\r\n   };\r\n \r\n   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {\r\n@@ -516,12 +518,12 @@\n \r\n       <div className=\"flex justify-end\">\r\n         <button\r\n           type=\"submit\"\r\n-          disabled={isAdding}\r\n+          disabled={isSubmitting}\r\n           className=\"inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50\"\r\n         >\r\n-          {isAdding ? \"Đang thêm...\" : \"Thêm sản phẩm\"}\r\n+          {isSubmitting ? \"Đang thêm...\" : \"Thêm sản phẩm\"}\r\n         </button>\r\n       </div>\r\n     </form>\r\n   );\r\n"
                 }
             ],
             "date": 1746891704042,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 29,
+            "activePatchIndex": 33,
             "patches": [
                 {
                     "date": 1746893159154,
@@ -124,6 +124,22 @@
                 {
                     "date": 1749563856999,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -126,8 +126,9 @@\n         category: product.category,\n         collection: product.collection,\n         colors: product.colors || [],\n         sizeGuideImage: product.sizeGuideImage || \"\",\n+        discountPercent: product.discountPercent ?? 0,\n       };\n \n       console.log('Sending update data:', updatedProduct);\n \n"
+                },
+                {
+                    "date": 1751008541920,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -252,12 +252,9 @@\n             </button>\n           </div>\n \n           {isAdding && (\n-            <LazyProductForm\n-              onSubmit={handleAddProduct}\n-              isAdding={isSubmitting}\n-            />\n+            <ProductForm onSubmit={handleAddProduct} isAdding={isSubmitting} />\n           )}\n \n           <div className=\"mt-4\">\n             {isLoading ? (\n"
+                },
+                {
+                    "date": 1751008781061,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -90,9 +90,8 @@\n       const data = await response.json();\n \n       if (data.ok) {\n         toast.success(\"Product added successfully\");\n-        setIsAdding(false);\n         fetchProducts();\n       } else {\n         toast.error(data.error || \"Failed to add product\");\n       }\n@@ -100,8 +99,9 @@\n       console.error(\"Error adding product:\", error);\n       toast.error(error instanceof Error ? error.message : \"Failed to add product\");\n     } finally {\n       setIsSubmitting(false);\n+      setIsAdding(false);\n     }\n   };\n \n   const handleEditProduct = async (product: Product) => {\n"
+                },
+                {
+                    "date": 1751009142012,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -252,9 +252,9 @@\n             </button>\n           </div>\n \n           {isAdding && (\n-            <ProductForm onSubmit={handleAddProduct} isAdding={isSubmitting} />\n+            <ProductForm onSubmit={handleAddProduct} />\n           )}\n \n           <div className=\"mt-4\">\n             {isLoading ? (\n"
+                },
+                {
+                    "date": 1751009398178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -149,16 +149,18 @@\n             p._id === product._id ? data.product : p\n           )\n         );\n         toast.success(\"Cập nhật sản phẩm thành công\");\n+        setIsEditing(false);\n         setSelectedProduct(null);\n       } else {\n         toast.error(data.error || \"Không thể cập nhật sản phẩm\");\n       }\n     } catch (error) {\n       console.error(\"Error updating product:\", error);\n       toast.error(\"Không thể cập nhật sản phẩm\");\n     } finally {\n+      setIsEditing(false);\n       fetchProducts();\n     }\n   };\n \n"
                 }
             ],
             "date": 1746891704042,

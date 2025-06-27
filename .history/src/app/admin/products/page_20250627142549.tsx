@@ -91,7 +91,6 @@ export default function AdminProductsPage() {
 
       if (data.ok) {
         toast.success("Product added successfully");
-        setIsAdding(false);
         fetchProducts();
       } else {
         toast.error(data.error || "Failed to add product");
@@ -101,6 +100,7 @@ export default function AdminProductsPage() {
       toast.error(error instanceof Error ? error.message : "Failed to add product");
     } finally {
       setIsSubmitting(false);
+      setIsAdding(false);
     }
   };
 
@@ -112,28 +112,45 @@ export default function AdminProductsPage() {
         throw new Error("No product selected");
       }
 
+      const updatedProduct = {
+        name: product.name,
+        price: Number(product.price),
+        description: product.description,
+        images: product.images,
+        quantityM: Number(product.quantityM),
+        quantityL: Number(product.quantityL),
+        quantityXL: Number(product.quantityXL),
+        quantityHat: Number(product.quantityHat),
+        productCode: product.productCode,
+        details: product.details,
+        category: product.category,
+        collection: product.collection,
+        colors: product.colors || [],
+        sizeGuideImage: product.sizeGuideImage || "",
+        discountPercent: product.discountPercent ?? 0,
+      };
+
+      console.log('Sending update data:', updatedProduct);
+
       const response = await fetch(`/api/products/${product._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(product),
+        body: JSON.stringify(updatedProduct),
       });
 
       const data = await response.json();
+      console.log('API response:', data);
 
       if (data.ok) {
-        toast.success("Cập nhật sản phẩm thành công");
-        // Cập nhật state với dữ liệu mới từ server
         setProducts(prevProducts => 
           prevProducts.map(p => 
             p._id === product._id ? data.product : p
           )
         );
-        setIsEditing(false);
+        toast.success("Cập nhật sản phẩm thành công");
         setSelectedProduct(null);
-        // Refresh lại danh sách sản phẩm
-        fetchProducts();
       } else {
         toast.error(data.error || "Không thể cập nhật sản phẩm");
       }
@@ -141,7 +158,7 @@ export default function AdminProductsPage() {
       console.error("Error updating product:", error);
       toast.error("Không thể cập nhật sản phẩm");
     } finally {
-      setIsEditing(false);
+      fetchProducts();
     }
   };
 
@@ -151,6 +168,8 @@ export default function AdminProductsPage() {
     }
 
     try {
+      console.log('Attempting to delete product with ID:', productId);
+
       const response = await fetch(`/api/products/${productId}`, {
         method: "DELETE",
       });
@@ -158,14 +177,16 @@ export default function AdminProductsPage() {
       const data = await response.json();
 
       if (data.ok) {
-        toast.success("Product deleted successfully");
-        fetchProducts();
+        toast.success("Xóa sản phẩm thành công");
       } else {
-        toast.error(data.error || "Failed to delete product");
+        console.error("Server error during delete:", data.error);
+        toast.error(data.error || "Không thể xóa sản phẩm. Vui lòng thử lại.");
       }
     } catch (error) {
       console.error("Error deleting product:", error);
-      toast.error("Failed to delete product");
+      toast.error("Đã xảy ra lỗi khi gửi yêu cầu xóa.");
+    } finally {
+      fetchProducts();
     }
   };
 
@@ -232,10 +253,7 @@ export default function AdminProductsPage() {
           </div>
 
           {isAdding && (
-            <LazyProductForm
-              onSubmit={handleAddProduct}
-              isAdding={isSubmitting}
-            />
+            <ProductForm onSubmit={handleAddProduct} />
           )}
 
           <div className="mt-4">

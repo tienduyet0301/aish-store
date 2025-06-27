@@ -4,11 +4,11 @@ import { useState, useRef } from "react";
 import { toast } from "react-hot-toast";
 import Image from "next/image";
 
-interface ProductForm {
+interface ProductFormData {
   name: string;
   price: string;
   description: string;
-  images: File[];
+  images: string[];
   quantityM: string;
   quantityL: string;
   quantityXL: string;
@@ -17,11 +17,16 @@ interface ProductForm {
   details: string;
   category: string;
   collection: string;
-  sizeGuideImage: File | null;
+  sizeGuideImage: string;
   colors: string[];
 }
 
-const initialFormState: ProductForm = {
+interface ProductFormState extends Omit<ProductFormData, 'images' | 'sizeGuideImage'> {
+  images: File[];
+  sizeGuideImage: File | null;
+}
+
+const initialFormState: ProductFormState = {
   name: "",
   price: "",
   description: "",
@@ -39,14 +44,14 @@ const initialFormState: ProductForm = {
 };
 
 interface ProductFormProps {
-  onSubmit: (productData: ProductForm) => void;
-  isAdding: boolean;
+  onSubmit: (productData: ProductFormData) => Promise<void>;
 }
 
-export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
-  const [newProduct, setNewProduct] = useState<ProductForm>(initialFormState);
+export const ProductForm = ({ onSubmit }: ProductFormProps) => {
+  const [newProduct, setNewProduct] = useState<ProductFormState>(initialFormState);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [sizeGuideImagePreview, setSizeGuideImagePreview] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const resetForm = () => {
@@ -94,7 +99,7 @@ export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setIsSubmitting(true);
     try {
       // Upload images first
       const formData = new FormData();
@@ -139,7 +144,7 @@ export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
       }
 
       // Create product with Cloudinary URLs
-      const productData = {
+      const productData: ProductFormData = {
         ...newProduct,
         images: uploadData.urls,
         sizeGuideImage: sizeGuideImageUrl,
@@ -150,6 +155,8 @@ export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
     } catch (error) {
       console.error("Error submitting product:", error);
       toast.error(error instanceof Error ? error.message : "Failed to submit product");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -216,6 +223,7 @@ export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
               <option value="POLO">POLO</option>
               <option value="SWEATER">SWEATER</option>
               <option value="HOODIE">HOODIE</option>
+              <option value="JACKET">JACKET</option>
             </optgroup>
             <optgroup label="BOTTOMS">
               <option value="PANTS">PANTS</option>
@@ -237,7 +245,7 @@ export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
             Màu sắc
           </label>
           <div className="flex flex-wrap gap-4">
-            {["black", "white", "blue", "grey"].map((color) => (
+            {["black", "white", "blue", "grey", "beige"].map((color) => (
               <label key={color} className="flex items-center space-x-2">
                 <input
                   type="checkbox"
@@ -511,10 +519,10 @@ export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
       <div className="flex justify-end">
         <button
           type="submit"
-          disabled={isAdding}
+          disabled={isSubmitting}
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
         >
-          {isAdding ? "Đang thêm..." : "Thêm sản phẩm"}
+          {isSubmitting ? "Đang thêm..." : "Thêm sản phẩm"}
         </button>
       </div>
     </form>

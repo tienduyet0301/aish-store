@@ -16,6 +16,7 @@ export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [sizeGuideImage, setSizeGuideImage] = useState<File | null>(null);
@@ -45,59 +46,24 @@ export default function AdminProductsPage() {
     }
   };
 
-  const handleAddProduct = async (productData: ProductFormType) => {
-    setIsAdding(true);
-
+  const handleAddProduct = async (productData: {
+    name: string;
+    price: string;
+    description: string;
+    images: string[];
+    quantityM: string;
+    quantityL: string;
+    quantityXL: string;
+    quantityHat: string;
+    productCode: string;
+    details: string;
+    category: string;
+    collection: string;
+    sizeGuideImage: string;
+    colors: string[];
+  }) => {
+    setIsSubmitting(true);
     try {
-      // First upload images
-      if (productData.images.length === 0) {
-        throw new Error("Please select at least one image");
-      }
-
-      const formData = new FormData();
-      productData.images.forEach((image, index) => {
-        formData.append("files", image);
-      });
-
-      const uploadResponse = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!uploadResponse.ok) {
-        const errorData = await uploadResponse.json();
-        throw new Error(errorData.error || "Failed to upload images");
-      }
-
-      const uploadData = await uploadResponse.json();
-      
-      if (!uploadData.success || !uploadData.urls) {
-        throw new Error("Invalid upload response");
-      }
-
-      // Upload size guide image if exists
-      let sizeGuideImageUrl = "";
-      if (productData.sizeGuideImage) {
-        const sizeGuideFormData = new FormData();
-        sizeGuideFormData.append("files", productData.sizeGuideImage);
-        
-        const sizeGuideResponse = await fetch("/api/upload", {
-          method: "POST",
-          body: sizeGuideFormData,
-        });
-
-        if (!sizeGuideResponse.ok) {
-          throw new Error("Failed to upload size guide image");
-        }
-
-        const sizeGuideData = await sizeGuideResponse.json();
-        if (!sizeGuideData.success || !sizeGuideData.urls || sizeGuideData.urls.length === 0) {
-          throw new Error("Invalid size guide image upload response");
-        }
-        sizeGuideImageUrl = sizeGuideData.urls[0];
-      }
-
-      // Then create product
       const productFormData = new FormData();
       productFormData.append("name", productData.name);
       productFormData.append("description", productData.description);
@@ -110,9 +76,9 @@ export default function AdminProductsPage() {
       productFormData.append("quantityL", productData.quantityL);
       productFormData.append("quantityXL", productData.quantityXL);
       productFormData.append("quantityHat", productData.quantityHat);
-      productFormData.append("images", JSON.stringify(uploadData.urls));
-      if (sizeGuideImageUrl) {
-        productFormData.append("sizeGuideImage", sizeGuideImageUrl);
+      productFormData.append("images", JSON.stringify(productData.images));
+      if (productData.sizeGuideImage) {
+        productFormData.append("sizeGuideImage", productData.sizeGuideImage);
       }
       productFormData.append("colors", JSON.stringify(productData.colors));
 
@@ -125,6 +91,7 @@ export default function AdminProductsPage() {
 
       if (data.ok) {
         toast.success("Product added successfully");
+        setIsAdding(false);
         fetchProducts();
       } else {
         toast.error(data.error || "Failed to add product");
@@ -133,7 +100,7 @@ export default function AdminProductsPage() {
       console.error("Error adding product:", error);
       toast.error(error instanceof Error ? error.message : "Failed to add product");
     } finally {
-      setIsAdding(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -159,8 +126,11 @@ export default function AdminProductsPage() {
         category: product.category,
         collection: product.collection,
         colors: product.colors || [],
-        updatedAt: new Date().toISOString()
+        sizeGuideImage: product.sizeGuideImage || "",
+        discountPercent: product.discountPercent ?? 0,
       };
+
+      console.log('Sending update data:', updatedProduct);
 
       const response = await fetch(`/api/products/${product._id}`, {
         method: "PUT",
@@ -171,19 +141,16 @@ export default function AdminProductsPage() {
       });
 
       const data = await response.json();
+      console.log('API response:', data);
 
       if (data.ok) {
-        toast.success("Cập nhật sản phẩm thành công");
-        // Cập nhật state với dữ liệu mới từ server
         setProducts(prevProducts => 
           prevProducts.map(p => 
             p._id === product._id ? data.product : p
           )
         );
-        setIsEditing(false);
+        toast.success("Cập nhật sản phẩm thành công");
         setSelectedProduct(null);
-        // Refresh lại danh sách sản phẩm
-        fetchProducts();
       } else {
         toast.error(data.error || "Không thể cập nhật sản phẩm");
       }
@@ -191,7 +158,7 @@ export default function AdminProductsPage() {
       console.error("Error updating product:", error);
       toast.error("Không thể cập nhật sản phẩm");
     } finally {
-      setIsEditing(false);
+      fetchProducts();
     }
   };
 
@@ -201,6 +168,8 @@ export default function AdminProductsPage() {
     }
 
     try {
+      console.log('Attempting to delete product with ID:', productId);
+
       const response = await fetch(`/api/products/${productId}`, {
         method: "DELETE",
       });
@@ -208,14 +177,16 @@ export default function AdminProductsPage() {
       const data = await response.json();
 
       if (data.ok) {
-        toast.success("Product deleted successfully");
-        fetchProducts();
+        toast.success("Xóa sản phẩm thành công");
       } else {
-        toast.error(data.error || "Failed to delete product");
+        console.error("Server error during delete:", data.error);
+        toast.error(data.error || "Không thể xóa sản phẩm. Vui lòng thử lại.");
       }
     } catch (error) {
       console.error("Error deleting product:", error);
-      toast.error("Failed to delete product");
+      toast.error("Đã xảy ra lỗi khi gửi yêu cầu xóa.");
+    } finally {
+      fetchProducts();
     }
   };
 
@@ -234,6 +205,10 @@ export default function AdminProductsPage() {
   const resetForm = () => {
     setSizeGuideImage(null);
     setSizeGuideImagePreview("");
+  };
+
+  const handleEdit = (product: Product) => {
+    setSelectedProduct(product);
   };
 
   if (status === "loading") {
@@ -278,10 +253,7 @@ export default function AdminProductsPage() {
           </div>
 
           {isAdding && (
-            <LazyProductForm
-              onSubmit={handleAddProduct}
-              isAdding={isAdding}
-            />
+            <ProductForm onSubmit={handleAddProduct} isAdding={isSubmitting} />
           )}
 
           <div className="mt-4">
@@ -292,7 +264,7 @@ export default function AdminProductsPage() {
             ) : (
               <ProductList
                 products={products}
-                onEdit={setSelectedProduct}
+                onEdit={handleEdit}
                 onDelete={handleDeleteProduct}
               />
             )}

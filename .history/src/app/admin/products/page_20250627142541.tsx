@@ -91,7 +91,6 @@ export default function AdminProductsPage() {
 
       if (data.ok) {
         toast.success("Product added successfully");
-        setIsAdding(false);
         fetchProducts();
       } else {
         toast.error(data.error || "Failed to add product");
@@ -101,6 +100,7 @@ export default function AdminProductsPage() {
       toast.error(error instanceof Error ? error.message : "Failed to add product");
     } finally {
       setIsSubmitting(false);
+      setIsAdding(false);
     }
   };
 
@@ -127,6 +127,7 @@ export default function AdminProductsPage() {
         collection: product.collection,
         colors: product.colors || [],
         sizeGuideImage: product.sizeGuideImage || "",
+        discountPercent: product.discountPercent ?? 0,
       };
 
       console.log('Sending update data:', updatedProduct);
@@ -150,7 +151,6 @@ export default function AdminProductsPage() {
         );
         toast.success("Cập nhật sản phẩm thành công");
         setSelectedProduct(null);
-        fetchProducts();
       } else {
         toast.error(data.error || "Không thể cập nhật sản phẩm");
       }
@@ -158,7 +158,7 @@ export default function AdminProductsPage() {
       console.error("Error updating product:", error);
       toast.error("Không thể cập nhật sản phẩm");
     } finally {
-      setIsEditing(false);
+      fetchProducts();
     }
   };
 
@@ -168,6 +168,8 @@ export default function AdminProductsPage() {
     }
 
     try {
+      console.log('Attempting to delete product with ID:', productId);
+
       const response = await fetch(`/api/products/${productId}`, {
         method: "DELETE",
       });
@@ -175,17 +177,16 @@ export default function AdminProductsPage() {
       const data = await response.json();
 
       if (data.ok) {
-        setProducts(prevProducts => 
-          prevProducts.filter(p => p._id !== productId)
-        );
         toast.success("Xóa sản phẩm thành công");
-        fetchProducts();
       } else {
-        toast.error(data.error || "Không thể xóa sản phẩm");
+        console.error("Server error during delete:", data.error);
+        toast.error(data.error || "Không thể xóa sản phẩm. Vui lòng thử lại.");
       }
     } catch (error) {
       console.error("Error deleting product:", error);
-      toast.error("Không thể xóa sản phẩm");
+      toast.error("Đã xảy ra lỗi khi gửi yêu cầu xóa.");
+    } finally {
+      fetchProducts();
     }
   };
 
@@ -252,10 +253,7 @@ export default function AdminProductsPage() {
           </div>
 
           {isAdding && (
-            <LazyProductForm
-              onSubmit={handleAddProduct}
-              isAdding={isSubmitting}
-            />
+            <ProductForm onSubmit={handleAddProduct} />
           )}
 
           <div className="mt-4">

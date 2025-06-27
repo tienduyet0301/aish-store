@@ -44,14 +44,14 @@ const initialFormState: ProductFormState = {
 };
 
 interface ProductFormProps {
-  onSubmit: (productData: ProductFormData) => void;
-  isAdding: boolean;
+  onSubmit: (productData: ProductFormData) => Promise<void>;
 }
 
-export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
+export const ProductForm = ({ onSubmit }: ProductFormProps) => {
   const [newProduct, setNewProduct] = useState<ProductFormState>(initialFormState);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [sizeGuideImagePreview, setSizeGuideImagePreview] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const resetForm = () => {
@@ -99,7 +99,7 @@ export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+    setIsSubmitting(true);
     try {
       // Upload images first
       const formData = new FormData();
@@ -155,6 +155,8 @@ export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
     } catch (error) {
       console.error("Error submitting product:", error);
       toast.error(error instanceof Error ? error.message : "Failed to submit product");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -517,10 +519,10 @@ export const ProductForm = ({ onSubmit, isAdding }: ProductFormProps) => {
       <div className="flex justify-end">
         <button
           type="submit"
-          disabled={isAdding}
+          disabled={isSubmitting}
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
         >
-          {isAdding ? "Đang thêm..." : "Thêm sản phẩm"}
+          {isSubmitting ? "Đang thêm..." : "Thêm sản phẩm"}
         </button>
       </div>
     </form>

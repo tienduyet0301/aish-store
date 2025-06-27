@@ -16,6 +16,7 @@ export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAdding, setIsAdding] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [sizeGuideImage, setSizeGuideImage] = useState<File | null>(null);
@@ -25,95 +26,169 @@ export default function AdminProductsPage() {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.push("/login");
+      router.push("/admin/login");
+    } else if (status === "authenticated") {
+      fetchProducts();
     }
   }, [status, router]);
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   const fetchProducts = async () => {
     try {
       const response = await fetch("/api/products");
-      if (!response.ok) {
-        throw new Error("Failed to fetch products");
-      }
       const data = await response.json();
-      setProducts(data);
+      if (data.ok) {
+        setProducts(data.products);
+      }
     } catch (error) {
       console.error("Error fetching products:", error);
-      toast.error("Không thể tải danh sách sản phẩm");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleAddProduct = async (formData: ProductFormType) => {
+  const handleAddProduct = async (productData: {
+    name: string;
+    price: string;
+    description: string;
+    images: string[];
+    quantityM: string;
+    quantityL: string;
+    quantityXL: string;
+    quantityHat: string;
+    productCode: string;
+    details: string;
+    category: string;
+    collection: string;
+    sizeGuideImage: string;
+    colors: string[];
+  }) => {
+    setIsSubmitting(true);
     try {
+      const productFormData = new FormData();
+      productFormData.append("name", productData.name);
+      productFormData.append("description", productData.description);
+      productFormData.append("details", productData.details);
+      productFormData.append("price", productData.price);
+      productFormData.append("category", productData.category);
+      productFormData.append("collection", productData.collection);
+      productFormData.append("productCode", productData.productCode);
+      productFormData.append("quantityM", productData.quantityM);
+      productFormData.append("quantityL", productData.quantityL);
+      productFormData.append("quantityXL", productData.quantityXL);
+      productFormData.append("quantityHat", productData.quantityHat);
+      productFormData.append("images", JSON.stringify(productData.images));
+      if (productData.sizeGuideImage) {
+        productFormData.append("sizeGuideImage", productData.sizeGuideImage);
+      }
+      productFormData.append("colors", JSON.stringify(productData.colors));
+
       const response = await fetch("/api/products", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: productFormData,
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to add product");
-      }
+      const data = await response.json();
 
-      toast.success("Thêm sản phẩm thành công");
-      setIsAdding(false);
-      fetchProducts();
+      if (data.ok) {
+        toast.success("Product added successfully");
+        fetchProducts();
+      } else {
+        toast.error(data.error || "Failed to add product");
+      }
     } catch (error) {
       console.error("Error adding product:", error);
-      toast.error("Không thể thêm sản phẩm");
+      toast.error(error instanceof Error ? error.message : "Failed to add product");
+    } finally {
+      setIsSubmitting(false);
+      setIsAdding(false);
     }
   };
 
-  const handleEditProduct = async (formData: ProductFormType) => {
-    if (!selectedProduct) return;
+  const handleEditProduct = async (product: Product) => {
+    setIsEditing(true);
 
     try {
-      const response = await fetch(`/api/products/${selectedProduct._id}`, {
+      if (!product._id) {
+        throw new Error("No product selected");
+      }
+
+      const updatedProduct = {
+        name: product.name,
+        price: Number(product.price),
+        description: product.description,
+        images: product.images,
+        quantityM: Number(product.quantityM),
+        quantityL: Number(product.quantityL),
+        quantityXL: Number(product.quantityXL),
+        quantityHat: Number(product.quantityHat),
+        productCode: product.productCode,
+        details: product.details,
+        category: product.category,
+        collection: product.collection,
+        colors: product.colors || [],
+        sizeGuideImage: product.sizeGuideImage || "",
+        discountPercent: product.discountPercent ?? 0,
+      };
+
+      console.log('Sending update data:', updatedProduct);
+
+      const response = await fetch(`/api/products/${product._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(updatedProduct),
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to update product");
-      }
+      const data = await response.json();
+      console.log('API response:', data);
 
-      toast.success("Cập nhật sản phẩm thành công");
-      setSelectedProduct(null);
-      fetchProducts();
+      if (data.ok) {
+        setProducts(prevProducts => 
+          prevProducts.map(p => 
+            p._id === product._id ? data.product : p
+          )
+        );
+        toast.success("Cập nhật sản phẩm thành công");
+        setIsEditing(false);
+        setSelectedProduct(null);
+      } else {
+        toast.error(data.error || "Không thể cập nhật sản phẩm");
+      }
     } catch (error) {
       console.error("Error updating product:", error);
       toast.error("Không thể cập nhật sản phẩm");
+    } finally {
+      setIsEditing(false);
+      fetchProducts();
     }
   };
 
   const handleDeleteProduct = async (productId: string) => {
-    if (!confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) return;
+    if (!window.confirm("Are you sure you want to delete this product?")) {
+      return;
+    }
 
     try {
+      console.log('Attempting to delete product with ID:', productId);
+
       const response = await fetch(`/api/products/${productId}`, {
         method: "DELETE",
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to delete product");
-      }
+      const data = await response.json();
 
-      toast.success("Xóa sản phẩm thành công");
-      fetchProducts();
+      if (data.ok) {
+        toast.success("Xóa sản phẩm thành công");
+      } else {
+        console.error("Server error during delete:", data.error);
+        toast.error(data.error || "Không thể xóa sản phẩm. Vui lòng thử lại.");
+      }
     } catch (error) {
       console.error("Error deleting product:", error);
-      toast.error("Không thể xóa sản phẩm");
+      toast.error("Đã xảy ra lỗi khi gửi yêu cầu xóa.");
+    } finally {
+      fetchProducts();
     }
   };
 
@@ -180,10 +255,7 @@ export default function AdminProductsPage() {
           </div>
 
           {isAdding && (
-            <LazyProductForm
-              onSubmit={handleAddProduct}
-              isAdding={isAdding}
-            />
+            <ProductForm onSubmit={handleAddProduct} />
           )}
 
           <div className="mt-4">
