@@ -83,14 +83,15 @@ const Banner = () => {
           }`}
         >
           <Image
-            src={isMobile && banner.mobileImageUrl ? banner.mobileImageUrl : banner.imageUrl}
+            src={getOptimizedImageUrl(isMobile && banner.mobileImageUrl ? banner.mobileImageUrl : banner.imageUrl, isMobile)}
             alt={banner.title || "Banner"}
             fill
             className="object-cover"
-            quality={100}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
             priority={index === 0}
             loading={index === 0 ? "eager" : "lazy"}
+            placeholder="blur"
+            blurDataURL="/images/image1.jpg"
           />
           {(banner.title || banner.description) && (
             <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
@@ -132,5 +133,18 @@ const Banner = () => {
     </div>
   );
 };
+
+function getOptimizedImageUrl(url: string, isMobile: boolean) {
+  if (!url) return '';
+  // Nếu là link Cloudinary thì thêm tham số nén
+  if (url.includes('res.cloudinary.com')) {
+    // Thêm w_1400 cho desktop, w_800 cho mobile, q_auto,f_auto
+    const width = isMobile ? 'w_800' : 'w_1400';
+    if (!url.includes('q_auto') && !url.includes('f_auto')) {
+      return url.replace('/upload/', `/upload/q_auto,f_auto,${width}/`);
+    }
+  }
+  return url;
+}
 
 export default Banner; 
