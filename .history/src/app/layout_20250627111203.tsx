@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg",
+        url: "https://www.aish.vn/images/image1.jpg",
         width: 1200,
         height: 630,
         alt: "AISH - Your Fashion Destination",

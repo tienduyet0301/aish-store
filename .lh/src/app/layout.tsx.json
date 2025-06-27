@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 13,
+            "activePatchIndex": 16,
             "patches": [
                 {
                     "date": 1746892149430,
@@ -60,6 +60,18 @@
                 {
                     "date": 1750733087515,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,18 +4,15 @@\n import Navbar from \"@/components/Navbar\";\r\n import Footer from \"@/components/Footer\";\r\n import Providers from \"@/components/Providers\";\r\n import AnnouncementBanner from \"@/components/AnnouncementBanner\";\r\n-import { CartProvider } from \"@/context/CartContext\";\r\n-import { SessionProvider } from \"next-auth/react\";\r\n-import { AddressProvider } from \"@/context/AddressContext\";\r\n-import { CheckoutProvider } from \"@/context/CheckoutContext\";\r\n+import MyChatBot from \"@/components/ChatBot\";\r\n \r\n const inter = Inter({ subsets: [\"latin\"] });\r\n \r\n export const metadata: Metadata = {\r\n   title: \"AISH\",\r\n-  description: \"AISH - Thời trang nam\",\r\n+  description: \"AISH - Your Fashion Destination\",\r\n };\r\n \r\n export default function RootLayout({\r\n   children,\r\n@@ -24,24 +21,17 @@\n }>) {\r\n   return (\r\n     <html lang=\"en\">\r\n       <body className={inter.className}>\r\n-        <SessionProvider>\r\n-          <CartProvider>\r\n-            <AddressProvider>\r\n-              <CheckoutProvider>\r\n-                <div className=\"flex flex-col min-h-screen\">\r\n-                  <Providers>\r\n-                    <Navbar />\r\n-                    <AnnouncementBanner />\r\n-                    <main className=\"flex-grow\">{children}</main>\r\n-                    <Footer />\r\n-                  </Providers>\r\n-                </div>\r\n-              </CheckoutProvider>\r\n-            </AddressProvider>\r\n-          </CartProvider>\r\n-        </SessionProvider>\r\n+        <div className=\"flex flex-col min-h-screen\">\r\n+          <Providers>\r\n+            <Navbar />\r\n+            <AnnouncementBanner />\r\n+            <main className=\"flex-grow\">{children}</main>\r\n+            <Footer />\r\n+          </Providers>\r\n+          <MyChatBot />\r\n+        </div>\r\n       </body>\r\n     </html>\r\n   );\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1750997367198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n const inter = Inter({ subsets: [\"latin\"] });\r\n \r\n export const metadata: Metadata = {\r\n-  title: \"AISH\",\r\n+  title: \"AISH OFFICIAL\",\r\n   description: \"AISH - Your Fashion Destination\",\r\n };\r\n \r\n export default function RootLayout({\r\n"
+                },
+                {
+                    "date": 1750997507808,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,10 +9,20 @@\n \r\n const inter = Inter({ subsets: [\"latin\"] });\r\n \r\n export const metadata: Metadata = {\r\n-  title: \"AISH OFFICIAL\",\r\n+  title: \"AISH\",\r\n   description: \"AISH - Your Fashion Destination\",\r\n+  openGraph: {\r\n+    images: [\r\n+      {\r\n+        url: \"https://www.aish.vn/images/image1.jpg\",\r\n+        width: 1200,\r\n+        height: 630,\r\n+        alt: \"AISH - Your Fashion Destination\",\r\n+      },\r\n+    ],\r\n+  },\r\n };\r\n \r\n export default function RootLayout({\r\n   children,\r\n"
+                },
+                {
+                    "date": 1750997737581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n   description: \"AISH - Your Fashion Destination\",\r\n   openGraph: {\r\n     images: [\r\n       {\r\n-        url: \"https://www.aish.vn/images/image1.jpg\",\r\n+        url: \"https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg\",\r\n         width: 1200,\r\n         height: 630,\r\n         alt: \"AISH - Your Fashion Destination\",\r\n       },\r\n"
                 }
             ],
             "date": 1746892149430,

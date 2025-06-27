@@ -289,47 +289,48 @@ function ChatBotStyleOverride() {
       /* --- Responsive for mobile --- */
       @media (max-width: 600px) {
         .rsc-float-button {
-          width: 52px !important;
-          height: 52px !important;
+          width: 56px !important;
+          height: 56px !important;
           right: 12px !important;
           bottom: 12px !important;
         }
         .rsc-container {
-          max-width: 85vw !important;
-          width: 85vw !important;
+          max-width: 92vw !important;
+          width: 92vw !important;
           min-width: 0 !important;
-          height: 65vh !important;
-          max-height: 65vh !important;
+          height: 75vh !important;
+          max-height: 75vh !important;
           border-radius: 0 !important;
         }
         .rsc-content {
-          max-height: 45vh !important;
-          min-height: 150px !important;
-          font-size: 11px !important;
-          padding-left: 4px !important;
-          padding-right: 4px !important;
+          max-height: 50vh !important;
+          min-height: 180px !important;
+          font-size: 13px !important;
+          padding-left: 6px !important;
+          padding-right: 6px !important;
         }
         .rsc-header {
-          font-size: 12px !important;
-          padding: 6px 4px !important;
+          font-size: 14px !important;
+          padding: 8px 6px !important;
         }
         .rsc-header-title {
-          font-size: 12px !important;
+          font-size: 14px !important;
         }
         .rsc-ts-bubble, .rsc-ts-bubble span, .rsc-ts-bubble p, .rsc-user-bubble {
-          font-size: 11px !important;
-          padding: 6px 10px !important;
+          font-size: 13px !important;
+          padding: 8px 12px !important;
         }
         .rsc-os-option {
-          font-size: 11px !important;
-          padding: 6px 10px !important;
+          font-size: 13px !important;
+          padding: 8px 12px !important;
         }
         .rsc-input {
-          font-size: 11px !important;
+          font-size: 13px !important;
         }
         .rsc-avatar {
-          width: 24px !important;
-          height: 24px !important;
+          width: 28px !important;
+          width: 32px !important;
+          height: 32px !important;
         }
       }
     `;
