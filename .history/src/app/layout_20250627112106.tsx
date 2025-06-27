@@ -10,7 +10,7 @@ import MyChatBot from "@/components/ChatBot";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AISH OFFICIAL",
+  title: "AISH OFFCIAL",
   description: "AISH - Your Fashion Destination",
   openGraph: {
     images: [
@@ -18,7 +18,6 @@ export const metadata: Metadata = {
         url: "https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg",
         width: 1200,
         height: 630,
-        alt: "AISH - Your Fashion Destination",
       },
     ],
   },

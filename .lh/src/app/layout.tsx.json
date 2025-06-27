@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 16,
+            "activePatchIndex": 18,
             "patches": [
                 {
                     "date": 1746892149430,
@@ -72,6 +72,14 @@
                 {
                     "date": 1750997737581,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n   description: \"AISH - Your Fashion Destination\",\r\n   openGraph: {\r\n     images: [\r\n       {\r\n-        url: \"https://www.aish.vn/images/image1.jpg\",\r\n+        url: \"https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg\",\r\n         width: 1200,\r\n         height: 630,\r\n         alt: \"AISH - Your Fashion Destination\",\r\n       },\r\n"
+                },
+                {
+                    "date": 1750998066593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,17 +9,16 @@\n \r\n const inter = Inter({ subsets: [\"latin\"] });\r\n \r\n export const metadata: Metadata = {\r\n-  title: \"AISH\",\r\n+  title: \"AISH OFFCIAL\",\r\n   description: \"AISH - Your Fashion Destination\",\r\n   openGraph: {\r\n     images: [\r\n       {\r\n         url: \"https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg\",\r\n         width: 1200,\r\n         height: 630,\r\n-        alt: \"AISH - Your Fashion Destination\",\r\n       },\r\n     ],\r\n   },\r\n };\r\n"
+                },
+                {
+                    "date": 1750998227118,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,16 +9,17 @@\n \r\n const inter = Inter({ subsets: [\"latin\"] });\r\n \r\n export const metadata: Metadata = {\r\n-  title: \"AISH OFFCIAL\",\r\n+  title: \"AISH OFFICIAL\",\r\n   description: \"AISH - Your Fashion Destination\",\r\n   openGraph: {\r\n     images: [\r\n       {\r\n         url: \"https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg\",\r\n         width: 1200,\r\n         height: 630,\r\n+        alt: \"AISH - Your Fashion Destination\",\r\n       },\r\n     ],\r\n   },\r\n };\r\n"
                 }
             ],
             "date": 1746892149430,
