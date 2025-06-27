@@ -54,6 +54,20 @@ const nextConfig = {
       }
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/vi',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/vi/:path*',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
