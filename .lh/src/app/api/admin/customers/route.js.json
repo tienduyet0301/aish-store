@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1748657516933,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751008131201,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,9 @@\n import { NextResponse } from \"next/server\";\r\n import { connectToDatabase } from \"@/lib/mongodb\";\r\n \r\n+export const dynamic = \"force-dynamic\";\r\n+\r\n export async function GET() {\r\n   try {\r\n     const { db } = await connectToDatabase();\r\n     const users = await db.collection(\"users\").find({}).toArray();\r\n"
                 }
             ],
             "date": 1748657516933,

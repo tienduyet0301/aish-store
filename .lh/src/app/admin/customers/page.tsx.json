@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 17,
+            "activePatchIndex": 18,
             "patches": [
                 {
                     "date": 1746957613037,
@@ -76,6 +76,10 @@
                 {
                     "date": 1748657676770,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -92,11 +92,11 @@\n         }\n       });\n \n       if (response.ok) {\n+        setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));\n         setMessage(\"Tài khoản đã được xóa thành công\");\n         setDeletingUser(null);\n-        fetchUsers(); // Refresh danh sách\n       } else {\n         const data = await response.json();\n         setMessage(data.message || \"Có lỗi xảy ra khi xóa tài khoản\");\n       }\n"
+                },
+                {
+                    "date": 1751008124989,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n   const [deletingUser, setDeletingUser] = useState<string | null>(null);\n \n   const fetchUsers = async () => {\n     try {\n-      const response = await fetch(\"/api/admin/customers\");\n+      const response = await fetch(\"/api/admin/customers\", { cache: \"no-store\" });\n       if (response.ok) {\n         const data = await response.json();\n         setUsers(data);\n       }\n"
                 }
             ],
             "date": 1746957613037,

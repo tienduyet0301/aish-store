@@ -29,7 +29,7 @@ export default function CustomersPage() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("/api/admin/users");
+      const response = await fetch("/api/admin/customers", { cache: "no-store" });
       if (response.ok) {
         const data = await response.json();
         setUsers(data);
@@ -85,20 +85,20 @@ export default function CustomersPage() {
 
   const handleDeleteUser = async (userId: string) => {
     try {
-      const response = await fetch("/api/admin/users/delete", {
+      const response = await fetch(`/api/admin/customers/${userId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId }),
+        }
       });
 
       if (response.ok) {
+        setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));
         setMessage("Tài khoản đã được xóa thành công");
         setDeletingUser(null);
-        fetchUsers(); // Refresh danh sách
       } else {
-        setMessage("Có lỗi xảy ra khi xóa tài khoản");
+        const data = await response.json();
+        setMessage(data.message || "Có lỗi xảy ra khi xóa tài khoản");
       }
     } catch (error) {
       setMessage("Có lỗi xảy ra khi xóa tài khoản");

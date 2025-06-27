@@ -29,7 +29,7 @@ export default function CustomersPage() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("/api/admin/customers");
+      const response = await fetch("/api/admin/customers", { cache: "no-store" });
       if (response.ok) {
         const data = await response.json();
         setUsers(data);
