@@ -61,8 +61,13 @@ export async function POST(req: Request) {
           throw new Error(`Product not found with ID: ${item.productId}`);
         }
 
-        const quantityField = `quantity${item.size}`;
-        const currentQuantity = product[quantityField] || 0;
+        let currentQuantity = 0;
+        if (product.category === 'CAP') {
+          currentQuantity = product.quantityHat || 0;
+        } else {
+          const quantityField = `quantity${item.size}`;
+          currentQuantity = product[quantityField] || 0;
+        }
 
         if (currentQuantity < item.quantity) {
           throw new Error(`Insufficient quantity for product ${product.name} (Size ${item.size}). Available: ${currentQuantity}`);
@@ -185,9 +190,19 @@ export async function POST(req: Request) {
 
       // Update product quantities after successful order creation
       for (const item of orderData.items) {
-        const quantityField = `quantity${item.size}`;
-        const outOfStockField = `outOfStock${item.size}`;
-
+        const product = await db.collection('products').findOne(
+          { _id: new ObjectId(item.productId) },
+          { session: dbSession }
+        );
+        if (!product) {
+          throw new Error(`Product not found with ID: ${item.productId}`);
+        }
+        let quantityField = `quantity${item.size}`;
+        let outOfStockField = `outOfStock${item.size}`;
+        if (product.category === 'CAP') {
+          quantityField = 'quantityHat';
+          outOfStockField = 'outOfStockHat';
+        }
         // Update quantity using $inc for atomic operation
         const updateResult = await db.collection('products').updateOne(
           { 
