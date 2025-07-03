@@ -21,5 +21,15 @@
       "memory": 1024,
       "maxDuration": 10
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        { "type": "host", "value": "www.aish.vn" }
+      ],
+      "destination": "https://aish.vn/:path*",
+      "permanent": true
+    }
+  ]
 } 
