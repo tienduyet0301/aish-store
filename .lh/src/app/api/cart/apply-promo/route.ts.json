@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 38,
+            "activePatchIndex": 39,
             "patches": [
                 {
                     "date": 1749534526144,
@@ -160,6 +160,10 @@
                 {
                     "date": 1749548659512,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -75,10 +75,11 @@\n       // Kiểm tra xem sản phẩm có được áp dụng mã giảm giá không\r\n       let isApplicable = false;\r\n \r\n       if (promo.scope === 'selected') {\r\n-        // Kiểm tra theo tên sản phẩm\r\n-        isApplicable = item.name && promo.selectedProducts?.includes(item.name);\r\n+        // Kiểm tra theo ID sản phẩm\r\n+        const productId = item.productId || item.id;\r\n+        isApplicable = productId && promo.selectedProducts?.includes(productId);\r\n       } else if (promo.scope === 'all') {\r\n         // Áp dụng cho tất cả sản phẩm\r\n         isApplicable = true;\r\n       }\r\n"
+                },
+                {
+                    "date": 1751608889465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -66,8 +66,30 @@\n         );\r\n       }\r\n     }\r\n \r\n+    // Tính toán tổng tiền các sản phẩm được áp dụng mã\r\n+    let applicableTotal = 0;\r\n+    cartItems.forEach((item: any) => {\r\n+      let isApplicable = false;\r\n+      if (promo.scope === 'selected') {\r\n+        const productId = item.productId || item.id;\r\n+        isApplicable = productId && promo.selectedProducts?.includes(productId);\r\n+      } else if (promo.scope === 'all') {\r\n+        isApplicable = true;\r\n+      }\r\n+      if (isApplicable) {\r\n+        applicableTotal += item.price * item.quantity;\r\n+      }\r\n+    });\r\n+    // Kiểm tra giá trị đơn hàng tối thiểu\r\n+    if (promo.minOrderAmount && applicableTotal < promo.minOrderAmount) {\r\n+      return NextResponse.json(\r\n+        { ok: false, message: `Đơn hàng của bạn chưa đủ giá trị tối thiểu (${promo.minOrderAmount.toLocaleString('vi-VN')} VND) để sử dụng mã giảm giá này` },\r\n+        { status: 400 }\r\n+      );\r\n+    }\r\n+\r\n     // Tính toán giảm giá cho từng sản phẩm\r\n     let totalDiscount = 0;\r\n     const updatedCartItems = cartItems.map((item: any) => {\r\n       let itemDiscount = 0;\r\n"
                 }
             ],
             "date": 1749534526144,

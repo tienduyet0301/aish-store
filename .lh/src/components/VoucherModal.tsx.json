@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1750474518839,
@@ -24,6 +24,10 @@
                 {
                     "date": 1750475255985,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,15 +51,19 @@\n     onClose();\r\n   };\r\n \r\n   return (\r\n-    <div className=\"fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50\">\r\n+    <div \r\n+      className=\"fixed inset-0 bg-black/30 flex justify-end z-50\"\r\n+      onClick={onClose}\r\n+    >\r\n       <motion.div\r\n         initial={{ x: \"100%\" }}\r\n         animate={{ x: 0 }}\r\n         exit={{ x: \"100%\" }}\r\n         transition={{ type: \"spring\", stiffness: 300, damping: 30 }}\r\n         className=\"bg-white shadow-xl w-full max-w-sm md:max-w-md lg:max-w-lg h-full flex flex-col\"\r\n+        onClick={(e) => e.stopPropagation()}\r\n       >\r\n         <div className=\"p-4 border-b flex justify-between items-center sticky top-0 bg-white z-10\">\r\n           <button onClick={onClose} className=\"text-xl\">\r\n             <svg xmlns=\"http://www.w3.org/2000/svg\" className=\"h-6 w-6\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path strokeLinecap=\"round\" strokeLinejoin=\"round\" strokeWidth={2} d=\"M15 19l-7-7 7-7\" /></svg>\r\n@@ -83,11 +87,11 @@\n                   </div>\r\n                 </div>\r\n                 <button\r\n                   onClick={() => handleApply(voucher.code)}\r\n-                  className=\"bg-black text-white px-3 py-1 rounded-md text-sm hover:bg-gray-800 transition\"\r\n+                  className=\"bg-black text-white px-4 py-2 text-sm hover:bg-gray-800 transition\"\r\n                 >\r\n-                  Sao chép\r\n+                  Áp dụng\r\n                 </button>\r\n               </div>\r\n             ))\r\n           ) : (\r\n"
+                },
+                {
+                    "date": 1751610781068,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n   code: string;\r\n   type: 'fixed' | 'percentage';\r\n   value: number;\r\n   description?: string;\r\n+  minOrderAmount?: number; // Thêm trường này\r\n }\r\n \r\n interface VoucherModalProps {\r\n   isOpen: boolean;\r\n@@ -83,8 +84,11 @@\n                   </div>\r\n                   <div>\r\n                     <p className=\"font-bold text-gray-800\">{voucher.code}</p>\r\n                     <p className=\"text-sm text-gray-600\">{voucher.description}</p>\r\n+                    {voucher.minOrderAmount && voucher.minOrderAmount > 0 && (\r\n+                      <p className=\"text-xs text-gray-500 mt-1\">Đơn tối thiểu: {voucher.minOrderAmount.toLocaleString('vi-VN')} VND</p>\r\n+                    )}\r\n                   </div>\r\n                 </div>\r\n                 <button\r\n                   onClick={() => handleApply(voucher.code)}\r\n"
                 }
             ],
             "date": 1750474518838,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 51,
+            "activePatchIndex": 57,
             "patches": [
                 {
                     "date": 1747291606024,
@@ -212,6 +212,30 @@
                 {
                     "date": 1749615848275,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,8 +62,9 @@\n   | 'products.filter.colorBlack'\n   | 'products.filter.colorWhite'\n   | 'products.filter.colorBlue'\n   | 'products.filter.colorGrey'\n+  | 'products.filter.colorBeige'\n   | 'products.filter.sizeM'\n   | 'products.filter.sizeL'\n   | 'products.filter.sizeXL'\n   | 'products.filter.colorLabel'\n@@ -343,8 +344,9 @@\n     'products.filter.colorBlack': 'Black',\n     'products.filter.colorWhite': 'White',\n     'products.filter.colorBlue': 'Blue',\n     'products.filter.colorGrey': 'Grey',\n+    'products.filter.colorBeige': 'Beige',\n     'products.filter.sizeM': 'M',\n     'products.filter.sizeL': 'L',\n     'products.filter.sizeXL': 'XL',\n     'products.filter.colorLabel': 'Colour',\n@@ -610,8 +612,9 @@\n     'products.filter.colorBlack': 'Đen',\n     'products.filter.colorWhite': 'Trắng',\n     'products.filter.colorBlue': 'Xanh',\n     'products.filter.colorGrey': 'Xám',\n+    'products.filter.colorBeige': 'Be',\n     'products.filter.sizeM': 'M',\n     'products.filter.sizeL': 'L',\n     'products.filter.sizeXL': 'XL',\n     'products.filter.colorLabel': 'Màu sắc',\n"
+                },
+                {
+                    "date": 1751255954012,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n \"use client\";\n \n import React, { createContext, useContext, useState, useEffect } from \"react\";\n import { useRouter } from \"next/navigation\";\n+import i18n from 'i18next';\n \n type Language = 'en' | 'vi';\n \n type TranslationKey = \n@@ -847,8 +848,9 @@\n       if (typeof window !== 'undefined') {\n         localStorage.setItem(\"language\", lang);\n       }\n       router.refresh();\n+      i18n.changeLanguage(lang);\n     }\n   };\n \n   const t = (key: TranslationKey): string => {\n"
+                },
+                {
+                    "date": 1751256150516,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n \"use client\";\n \n import React, { createContext, useContext, useState, useEffect } from \"react\";\n import { useRouter } from \"next/navigation\";\n-import i18n from 'i18next';\n \n type Language = 'en' | 'vi';\n \n type TranslationKey = \n@@ -848,9 +847,8 @@\n       if (typeof window !== 'undefined') {\n         localStorage.setItem(\"language\", lang);\n       }\n       router.refresh();\n-      i18n.changeLanguage(lang);\n     }\n   };\n \n   const t = (key: TranslationKey): string => {\n"
+                },
+                {
+                    "date": 1751256529936,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n \"use client\";\n \n import React, { createContext, useContext, useState, useEffect } from \"react\";\n import { useRouter } from \"next/navigation\";\n+import i18n from '../i18n';\n \n type Language = 'en' | 'vi';\n \n type TranslationKey = \n@@ -846,8 +847,9 @@\n       setLanguage(lang);\n       if (typeof window !== 'undefined') {\n         localStorage.setItem(\"language\", lang);\n       }\n+      i18n.changeLanguage(lang);\n       router.refresh();\n     }\n   };\n \n"
+                },
+                {
+                    "date": 1751256539109,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n \"use client\";\n \n import React, { createContext, useContext, useState, useEffect } from \"react\";\n import { useRouter } from \"next/navigation\";\n-import i18n from '../i18n';\n \n type Language = 'en' | 'vi';\n \n type TranslationKey = \n@@ -847,9 +846,8 @@\n       setLanguage(lang);\n       if (typeof window !== 'undefined') {\n         localStorage.setItem(\"language\", lang);\n       }\n-      i18n.changeLanguage(lang);\n       router.refresh();\n     }\n   };\n \n"
+                },
+                {
+                    "date": 1751256621407,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n \"use client\";\n \n import React, { createContext, useContext, useState, useEffect } from \"react\";\n import { useRouter } from \"next/navigation\";\n+import i18n from '../i18n';\n \n type Language = 'en' | 'vi';\n \n type TranslationKey = \n@@ -846,8 +847,9 @@\n       setLanguage(lang);\n       if (typeof window !== 'undefined') {\n         localStorage.setItem(\"language\", lang);\n       }\n+      i18n.changeLanguage(lang);\n       router.refresh();\n     }\n   };\n \n"
+                },
+                {
+                    "date": 1751257058410,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n \"use client\";\n \n import React, { createContext, useContext, useState, useEffect } from \"react\";\n import { useRouter } from \"next/navigation\";\n-import i18n from '../i18n';\n \n type Language = 'en' | 'vi';\n \n type TranslationKey = \n@@ -847,9 +846,8 @@\n       setLanguage(lang);\n       if (typeof window !== 'undefined') {\n         localStorage.setItem(\"language\", lang);\n       }\n-      i18n.changeLanguage(lang);\n       router.refresh();\n     }\n   };\n \n"
                 }
             ],
             "date": 1747291606024,

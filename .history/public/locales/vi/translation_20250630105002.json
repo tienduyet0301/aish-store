@@ -1,0 +1,29 @@
+{
+  "cart": {
+    "shoppingBag": "GIỎ HÀNG",
+    "edit": "SỬA",
+    "delete": "XÓA",
+    "yourSelections": "SẢN PHẨM ĐÃ CHỌN",
+    "orderSummary": "TÓM TẮT ĐƠN HÀNG",
+    "quantity": "Số lượng",
+    "color": "Màu sắc",
+    "size": "Kích thước",
+    "price": "Giá",
+    "total": "Tổng cộng",
+    "checkOut": "THANH TOÁN",
+    "saveChanges": "Lưu thay đổi",
+    "cancel": "Hủy",
+    "confirmRemove": "XÁC NHẬN XÓA",
+    "confirmRemoveMsg": "Bạn có chắc muốn xóa sản phẩm này không?",
+    "confirm": "Xác nhận",
+    "noItems": "Bạn không có sản phẩm nào trong giỏ hàng.",
+    "exploreProducts": "Khám phá sản phẩm",
+    "mayWeHelp": "CẦN HỖ TRỢ?",
+    "stockQuantity": "TỒN KHO",
+    "itemsLeft": "Còn lại {count} sản phẩm",
+    "soldOut": "Hết hàng",
+    "inStock": "Còn hàng",
+    "discount": "Giảm giá",
+    "removeConfirmMsg": "Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng không?"
+  }
+} 

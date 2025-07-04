@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 86,
+            "activePatchIndex": 87,
             "patches": [
                 {
                     "date": 1747807963741,
@@ -352,6 +352,10 @@
                 {
                     "date": 1750472276517,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -155,8 +155,9 @@\n         province: orderData.province,\n         // Additional information\n         note: orderData.note || null,\n         shippingMethod: orderData.shippingMethod || 'standard',\n+        shippingFee: orderData.shippingFee || 'Free (Express)',\n         // Promo code information - only save necessary fields\n         promoCode: promoCodeObject ? {\n           id: promoCodeObject.id,\n           code: promoCodeObject.code,\n"
+                },
+                {
+                    "date": 1751249782819,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,10 +60,15 @@\n         if (!product) {\n           throw new Error(`Product not found with ID: ${item.productId}`);\n         }\n \n-        const quantityField = `quantity${item.size}`;\n-        const currentQuantity = product[quantityField] || 0;\n+        let currentQuantity = 0;\n+        if (product.category === 'CAP') {\n+          currentQuantity = product.quantityHat || 0;\n+        } else {\n+          const quantityField = `quantity${item.size}`;\n+          currentQuantity = product[quantityField] || 0;\n+        }\n \n         if (currentQuantity < item.quantity) {\n           throw new Error(`Insufficient quantity for product ${product.name} (Size ${item.size}). Available: ${currentQuantity}`);\n         }\n@@ -184,11 +189,21 @@\n       console.log('Order created successfully:', result.insertedId);\n \n       // Update product quantities after successful order creation\n       for (const item of orderData.items) {\n-        const quantityField = `quantity${item.size}`;\n-        const outOfStockField = `outOfStock${item.size}`;\n-\n+        const product = await db.collection('products').findOne(\n+          { _id: new ObjectId(item.productId) },\n+          { session: dbSession }\n+        );\n+        if (!product) {\n+          throw new Error(`Product not found with ID: ${item.productId}`);\n+        }\n+        let quantityField = `quantity${item.size}`;\n+        let outOfStockField = `outOfStock${item.size}`;\n+        if (product.category === 'CAP') {\n+          quantityField = 'quantityHat';\n+          outOfStockField = 'outOfStockHat';\n+        }\n         // Update quantity using $inc for atomic operation\n         const updateResult = await db.collection('products').updateOne(\n           { \n             _id: new ObjectId(item.productId),\n"
                 }
             ],
             "date": 1747807963740,

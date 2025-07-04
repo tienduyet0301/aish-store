@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/app/head.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1751015192449,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751015367610,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,17 +2,17 @@\n   return (\r\n     <>\r\n       <title>AISH - Your Fashion Destination</title>\r\n       <meta property=\"og:title\" content=\"AISH - Your Fashion Destination\" />\r\n-      <meta property=\"og:description\" content=\"AISH - Thời trang trẻ trung, năng động.\" />\r\n+      <meta property=\"og:description\" content=\"\" />\r\n       <meta property=\"og:image\" content=\"https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg\" />\r\n       <meta property=\"og:image:width\" content=\"1200\" />\r\n       <meta property=\"og:image:height\" content=\"630\" />\r\n       <meta property=\"og:url\" content=\"https://aish.vn/\" />\r\n       <meta property=\"og:type\" content=\"website\" />\r\n       <meta name=\"twitter:card\" content=\"summary_large_image\" />\r\n       <meta name=\"twitter:title\" content=\"AISH - Your Fashion Destination\" />\r\n-      <meta name=\"twitter:description\" content=\"AISH - Thời trang trẻ trung, năng động.\" />\r\n+      <meta name=\"twitter:description\" content=\"\" />\r\n       <meta name=\"twitter:image\" content=\"https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg\" />\r\n     </>\r\n   );\r\n } \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1751015192449,
+            "name": "Commit-0",
+            "content": "export default function Head() {\r\n  return (\r\n    <>\r\n      <title>AISH - Your Fashion Destination</title>\r\n      <meta property=\"og:title\" content=\"AISH - Your Fashion Destination\" />\r\n      <meta property=\"og:description\" content=\"AISH - Thời trang trẻ trung, năng động.\" />\r\n      <meta property=\"og:image\" content=\"https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg\" />\r\n      <meta property=\"og:image:width\" content=\"1200\" />\r\n      <meta property=\"og:image:height\" content=\"630\" />\r\n      <meta property=\"og:url\" content=\"https://aish.vn/\" />\r\n      <meta property=\"og:type\" content=\"website\" />\r\n      <meta name=\"twitter:card\" content=\"summary_large_image\" />\r\n      <meta name=\"twitter:title\" content=\"AISH - Your Fashion Destination\" />\r\n      <meta name=\"twitter:description\" content=\"AISH - Thời trang trẻ trung, năng động.\" />\r\n      <meta name=\"twitter:image\" content=\"https://i.ibb.co/Fk8htk0p/BANNER0-1.jpg\" />\r\n    </>\r\n  );\r\n} "
+        }
+    ]
+}

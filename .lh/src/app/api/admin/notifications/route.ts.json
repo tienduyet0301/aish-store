@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 14,
+            "activePatchIndex": 17,
             "patches": [
                 {
                     "date": 1746893159374,
@@ -64,6 +64,18 @@
                 {
                     "date": 1749553272212,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -125,9 +125,9 @@\n           perUserLimit: data.perUserLimit || 0,\n           usedByUsers: [],\n           usedCount: 0,\n           scope: data.scope || 'all',\n-          selectedProducts: data.selectedProducts || [],\n+          selectedProducts: data.scope === 'selected' ? (data.selectedProducts || []) : [],\n           createdAt: new Date().toISOString(),\n           updatedAt: new Date().toISOString(),\n           expiryDate: data.expiryDate\n         };\n"
+                },
+                {
+                    "date": 1751608856506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,10 @@\n           scope: data.scope || 'all',\n           selectedProducts: data.scope === 'selected' ? (data.selectedProducts || []) : [],\n           createdAt: new Date().toISOString(),\n           updatedAt: new Date().toISOString(),\n-          expiryDate: data.expiryDate\n+          expiryDate: data.expiryDate,\n+          minOrderAmount: data.minOrderAmount !== undefined ? data.minOrderAmount : 0\n         };\n \n         console.log('Inserting promo code:', promoCode);\n         await db.collection('promoCodes').insertOne(promoCode);\n"
+                },
+                {
+                    "date": 1751611823256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,13 +38,15 @@\n       );\n     }\n \n     const notifications = await db.collection('notifications').findOne({ type: 'announcement' });\n+    const heroNotification = await db.collection('notifications').findOne({ type: 'hero' });\n     const promoCodes = await db.collection('promoCodes').find({}).toArray();\n \n     return NextResponse.json({\n       ok: true,\n       notifications: notifications ? [notifications] : [],\n+      hero: heroNotification || null,\n       promoCodes: promoCodes.map(code => ({\n         ...code,\n         _id: code._id.toString()\n       }))\n@@ -104,8 +106,21 @@\n           }\n         },\n         { upsert: true }\n       );\n+    } else if (data.type === 'hero') {\n+      await db.collection('notifications').updateOne(\n+        { type: 'hero' },\n+        {\n+          $set: {\n+            title: data.title,\n+            content: data.content,\n+            expiry: data.expiry,\n+            updatedAt: new Date().toISOString()\n+          }\n+        },\n+        { upsert: true }\n+      );\n     } else if (data.type === 'promo') {\n       if (data.action === 'add') {\n         const existingCode = await db.collection('promoCodes').findOne({ code: data.code });\n         if (existingCode) {\n"
+                },
+                {
+                    "date": 1751614119166,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,37 +8,9 @@\n \n // GET - Lấy thông báo và mã giảm giá\n export async function GET(request: NextRequest) {\n   try {\n-    const session = await getServerSession(authOptions);\n-    console.log('Session in GET:', session);\n-\n-    if (!session?.user?.email) {\n-      console.log('No session or email found');\n-      return NextResponse.json(\n-        { ok: false, message: 'Unauthorized - No session' },\n-        { status: 401 }\n-      );\n-    }\n-\n     const { db } = await connectToDatabase();\n-    const user = await db.collection('users').findOne({ email: session.user.email });\n-    console.log('User from DB:', user);\n-    console.log('Session user role:', session.user.role);\n-    console.log('DB user role:', user?.role);\n-\n-    // Kiểm tra role từ session (không phân biệt chữ hoa/thường)\n-    const isAdmin = session.user.role?.toLowerCase() === 'admin';\n-    console.log('Is admin check:', isAdmin);\n-\n-    if (!isAdmin) {\n-      console.log('User is not admin. Session role:', session.user.role);\n-      return NextResponse.json(\n-        { ok: false, message: 'Unauthorized - Not admin' },\n-        { status: 401 }\n-      );\n-    }\n-\n     const notifications = await db.collection('notifications').findOne({ type: 'announcement' });\n     const heroNotification = await db.collection('notifications').findOne({ type: 'hero' });\n     const promoCodes = await db.collection('promoCodes').find({}).toArray();\n \n"
                 }
             ],
             "date": 1746891704042,

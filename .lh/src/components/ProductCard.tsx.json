@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 23,
+            "activePatchIndex": 25,
             "patches": [
                 {
                     "date": 1746893166524,
@@ -100,6 +100,14 @@
                 {
                     "date": 1749708059836,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -105,9 +105,9 @@\n                 sizes=\"(max-width: 768px) 50vw, 25vw\"\n                 {...(currentImageIndex === 0 ? { priority: true } : { loading: \"lazy\" })}\n               />\n               {/* Badge giảm giá */}\n-              {product.discountPercent > 0 && (\n+              {product.discountPercent !== undefined && product.discountPercent > 0 && (\n                 <div className=\"absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded z-10 shadow\">\n                   -{product.discountPercent}%\n                 </div>\n               )}\n"
+                },
+                {
+                    "date": 1751012447932,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,12 +96,12 @@\n         >\n           <div className=\"w-full overflow-hidden rounded-md\">\n             <div className=\"relative h-[250px] sm:h-[350px]\">\n               <Image\n-                src={images[currentImageIndex]}\n+                src={getOptimizedImageUrl(images[currentImageIndex])}\n                 alt={product.name || \"Product Image\"}\n                 fill\n-                quality={100}\n+                quality={70}\n                 className={`object-contain object-center ${isOutOfStock ? 'opacity-70' : ''}`}\n                 sizes=\"(max-width: 768px) 50vw, 25vw\"\n                 {...(currentImageIndex === 0 ? { priority: true } : { loading: \"lazy\" })}\n               />\n@@ -175,5 +175,18 @@\n         </AnimatePresence>\n       </button>\n     </div>\n   );\n+}\n+\n+function getOptimizedImageUrl(url: string) {\n+  if (!url) return '';\n+  // Nếu là link Cloudinary thì thêm tham số nén\n+  if (url.includes('res.cloudinary.com')) {\n+    // Chỉ thêm nếu chưa có các tham số này\n+    if (!url.includes('q_auto') && !url.includes('f_auto')) {\n+      // Thêm vào sau /upload/\n+      return url.replace('/upload/', '/upload/q_auto,f_auto,w_800/');\n+    }\n+  }\n+  return url;\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751012455710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,12 +96,12 @@\n         >\n           <div className=\"w-full overflow-hidden rounded-md\">\n             <div className=\"relative h-[250px] sm:h-[350px]\">\n               <Image\n-                src={getOptimizedImageUrl(images[currentImageIndex])}\n+                src={images[currentImageIndex]}\n                 alt={product.name || \"Product Image\"}\n                 fill\n-                quality={70}\n+                quality={100}\n                 className={`object-contain object-center ${isOutOfStock ? 'opacity-70' : ''}`}\n                 sizes=\"(max-width: 768px) 50vw, 25vw\"\n                 {...(currentImageIndex === 0 ? { priority: true } : { loading: \"lazy\" })}\n               />\n@@ -175,18 +175,5 @@\n         </AnimatePresence>\n       </button>\n     </div>\n   );\n-}\n-\n-function getOptimizedImageUrl(url: string) {\n-  if (!url) return '';\n-  // Nếu là link Cloudinary thì thêm tham số nén\n-  if (url.includes('res.cloudinary.com')) {\n-    // Chỉ thêm nếu chưa có các tham số này\n-    if (!url.includes('q_auto') && !url.includes('f_auto')) {\n-      // Thêm vào sau /upload/\n-      return url.replace('/upload/', '/upload/q_auto,f_auto,w_800/');\n-    }\n-  }\n-  return url;\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1746891704042,

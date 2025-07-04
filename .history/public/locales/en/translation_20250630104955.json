@@ -1,0 +1,29 @@
+{
+  "cart": {
+    "shoppingBag": "SHOPPING BAG",
+    "edit": "EDIT",
+    "delete": "DELETE",
+    "yourSelections": "YOUR SELECTIONS",
+    "orderSummary": "ORDER SUMMARY",
+    "quantity": "Quantity",
+    "color": "Color",
+    "size": "Size",
+    "price": "Price",
+    "total": "Total",
+    "checkOut": "CHECK OUT",
+    "saveChanges": "Save Changes",
+    "cancel": "Cancel",
+    "confirmRemove": "CONFIRM REMOVAL",
+    "confirmRemoveMsg": "Are you sure you want to remove this item?",
+    "confirm": "Confirm",
+    "noItems": "You have no items in your shopping bag.",
+    "exploreProducts": "Explore Products",
+    "mayWeHelp": "MAY WE HELP?",
+    "stockQuantity": "STOCK QUANTITY",
+    "itemsLeft": "{count} items left",
+    "soldOut": "Sold Out",
+    "inStock": "In Stock",
+    "discount": "Discount",
+    "removeConfirmMsg": "Are you sure you want to remove this item from your cart?"
+  }
+} 

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1747641034263,
@@ -20,6 +20,18 @@
                 {
                     "date": 1747641943274,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,24 +6,20 @@\n   \"regions\": [\"sin1\"],\r\n   \"functions\": {\r\n     \"app/api/products/[id]/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10,\r\n-      \"runtime\": \"edge\"\r\n+      \"maxDuration\": 10\r\n     },\r\n     \"app/api/search/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10,\r\n-      \"runtime\": \"edge\"\r\n+      \"maxDuration\": 10\r\n     },\r\n     \"app/api/admin/check-access/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10,\r\n-      \"runtime\": \"edge\"\r\n+      \"maxDuration\": 10\r\n     },\r\n     \"app/api/user/profile/route.ts\": {\r\n       \"memory\": 1024,\r\n-      \"maxDuration\": 10,\r\n-      \"runtime\": \"edge\"\r\n+      \"maxDuration\": 10\r\n     }\r\n   }\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751528680060,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,6 +20,16 @@\n     \"app/api/user/profile/route.ts\": {\r\n       \"memory\": 1024,\r\n       \"maxDuration\": 10\r\n     }\r\n-  }\r\n+  },\r\n+  \"redirects\": [\r\n+    {\r\n+      \"source\": \"/:path*\",\r\n+      \"has\": [\r\n+        { \"type\": \"host\", \"value\": \"www.yourdomain.com\" }\r\n+      ],\r\n+      \"destination\": \"https://yourdomain.com/:path*\",\r\n+      \"permanent\": true\r\n+    }\r\n+  ]\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751528699464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,11 +25,11 @@\n   \"redirects\": [\r\n     {\r\n       \"source\": \"/:path*\",\r\n       \"has\": [\r\n-        { \"type\": \"host\", \"value\": \"www.yourdomain.com\" }\r\n+        { \"type\": \"host\", \"value\": \"www.aish.vn\" }\r\n       ],\r\n-      \"destination\": \"https://yourdomain.com/:path*\",\r\n+      \"destination\": \"https://aish.vn/:path*\",\r\n       \"permanent\": true\r\n     }\r\n   ]\r\n } \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751529000743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,11 +25,11 @@\n   \"redirects\": [\r\n     {\r\n       \"source\": \"/:path*\",\r\n       \"has\": [\r\n-        { \"type\": \"host\", \"value\": \"www.aish.vn\" }\r\n+        { \"type\": \"host\", \"value\": \"www.yourdomain.com\" }\r\n       ],\r\n-      \"destination\": \"https://aish.vn/:path*\",\r\n+      \"destination\": \"https://yourdomain.com/:path*\",\r\n       \"permanent\": true\r\n     }\r\n   ]\r\n } \n\\ No newline at end of file\n"
                 }
             ],
             "date": 1747641034263,

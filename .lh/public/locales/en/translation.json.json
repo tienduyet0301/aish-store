@@ -1,0 +1,22 @@
+{
+    "sourceFile": "public/locales/en/translation.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1751254951117,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751255395241,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,29 @@\n {\r\n   \"cart\": {\r\n     \"shoppingBag\": \"SHOPPING BAG\",\r\n     \"edit\": \"EDIT\",\r\n-    \"delete\": \"DELETE\"\r\n+    \"delete\": \"DELETE\",\r\n+    \"yourSelections\": \"YOUR SELECTIONS\",\r\n+    \"orderSummary\": \"ORDER SUMMARY\",\r\n+    \"quantity\": \"Quantity\",\r\n+    \"color\": \"Color\",\r\n+    \"size\": \"Size\",\r\n+    \"price\": \"Price\",\r\n+    \"total\": \"Total\",\r\n+    \"checkOut\": \"CHECK OUT\",\r\n+    \"saveChanges\": \"Save Changes\",\r\n+    \"cancel\": \"Cancel\",\r\n+    \"confirmRemove\": \"CONFIRM REMOVAL\",\r\n+    \"confirmRemoveMsg\": \"Are you sure you want to remove this item?\",\r\n+    \"confirm\": \"Confirm\",\r\n+    \"noItems\": \"You have no items in your shopping bag.\",\r\n+    \"exploreProducts\": \"Explore Products\",\r\n+    \"mayWeHelp\": \"MAY WE HELP?\",\r\n+    \"stockQuantity\": \"STOCK QUANTITY\",\r\n+    \"itemsLeft\": \"{count} items left\",\r\n+    \"soldOut\": \"Sold Out\",\r\n+    \"inStock\": \"In Stock\",\r\n+    \"discount\": \"Discount\",\r\n+    \"removeConfirmMsg\": \"Are you sure you want to remove this item from your cart?\"\r\n   }\r\n } \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1751254951117,
+            "name": "Commit-0",
+            "content": "{\r\n  \"cart\": {\r\n    \"shoppingBag\": \"SHOPPING BAG\",\r\n    \"edit\": \"EDIT\",\r\n    \"delete\": \"DELETE\"\r\n  }\r\n} "
+        }
+    ]
+}

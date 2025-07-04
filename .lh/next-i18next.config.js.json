@@ -1,0 +1,18 @@
+{
+    "sourceFile": "next-i18next.config.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751254926595,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751254926595,
+            "name": "Commit-0",
+            "content": "module.exports = {\r\n  i18n: {\r\n    defaultLocale: 'vi',\r\n    locales: ['vi', 'en'],\r\n    localeDetection: true,\r\n  },\r\n  reloadOnPrerender: process.env.NODE_ENV === 'development',\r\n}; "
+        }
+    ]
+}

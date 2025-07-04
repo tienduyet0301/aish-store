@@ -1,0 +1,26 @@
+{
+    "sourceFile": "public/locales/vi/translation.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1751254957841,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751255202126,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,1 @@\n-{\r\n-  \"cart\": {\r\n-    \"shoppingBag\": \"GIỎ HÀNG\",\r\n-    \"edit\": \"SỬA\",\r\n-    \"delete\": \"XÓA\"\r\n-  }\r\n-} \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751255402253,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,29 @@\n- \n\\ No newline at end of file\n+{\r\n+  \"cart\": {\r\n+    \"shoppingBag\": \"GIỎ HÀNG\",\r\n+    \"edit\": \"SỬA\",\r\n+    \"delete\": \"XÓA\",\r\n+    \"yourSelections\": \"SẢN PHẨM ĐÃ CHỌN\",\r\n+    \"orderSummary\": \"TÓM TẮT ĐƠN HÀNG\",\r\n+    \"quantity\": \"Số lượng\",\r\n+    \"color\": \"Màu sắc\",\r\n+    \"size\": \"Kích thước\",\r\n+    \"price\": \"Giá\",\r\n+    \"total\": \"Tổng cộng\",\r\n+    \"checkOut\": \"THANH TOÁN\",\r\n+    \"saveChanges\": \"Lưu thay đổi\",\r\n+    \"cancel\": \"Hủy\",\r\n+    \"confirmRemove\": \"XÁC NHẬN XÓA\",\r\n+    \"confirmRemoveMsg\": \"Bạn có chắc muốn xóa sản phẩm này không?\",\r\n+    \"confirm\": \"Xác nhận\",\r\n+    \"noItems\": \"Bạn không có sản phẩm nào trong giỏ hàng.\",\r\n+    \"exploreProducts\": \"Khám phá sản phẩm\",\r\n+    \"mayWeHelp\": \"CẦN HỖ TRỢ?\",\r\n+    \"stockQuantity\": \"TỒN KHO\",\r\n+    \"itemsLeft\": \"Còn lại {count} sản phẩm\",\r\n+    \"soldOut\": \"Hết hàng\",\r\n+    \"inStock\": \"Còn hàng\",\r\n+    \"discount\": \"Giảm giá\",\r\n+    \"removeConfirmMsg\": \"Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng không?\"\r\n+  }\r\n+} \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1751254957841,
+            "name": "Commit-0",
+            "content": "{\r\n  \"cart\": {\r\n    \"shoppingBag\": \"GIỎ HÀNG\",\r\n    \"edit\": \"SỬA\",\r\n    \"delete\": \"XÓA\"\r\n  }\r\n} "
+        }
+    ]
+}

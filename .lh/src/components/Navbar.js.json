@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 32,
+            "activePatchIndex": 34,
             "patches": [
                 {
                     "date": 1746893166434,
@@ -136,6 +136,14 @@
                 {
                     "date": 1749611609939,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -148,8 +148,9 @@\n       'shirt': '/tops/shirt',\n       'polo': '/tops/polo',\n       'sweater': '/tops/sweater',\n       'hoodie': '/tops/hoodie',\n+      'jacket': '/tops/jacket',\n       'pants': '/bottoms/pants',\n       'short': '/bottoms/short',\n       'skirt': '/bottoms/skirt',\n       'cap': '/accessories/cap',\n"
+                },
+                {
+                    "date": 1751253606793,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n import UserDropdown from \"./UserDropdown\";\n import { useCart } from \"../context/CartContext\";\n import { useSession } from \"next-auth/react\";\n import { useLanguage } from \"../context/LanguageContext\";\n+import LanguageSwitcher from \"./LanguageSwitcher\";\n \n export default function Navbar() {\n   const [isScrolled, setIsScrolled] = useState(false);\n   const [isOpen, setIsOpen] = useState(false);\n@@ -232,9 +233,10 @@\n               </span>\n             </Link>\n           </motion.div>\n \n-          <div className=\"flex gap-3 md:gap-5 text-sm md:text-base text-black pr-2 md:pr-10\">\n+          {/* Right section: icons + language switcher */}\n+          <div className=\"flex items-center gap-2 md:gap-4\">\n             <FiSearch className=\"cursor-pointer hover:opacity-70\" onClick={() => setIsSearchOpen(!isSearchOpen)} />\n             <div className=\"flex items-center gap-1\">\n               <FiShoppingCart\n                 data-testid=\"cart-icon\"\n@@ -250,8 +252,9 @@\n             <FiUser\n               className=\"cursor-pointer hover:opacity-70\"\n               onClick={() => setIsUserOpen(!isUserOpen)}\n             />\n+            <LanguageSwitcher />\n           </div>\n         </div>\n \n         {pathname === \"/\" && !isOpen && !isScrolled && (\n"
+                },
+                {
+                    "date": 1751253747276,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,8 @@\n import UserDropdown from \"./UserDropdown\";\n import { useCart } from \"../context/CartContext\";\n import { useSession } from \"next-auth/react\";\n import { useLanguage } from \"../context/LanguageContext\";\n-import LanguageSwitcher from \"./LanguageSwitcher\";\n \n export default function Navbar() {\n   const [isScrolled, setIsScrolled] = useState(false);\n   const [isOpen, setIsOpen] = useState(false);\n@@ -233,10 +232,9 @@\n               </span>\n             </Link>\n           </motion.div>\n \n-          {/* Right section: icons + language switcher */}\n-          <div className=\"flex items-center gap-2 md:gap-4\">\n+          <div className=\"flex gap-3 md:gap-5 text-sm md:text-base text-black pr-2 md:pr-10\">\n             <FiSearch className=\"cursor-pointer hover:opacity-70\" onClick={() => setIsSearchOpen(!isSearchOpen)} />\n             <div className=\"flex items-center gap-1\">\n               <FiShoppingCart\n                 data-testid=\"cart-icon\"\n@@ -252,9 +250,8 @@\n             <FiUser\n               className=\"cursor-pointer hover:opacity-70\"\n               onClick={() => setIsUserOpen(!isUserOpen)}\n             />\n-            <LanguageSwitcher />\n           </div>\n         </div>\n \n         {pathname === \"/\" && !isOpen && !isScrolled && (\n"
                 }
             ],
             "date": 1746891704042,

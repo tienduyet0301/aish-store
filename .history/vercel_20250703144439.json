@@ -1,0 +1,35 @@
+{
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "regions": ["sin1"],
+  "functions": {
+    "app/api/products/[id]/route.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "app/api/search/route.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "app/api/admin/check-access/route.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    },
+    "app/api/user/profile/route.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        { "type": "host", "value": "www.yourdomain.com" }
+      ],
+      "destination": "https://yourdomain.com/:path*",
+      "permanent": true
+    }
+  ]
+} 
